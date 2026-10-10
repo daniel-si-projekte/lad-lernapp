@@ -10,14 +10,30 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-title" content="LAD 34d"/>
 <link rel="manifest" href="manifest.webmanifest"/>
-<link rel="icon" href="icons/icon-192.png"/>
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png"/>
+<link rel="icon" href="icon-192.png"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
 <style>
 :root{--blue:#0a2f66;--blue2:#143d78;--light:#f2f4f7;--mid:#d9dee7;--text:#1f2937;--ok:#0f7b43;--bad:#b42318;--warn:#b7791f;--panel:#eef1f6;--line:#cbd3df;}
 *{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#e9edf3;font-size:16px}.app{height:100vh;display:flex;flex-direction:column;max-width:1280px;margin:0 auto;background:#fff;box-shadow:0 0 18px rgba(0,0,0,.18)}.top{height:110px;display:grid;grid-template-columns:1fr 155px;align-items:stretch;background:#eef0f3;border-bottom:1px solid #c9ced8}.title{padding:28px 30px 12px 32px}.title h1{font-size:22px;margin:0 0 10px;font-weight:500}.title p{font-size:18px;margin:0}.logo{display:flex;align-items:flex-start;justify-content:center;padding-top:20px}.logo .box{background:var(--blue2);color:#fff;font-size:31px;font-weight:bold;padding:16px 20px;letter-spacing:1px}.band{height:46px;background:#c7ccd2;display:flex;align-items:center;padding-left:32px;font-size:22px;color:#5b6675}.main{flex:1;display:grid;grid-template-columns:150px 1fr 158px;min-height:0}.left{background:#dfe4ea;border-right:1px solid #c9ced8;position:relative}.timer{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:13px;color:#27364d}.timer .glass{font-size:42px;color:var(--blue);display:block;margin-bottom:6px}.content{padding:0 30px 24px 30px;overflow:auto}.right{background:linear-gradient(180deg,#243f73,#122a55);}.sectionbar{height:36px;background:#9da4ad;color:#fff;display:flex;align-items:center;padding:0 16px;margin:0 -30px 26px -30px}.sectionbar .task{background:#777f89;padding:7px 18px;margin-left:14px;min-width:210px}.question p{line-height:1.35;margin:0 0 18px}.prompt{white-space:pre-line;line-height:1.38;margin:0 0 18px}.options{margin-top:18px}.opt{display:flex;align-items:flex-start;gap:12px;margin:14px 0;line-height:1.3;cursor:pointer}.opt input{transform:scale(1.35);margin-top:2px}.opt.correct span{color:var(--ok);font-weight:bold}.opt.wrong span{color:var(--bad);font-weight:bold}.short input{font-size:18px;padding:10px;width:260px;border:1px solid #aab2bd;border-radius:4px}.bottom{height:54px;background:#092b63;display:flex;align-items:center;gap:12px;padding:0 14px;color:#fff}.btn{border:2px solid rgba(255,255,255,.8);background:#183c77;color:#fff;border-radius:6px;padding:7px 13px;font-weight:600;cursor:pointer}.btn:hover{background:#28518f}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.secondary{background:#eef1f6;color:#0b2e66;border-color:#cad0dc}.btn.danger{margin-left:auto;background:#2b3f6f}.btn.warn{background:#8a3d16}.navbtn{font-size:22px;padding:3px 10px;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center}.start{padding:34px 40px}.start h2{font-size:28px;margin:0 0 14px}.start h3{margin:22px 0 8px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:24px}.card{border:1px solid #cbd3df;border-radius:8px;padding:18px;background:#f8fafc}.card h3{margin:0 0 8px;font-size:20px}.card p{margin:6px 0;line-height:1.35}.card button{margin-top:12px}.pill{display:inline-block;background:#e1e7f2;color:#0a2f66;border-radius:999px;padding:4px 10px;font-size:13px;margin:2px}.modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;z-index:10}.modal.on{display:flex}.modalbox{background:#fff;border-radius:9px;max-width:980px;width:92vw;max-height:85vh;overflow:auto;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.3)}.modalbox h2,.modalbox h3{margin-top:0}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:8px}.qcell{padding:9px 0;text-align:center;border:1px solid #aab2bd;background:#f7f9fc;border-radius:5px;cursor:pointer;font-weight:600}.qcell.answered{background:#dbeafe}.qcell.marked{outline:3px solid #f59e0b}.qcell.current{background:#1e3a8a;color:#fff}.qcell.bad{background:#fee2e2}.qcell.good{background:#dcfce7}.notes{width:100%;min-height:180px;font-size:16px;padding:10px}.calc{display:grid;grid-template-columns:1fr;gap:10px}.calc input{font-size:22px;padding:10px}.calc .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.calc button{padding:14px;font-size:18px}.feedback{border-top:1px solid #cbd3df;margin-top:18px;padding-top:15px}.ok{color:var(--ok);font-weight:bold}.bad{color:var(--bad);font-weight:bold}.warntext{color:var(--warn);font-weight:bold}.muted{color:#657386}.resulttable{border-collapse:collapse;width:100%;margin:15px 0}.resulttable th,.resulttable td{border:1px solid #cbd3df;padding:9px;text-align:left;vertical-align:top}.resulttable th{background:#eef1f6}.pass{background:#dcfce7}.fail{background:#fee2e2}.midpass{background:#fef3c7}.progress{height:8px;background:#e5e7eb;border-radius:5px;overflow:hidden;margin:12px 0}.progress div{height:100%;background:#1e3a8a;width:0}.small{font-size:13px}.sourcebox{background:#f8fafc;border:1px solid #cbd3df;padding:12px;border-radius:6px;line-height:1.45} .hidden{display:none}.review-item{border:1px solid #d1d5db;border-radius:8px;padding:0;margin:12px 0;background:#fff}.review-item summary{cursor:pointer;padding:12px 14px;font-weight:bold}.review-body{padding:0 14px 14px}.statusline{display:flex;align-items:center;justify-content:space-between;margin:0 0 16px}.statusline .tags{display:flex;gap:6px;flex-wrap:wrap}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.field{display:flex;flex-direction:column;gap:6px;margin:8px 0}.field label{font-weight:bold;font-size:14px}.field input,.field select{font-size:16px;padding:9px;border:1px solid #aab2bd;border-radius:5px;background:#fff}.historyCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}.statCard{border:1px solid var(--line);border-radius:8px;padding:10px;background:#fff}.bar{height:9px;background:#e1e5eb;border-radius:10px;overflow:hidden;margin-top:6px}.bar span{display:block;height:100%;background:#143c78}.historyScroll{max-height:390px;overflow:auto;border:1px solid var(--line);border-radius:8px}.twoCols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.kbd{font-family:Consolas,monospace;background:#eef1f6;border:1px solid #cbd3df;border-radius:4px;padding:1px 5px}.inputHint{font-size:13px;font-weight:bold;margin-top:8px;color:#111827}.reviewControls{position:sticky;top:0;background:#fff;border:1px solid #d1d5db;border-radius:8px;padding:10px;margin:12px 0;z-index:1}.resultActionsTop{position:sticky;top:0;background:#fff;border:2px solid #143d78;border-radius:8px;padding:12px;margin:0 0 18px;z-index:4;box-shadow:0 8px 18px rgba(15,23,42,.12)}.resultActionsTop strong{font-size:18px}.resultActionsTop p{margin:6px 0 8px}.primaryAction{background:#0a2f66!important;color:#fff!important;border-color:#0a2f66!important}.brandNotice{font-size:13px;color:#657386;margin-top:8px}@media(max-width:800px){.app{height:auto;min-height:100vh}.top{grid-template-columns:1fr; height:auto}.logo{display:none}.main{grid-template-columns:80px 1fr}.right{display:none}.content{padding:0 16px 20px}.sectionbar{margin:0 -16px 18px -16px}.bottom{position:sticky;bottom:0;overflow:auto}.title{padding:20px 18px}.left{min-height:500px}.btn{white-space:nowrap}.twoCols{grid-template-columns:1fr}.start{padding:24px 18px}}
 
 .infoPages{display:flex;flex-direction:column;gap:18px;margin-top:12px}.infoPage{background:#fff;border:1px solid #cbd3df;border-radius:6px;padding:10px}.infoPage img{width:100%;height:auto;display:block}.modalbox.infoModal{max-width:1080px}.glossaryTools{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 14px}.glossaryTools input{font-size:16px;padding:10px;border:1px solid #aab2bd;border-radius:6px;min-width:260px;flex:1}.glossaryList{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}.glossaryItem{border:1px solid #cbd3df;border-radius:8px;background:#f8fafc;padding:12px}.glossaryItem strong{display:block;margin-bottom:6px;color:#0a2f66}.profileBadge{display:inline-block;background:#eef1f6;border:1px solid #cbd3df;border-radius:999px;padding:5px 10px;margin:4px 0;color:#0a2f66;font-weight:bold}.profileGrid{display:grid;grid-template-columns:1fr;gap:8px}.profileGrid select,.profileGrid input{font-size:16px;padding:9px;border:1px solid #aab2bd;border-radius:5px;background:#fff}.infoHint{font-size:13px;color:#657386;margin:6px 0}.modalbox.wide{max-width:1120px}.topicNote{font-size:13px;color:#657386;margin-top:4px}
-.qcell.locked{background:#e5e7eb;color:#7b8491;cursor:not-allowed}.resumeCard{border:2px solid #0a2f66;background:#eff6ff}.scoringNote{background:#fff7ed;border:1px solid #fdba74;border-radius:7px;padding:11px 13px;line-height:1.4;margin:12px 0}.saveNotice{font-size:12px;color:#657386;margin-top:22px}.dataKind{background:#fef3c7;color:#854d0e}.unitSuffix{font-weight:700;margin-left:5px}.breakPanel{max-width:760px}.short{display:flex;align-items:center;gap:6px}@media(max-width:800px){.statusline{align-items:flex-start;gap:10px;flex-direction:column}.resulttable{font-size:14px}.resulttable th,.resulttable td{padding:7px}.short input{max-width:75vw}}</style>
+.qcell.locked{background:#e5e7eb;color:#7b8491;cursor:not-allowed}.resumeCard{border:2px solid #0a2f66;background:#eff6ff}.scoringNote{background:#fff7ed;border:1px solid #fdba74;border-radius:7px;padding:11px 13px;line-height:1.4;margin:12px 0}.saveNotice{font-size:12px;color:#657386;margin-top:22px}.dataKind{background:#fef3c7;color:#854d0e}.unitSuffix{font-weight:700;margin-left:5px}.breakPanel{max-width:760px}.short{display:flex;align-items:center;gap:6px}@media(max-width:800px){.statusline{align-items:flex-start;gap:10px;flex-direction:column}.resulttable{font-size:14px}.resulttable th,.resulttable td{padding:7px}.short input{max-width:75vw}}.topCards{margin-top:18px}.checkRow{flex-direction:row;flex-wrap:wrap;gap:14px}.checkRow label{font-weight:400;display:flex;align-items:center;gap:6px;font-size:15px}
+.field select,.field input{min-width:0;max-width:100%}.pillOk{background:#dcfce7;color:#0f7b43}.areaCard h3{font-size:18px}
+.lesson{font-size:17px;line-height:1.55}.lesson .lessonBody{max-width:75ch}.lesson .lessonBody h2{font-size:24px;line-height:1.25;margin:10px 0 14px}.lesson .lessonBody p,.lesson .lessonBody li{margin:0 0 12px}.lesson .lessonBody ul{padding-left:22px}
+.lessonTop{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.navRow{display:flex;justify-content:space-between;gap:10px;margin:26px 0 8px;max-width:75ch}.navRow .btn{min-width:120px;padding:10px 16px;font-size:16px}
+.merkbox{background:#eff6ff;border:2px solid #0a2f66;border-radius:8px;padding:12px 14px;margin:12px 0;line-height:1.45}.merkbox ul,.fallebox ul{margin:6px 0 0 18px;padding:0}
+.fallebox{background:#fff7ed;border:1px solid #fdba74;border-radius:7px;padding:11px 13px;margin:12px 0;line-height:1.45}
+.optExpl{border:1px solid #cbd3df;border-left-width:5px;border-radius:7px;padding:9px 12px;margin:8px 0;background:#fff;line-height:1.4}.optExpl.isRight{border-left-color:var(--ok)}.optExpl.isWrong{border-left-color:var(--bad)}.optExpl.chosen{background:#eff6ff;box-shadow:inset 0 0 0 2px #143d78}
+.optHead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px}.optText{font-weight:600;margin:3px 0}.steps{margin:6px 0 14px 22px;padding:0}.steps li{margin:5px 0;line-height:1.45}
+.flashcard{border:2px solid #143d78;border-radius:10px;min-height:200px;padding:20px;background:#f8fafc;display:flex;flex-direction:column;justify-content:center;gap:12px;cursor:pointer;max-width:680px;margin:14px 0;user-select:none}.flashcard.back{background:#eff6ff}
+.fcText{font-size:20px;line-height:1.45;font-weight:600;color:#0a2f66}.cardBtns .btn{padding:10px 16px;font-size:16px}
+.ampelCard{margin-top:16px}.ampel{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:10px 0}.ampelItem{border:1px solid #cbd3df;border-radius:8px;padding:10px;background:#fff;text-align:center}.ampelVal{font-weight:700;margin-top:4px}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:-2px;margin-right:6px}.dot.gruen{background:#0f7b43}.dot.gelb{background:#d69e2e}.dot.rot{background:#b42318}.dot.grau{background:#9ca3af}
+.taskList{list-style:none;padding:0;margin:8px 0}.taskList li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #e1e5eb}.taskList li .btn{margin-top:0}
+.doneBox{display:inline-flex;align-items:center;gap:6px;font-size:14px;cursor:pointer}.planWeeks{max-height:460px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:8px 10px}.planWeek{margin:6px 0 12px}
+.planDay{border:1px solid #cbd3df;border-radius:7px;padding:8px 10px;margin:6px 0;background:#fff}.planDay.today{border:2px solid #0a2f66;background:#eff6ff}.planDay.past{opacity:.7}.planDayHead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.tableScroll{overflow-x:auto}
+@media(max-width:800px){.cards{grid-template-columns:minmax(0,1fr)}.ampel{grid-template-columns:repeat(auto-fit,minmax(96px,1fr))}body.wideContent .left{display:none}body.wideContent .main{grid-template-columns:minmax(0,1fr)}.fcText{font-size:18px}.flashcard{min-height:170px}.taskList li{flex-wrap:wrap}.lesson .lessonBody h2{font-size:22px}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -230,7 +246,7 @@ function activateProfile(id){
   }
 }
 
-function showStart(){
+function v8ShowStart(){
   clearInterval(state.timer);
   state={...state,mode:'start',questions:[],answers:[],confirmed:[],marked:[],notes:[],current:0,remaining:0,deadline:0,part1Done:false,inBreak:false,breakReason:'',finished:false};
   $('subtitle').textContent='Proximus 5 Lern- und Prüfungssimulation';
@@ -356,7 +372,7 @@ function answerText(q){
   return Array.isArray(q.answer)?q.answer[0]:q.answer;
 }
 
-function renderQuestion(){
+function v8RenderQuestion(){
   if(!state.questions.length){showStart();return}
   const q=state.questions[state.current];
   $('subtitle').textContent=state.mode==='exam'?`Schriftlicher Prüfungsteil ${q.part}`:'Lernmodus';
@@ -495,7 +511,7 @@ function saveHistory(stats){
   Object.entries(stats.cat).forEach(([k,v])=>cats[k]={c:v.right,n:v.total,p:pct(v.right,v.total)});
   const wrongKeys=state.questions.filter((q,i)=>!isCorrect(q,state.answers[i])).map(baseKey);
   const entry={id:Date.now(),date:new Date().toISOString(),mode:state.mode,seed:state.seed,total:stats.total,correct:stats.correct,percent:pct(stats.correct,stats.total),groups,categories:cats,durationSec:Math.max(0,Math.round((Date.now()-state.startTime)/1000)),topic:state.topic,learnCount:state.learnCount,wrongKeys};
-  const h=getHistory();h.push(entry);setHistory(h);syncAttempt(entry);return entry;
+  const h=getHistory();h.push(entry);setHistory(h);afterHistory(entry);return entry;
 }
 function startWrongLearning(){
   const wrong=state.questions.filter((q,i)=>!isCorrect(q,state.answers[i])).map(q=>{
@@ -514,7 +530,7 @@ function resultActionsHtml(){
   const wrongButton=wrong?`<button class="btn secondary" onclick="startWrongLearning()">Fehler wiederholen (${wrong})</button>`:'';
   return `<div class="resultActionsTop"><strong>Weiterarbeiten</strong><p class="small muted">Hauptmenü und nächste Schritte sind direkt erreichbar.</p><div class="row"><button class="btn primaryAction" onclick="showStart()">Hauptmenü</button><button class="btn secondary" onclick="startExam()">Neue Prüfungssimulation</button><button class="btn secondary" onclick="startLearning('all','40')">Neuer Lernmodus</button>${wrongButton}${repeat}<button class="btn secondary" onclick="showHistory()">Historie</button></div></div>`;
 }
-function renderResult(stats,entry,auto){
+function v8RenderResult(stats,entry,auto){
   toggleControls(false);$('finishBtn').disabled=true;$('subtitle').textContent='Auswertung';$('band').textContent='Ergebnis';$('time').textContent='00:00';
   let groupRows='',pass50=0,below30=false;
   GROUP_ORDER.forEach(g=>{
@@ -547,11 +563,12 @@ function exportHistory(){
 window.addEventListener('beforeunload',saveSession);
 
 /* ===== LAD 34d Lernapp: Login, geschützte Inhalte, Team, Synchronisierung ===== */
-const APP_VERSION='1.0.0';
+const APP_VERSION='1.1.0';
 const SB={url:'https://kwnjmjiirmldgodmfglj.supabase.co',key:'sb_publishable_bBPetwMQ-mx0vCxidpMnzA_qfDQTlAS'};
 const AUTH_KEY='lad34d_auth_v1';
 let AUTH={session:null,user:null,isAdmin:false};
 let CONTENT_VERSION='';
+let LEKTIONEN=[],KARTEN=[],THEMEN=[];
 
 /* ---------- Hilfen ---------- */
 function sbHeaders(extra){const h={apikey:SB.key,'Content-Type':'application/json'};if(AUTH.session&&AUTH.session.access_token)h.Authorization='Bearer '+AUTH.session.access_token;return Object.assign(h,extra||{})}
@@ -572,8 +589,8 @@ async function idbGet(k){try{const db=await idb();return await new Promise((res,
 async function idbPut(k,v){try{const db=await idb();await new Promise((res,rej)=>{const t=db.transaction('kv','readwrite').objectStore('kv').put(v,k);t.onsuccess=()=>res();t.onerror=()=>rej(t.error)})}catch(e){}}
 
 /* ---------- Inhalte laden ---------- */
-function applyContent(c){BANK=Array.isArray(c.bank)?c.bank:[];INFO_PAGES=Array.isArray(c.info_pages)?c.info_pages:[];GLOSSARY=Array.isArray(c.glossary)?c.glossary:[];CONTENT_VERSION=c.version||''}
-function showLoading(text,pctVal){$('band').textContent='Bitte warten';$('subtitle').textContent='LAD 34d Lernapp';$('screen').innerHTML=`<div class="start breakPanel"><h2>${escapeHtml(text)}</h2><div class="progress"><div style="width:${Math.max(3,pctVal||0)}%"></div></div><p class="muted small">Die Inhalte werden einmalig geladen und danach auf diesem Gerät gespeichert.</p></div>`}
+function applyContent(c){BANK=Array.isArray(c.bank)?c.bank:[];INFO_PAGES=Array.isArray(c.info_pages)?c.info_pages:[];GLOSSARY=Array.isArray(c.glossary)?c.glossary:[];LEKTIONEN=Array.isArray(c.lektionen)?c.lektionen:[];KARTEN=Array.isArray(c.karten)?c.karten:[];THEMEN=Array.isArray(c.themen)?c.themen:[];CONTENT_VERSION=c.version||''}
+function showLoading(text,pctVal){wideOn();$('band').textContent='Bitte warten';$('subtitle').textContent='LAD 34d Lernapp';$('screen').innerHTML=`<div class="start breakPanel"><h2>${escapeHtml(text)}</h2><div class="progress"><div style="width:${Math.max(3,pctVal||0)}%"></div></div><p class="muted small">Die Inhalte werden einmalig geladen und danach auf diesem Gerät gespeichert.</p></div>`}
 async function loadContent(){
   const cached=await idbGet('inhalt');
   let remote=null;
@@ -605,7 +622,7 @@ async function loadContent(){
 function showLogin(msg,tab){
   clearInterval(state.timer);
   state={...state,mode:'login',questions:[]};
-  setAllControls(false);
+  setAllControls(false);wideOn();
   $('subtitle').textContent='LAD 34d Lernapp';$('band').textContent='Anmeldung';$('time').textContent='--:--';
   const reg=tab==='reg';
   $('screen').innerHTML=`<div class="start breakPanel"><h2>${reg?'Registrieren':'Anmelden'}</h2><p>Lern- und Prüfungssimulation für die Sachkundeprüfung Versicherungsvermittlung IHK auf Grundlage von Proximus 5.</p><p class="scoringNote">Nur für eingeladene Personen. Die Einladung erhalten Sie von LAD. Registrieren Sie sich mit genau der E-Mail-Adresse, an die Sie eingeladen wurden.</p>${msg?`<p class="bad">${escapeHtml(msg)}</p>`:''}<div class="card"><div class="row" style="margin-bottom:10px"><button class="btn ${reg?'secondary':''}" onclick="showLogin('','login')">Anmelden</button><button class="btn ${reg?'':'secondary'}" onclick="showLogin('','reg')">Registrieren</button></div>${reg?`<div class="field"><label for="regName">Ihr Name</label><input id="regName" autocomplete="name" placeholder="Vorname Nachname"></div>`:''}<div class="field"><label for="authEmail">E-Mail-Adresse</label><input id="authEmail" type="email" autocomplete="email" placeholder="name@beispiel.de"></div><div class="field"><label for="authPass">Passwort${reg?' (mindestens 8 Zeichen)':''}</label><input id="authPass" type="password" autocomplete="${reg?'new-password':'current-password'}"></div><p><button class="btn" id="authSubmit" onclick="${reg?'doRegister()':'doLogin()'}">${reg?'Konto anlegen':'Anmelden'}</button></p><p class="small muted">Passwort vergessen? Bitte wenden Sie sich an Ihren Ansprechpartner bei LAD. Er kann Ihr Passwort zurücksetzen.</p></div><p class="brandNotice">LAD Lernsimulation. Keine offizielle IHK- oder BWV-Prüfung.</p></div>`;
@@ -635,7 +652,7 @@ async function logout(){
   try{saveSession()}catch(e){}
   try{await sbFetch('/auth/v1/logout',{method:'POST'})}catch(e){}
   AUTH={session:null,user:null,isAdmin:false};saveAuth();
-  BANK=[];INFO_PAGES=[];GLOSSARY=[];
+  BANK=[];INFO_PAGES=[];GLOSSARY=[];LEKTIONEN=[];KARTEN=[];THEMEN=[];
   showLogin('Sie wurden abgemeldet.','login');
 }
 async function afterLogin(){
@@ -653,7 +670,12 @@ async function afterLogin(){
 async function backgroundSync(){
   try{AUTH.isAdmin=!!(await rpc('is_admin',{}))}catch(e){}
   try{await pullAttempts()}catch(e){}
+  try{await pullProgress()}catch(e){}
+  try{await pullLessons()}catch(e){}
+  try{await pullProfile()}catch(e){}
   try{await flushQueue()}catch(e){}
+  try{await flushProgress()}catch(e){}
+  try{await pushLessons()}catch(e){}
   try{await touchProfile()}catch(e){}
   if(state.mode==='start')showStart();
 }
@@ -695,7 +717,7 @@ async function touchProfile(){
   const r=await sbFetch('/rest/v1/profiles?id=eq.'+AUTH.user.id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({last_seen:new Date().toISOString()})});
   if(r.ok)try{localStorage.setItem(k,String(Date.now()))}catch(e){}
 }
-window.addEventListener('online',()=>{flushQueue().catch(()=>{})});
+window.addEventListener('online',()=>{flushQueue().catch(()=>{});flushProgress().catch(()=>{});pushLessons().catch(()=>{})});
 
 /* ---------- Konto auf dem Startbildschirm ---------- */
 function profilePanelHtml(){
@@ -716,7 +738,7 @@ function startExamPart(part){
   const rng=mulberry32(hashSeed(seed));
   const groups=part===1?['A','B','C']:['D','E'];
   let qs=[];groups.forEach(g=>qs.push(...selectExamGroup(g,EXAM_DIST[g],rng)));
-  shuffle(qs,rng);
+  shuffle(qs,rng);markSeen(qs.map(baseKey));clearInterval(state.timer);document.body.classList.remove('wideContent');
   state={mode:'exam',examPart:part,questions:prepareQuestions(qs,rng),answers:[],confirmed:[],marked:[],notes:[],current:0,seed,rng:null,timer:null,remaining:0,deadline:0,part1Done:true,inBreak:false,breakReason:'',startTime:Date.now(),topic:'Prüfungsteil '+part,learnCount:String(qs.length),finished:false};
   toggleControls(true);
   $('finishBtn').textContent='Prüfungsteil beenden';
@@ -756,6 +778,453 @@ async function showMember(id,name){
   const aRows=rows.map(a=>`<tr class="${a.passed===true?'pass':a.passed===false?'fail':''}"><td>${fmtDate(a.created_at)}</td><td>${escapeHtml(a.mode==='exam'?'Vollprüfung':a.mode==='exam1'?'Prüfungsteil 1':a.mode==='exam2'?'Prüfungsteil 2':'Lernen, '+(a.topic||''))}</td><td>${a.correct} von ${a.total}</td><td>${a.percent} Prozent</td><td>${a.passed===true?'bestanden':a.passed===false?'nicht bestanden':''}</td></tr>`).join('')||'<tr><td colspan="5">Noch keine Durchläufe.</td></tr>';
   openModal(`<h2>${escapeHtml(name)}</h2><h3>Quote je Sachgebiet (alle Durchläufe)</h3><table class="resulttable"><tr><th>Sachgebiet</th><th>Richtig</th><th>Quote</th></tr>${gRows||'<tr><td colspan="3">Keine Daten.</td></tr>'}</table>${weak?'<h3>Schwächste Themen</h3><ul>'+weak+'</ul>':''}<h3>Durchläufe</h3><div class="historyScroll"><table class="resulttable"><tr><th>Datum</th><th>Modus</th><th>Richtig</th><th>Quote</th><th>Ergebnis</th></tr>${aRows}</table></div><p><button class="btn secondary" onclick="showTeam()">Zurück zum Team</button> <button class="btn secondary" onclick="closeModal()">Schließen</button></p>`);
   $('modalbox').classList.add('wide');
+}
+
+/* =====================================================================
+   Erweiterung 1.1: Erklärungen, Fehlerkartei, Lernbereich, Karteikarten,
+   Ampel, Tagesziel, Lernplan, Abwechslung in Prüfungen
+   ===================================================================== */
+const DAY=86400000;
+let NO_SEEN_PREF=false,CHK=null,CS=null,LES=null;
+function wideOn(){document.body.classList.add('wideContent')}
+function ukey(n){return 'lad34d_'+n+'_'+(AUTH.user?AUTH.user.id:'gast')}
+function lsGet(n,d){try{const v=JSON.parse(localStorage.getItem(ukey(n))||'null');return v==null?d:v}catch(e){return d}}
+function lsSet(n,v){try{localStorage.setItem(ukey(n),JSON.stringify(v))}catch(e){}}
+function berlinDay(d){try{const p=new Intl.DateTimeFormat('de-DE',{timeZone:'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(d||new Date());const g=t=>p.find(x=>x.type===t).value;return g('year')+'-'+g('month')+'-'+g('day')}catch(e){return (d||new Date()).toISOString().slice(0,10)}}
+function dayAdd(k,n){const d=new Date(k+'T00:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
+function dayDiff(a,b){return Math.round((Date.parse(b+'T00:00:00Z')-Date.parse(a+'T00:00:00Z'))/DAY)}
+function dayWd(k){return new Date(k+'T00:00:00Z').getUTCDay()}
+function dayLabel(k){return new Date(k+'T12:00:00Z').toLocaleDateString('de-DE',{timeZone:'UTC',weekday:'short',day:'2-digit',month:'2-digit'})}
+function dayLong(k){return new Date(k+'T12:00:00Z').toLocaleDateString('de-DE',{timeZone:'UTC',weekday:'long',day:'numeric',month:'long',year:'numeric'})}
+function groupByKey(list){const m=new Map();list.forEach(q=>{const k=baseKey(q);if(!m.has(k))m.set(k,[]);m.get(k).push(q)});return m}
+function modal(title,text){openModal(`<h2>${escapeHtml(title)}</h2><p>${escapeHtml(text)}</p><button class="btn secondary" onclick="closeModal()">Schließen</button>`)}
+function setView(mode,sub,band){closeModal();clearInterval(state.timer);state={...state,mode,questions:[],answers:[],finished:false};wideOn();toggleControls(false);$('finishBtn').textContent='Prüfung beenden';$('subtitle').textContent=sub;$('band').textContent=band;$('time').textContent='--:--';const c=document.querySelector('.content');if(c)c.scrollTop=0;window.scrollTo(0,0)}
+
+/* ---------- Gesehene Grundaufgaben (Abwechslung) ---------- */
+function getSeen(){return lsGet('seen',{})}
+function markSeen(keys){const s=getSeen(),t=Date.now();keys.forEach(k=>{s[k]=t});lsSet('seen',s)}
+function seenMap(){const s=Object.assign({},getSeen());Object.entries(getProg()).forEach(([k,v])=>{const t=v.la?Date.parse(v.la)||0:0;if(t>(s[k]||0))s[k]=t});return s}
+function selectUnique(candidates,count,rng){
+  const map=groupByKey(candidates);let keys=[...map.keys()];shuffle(keys,rng);
+  if(!NO_SEEN_PREF){const seen=seenMap();keys=keys.map((k,i)=>({k,i,b:seen[k]?Math.floor(seen[k]/DAY)+1:0})).sort((a,b)=>a.b-b.b||a.i-b.i).map(x=>x.k)}
+  const out=[],uids=new Set();
+  for(const k of keys){const arr=map.get(k);const q=arr[Math.floor(rng()*arr.length)];out.push(clone(q));uids.add(q.uid||q);if(count!=='all'&&out.length>=count)break}
+  if(count!=='all'&&out.length<count){const pool=candidates.filter(q=>!uids.has(q.uid||q)).map(clone);shuffle(pool,rng);for(const q of pool){out.push(q);if(out.length>=count)break}}
+  return out;
+}
+function prepareQuestions(list,rng){return list.map((q,idx)=>{const x=clone(q);x.part=x.part||(x.group==='D'||x.group==='E'?2:1);if(x.type==='single'||x.type==='multiple'){const pairs=(x.options||[]).map((t,i)=>({t,i}));shuffle(pairs,rng);x.shuffled=pairs.map(p=>p.t);x.perm=pairs.map(p=>p.i);if(x.type==='single'){x.correct=pairs.findIndex(p=>p.i===x.answer)}else{x.correct=pairs.map((p,i)=>Array.isArray(x.answer)&&x.answer.includes(p.i)?i:null).filter(v=>v!==null)}}else{x.correct=x.answer}x.sessionId=idx;return x})}
+
+/* ---------- Prüfung und Lernmodus ---------- */
+function startExam(){
+  closeModal();clearInterval(state.timer);document.body.classList.remove('wideContent');
+  const manual=($('seedInput')?.value||'').trim();const seed=manual||makeSeed('P');
+  const rng=mulberry32(hashSeed(seed));const part1=[],part2=[];
+  NO_SEEN_PREF=!!manual;
+  try{GROUP_ORDER.forEach(g=>{const sel=selectExamGroup(g,EXAM_DIST[g],rng);if(g==='A'||g==='B'||g==='C')part1.push(...sel);else part2.push(...sel)})}finally{NO_SEEN_PREF=false}
+  shuffle(part1,rng);shuffle(part2,rng);
+  const qs=part1.concat(part2);markSeen(qs.map(baseKey));
+  state={mode:'exam',questions:prepareQuestions(qs,rng),answers:[],confirmed:[],marked:[],notes:[],current:0,seed,rng:null,timer:null,remaining:0,deadline:0,part1Done:false,inBreak:false,breakReason:'',startTime:Date.now(),topic:'Prüfung',learnCount:'118',finished:false};
+  toggleControls(true);$('finishBtn').textContent='Prüfung beenden';setTimer(90*60);renderQuestion();
+}
+function beginLearn(qs,rng,seed,topic,extra){
+  clearInterval(state.timer);document.body.classList.remove('wideContent');
+  state=Object.assign({mode:'learn',questions:prepareQuestions(qs,rng),answers:[],confirmed:[],marked:[],notes:[],current:0,seed,rng:null,timer:null,remaining:0,deadline:0,part1Done:true,inBreak:false,breakReason:'',startTime:Date.now(),topic,learnCount:String(qs.length),finished:false,recorded:[]},extra||{});
+  toggleControls(true);$('finishBtn').textContent=state.check?'Check beenden':'Lernmodus beenden';$('time').textContent='--:--';saveSession();renderQuestion();
+}
+function startLearning(topicArg,countArg){
+  closeModal();
+  let topic=topicArg||$('studyTopic')?.value||'all';
+  if(!topicArg){if($('fNeu')?.checked)topic+='~neu';if($('fUnseen')?.checked)topic+='~ungesehen'}
+  const countVal=countArg||$('learnCount')?.value||'40';
+  const manual=($('learnSeedInput')?.value||'').trim();const seed=manual||makeSeed('L');
+  const rng=mulberry32(hashSeed(seed));const candidates=filteredByTopic(topic);
+  if(!candidates.length){modal('Keine Aufgaben','Für diese Auswahl gibt es keine Aufgaben. Bitte wählen Sie einen anderen Filter.');return}
+  const count=countVal==='all'?'all':Number(countVal);
+  NO_SEEN_PREF=!!manual;let selected;try{selected=selectUnique(candidates,count,rng)}finally{NO_SEEN_PREF=false}
+  shuffle(selected,rng);beginLearn(selected,rng,seed,topic,{learnCount:countVal});
+}
+function repeatLastLearning(){const t=String(state.topic||'all');if(t==='Fehlerkartei')return startKartei();if(t.startsWith('Verständnis-Check: '))return startCheck(t.replace('Verständnis-Check: ',''));startLearning(t!=='Prüfung'?t:'all',state.learnCount||'40')}
+function filteredByTopic(topic){
+  const parts=String(topic||'all').split('~'),b=parts[0];let list;
+  if(!b||b==='all')list=BANK.slice();
+  else if(b==='P|1')list=BANK.filter(q=>(q.part||1)===1);
+  else if(b==='P|2')list=BANK.filter(q=>(q.part||1)===2);
+  else if(b==='S|numeric')list=BANK.filter(q=>q.numeric===true);
+  else if(b==='S|triple')list=BANK.filter(q=>q.type==='multiple'&&Array.isArray(q.answer)&&q.answer.length===3);
+  else if(b.startsWith('G|'))list=BANK.filter(q=>q.group===b.slice(2));
+  else if(b.startsWith('C|'))list=BANK.filter(q=>q.category===b.slice(2));
+  else if(b.startsWith('T|'))list=BANK.filter(q=>q.thema===b.slice(2));
+  else list=BANK.slice();
+  if(parts.includes('neu'))list=list.filter(q=>q.neu);
+  if(parts.includes('ungesehen')){const s=seenMap();list=list.filter(q=>!s[baseKey(q)])}
+  return list;
+}
+function topicLabel(v){
+  if(!v||v==='all')return 'Alle Bereiche';
+  const parts=String(v).split('~'),b=parts[0];let l;
+  if(b==='all')l='Alle Bereiche';else if(b==='P|1')l='Prüfungsteil 1';else if(b==='P|2')l='Prüfungsteil 2';else if(b==='S|numeric')l='Nur Rechenaufgaben';else if(b==='S|triple')l='Nur Triple Choice Fragen';
+  else if(b.startsWith('G|'))l=GROUPS[b.slice(2)]?.short||b;else if(b.startsWith('C|'))l=b.slice(2);
+  else if(b.startsWith('T|')){const t=THEMEN.find(x=>x.code===b.slice(2));l=t?t.code+' '+t.titel:b.slice(2)}else l=b;
+  if(parts.includes('neu'))l+=', nur neue';if(parts.includes('ungesehen'))l+=', nur noch nicht gesehene';
+  return l;
+}
+function topicOptions(){
+  let html='<option value="all">Alle Bereiche</option><option value="P|1">Prüfungsteil 1</option><option value="P|2">Prüfungsteil 2</option><option value="S|numeric">Nur Rechenaufgaben</option><option value="S|triple">Nur Triple Choice Fragen</option><option disabled>──────────</option>';
+  GROUP_ORDER.forEach(g=>{html+=`<option value="G|${g}">${GROUPS[g].short}</option>`});
+  html+='<option disabled>──────────</option>';
+  getCategories().forEach(c=>{html+=`<option value="C|${escapeAttr(c)}">${escapeHtml(c)}</option>`});
+  if(THEMEN.length){const cnt={};BANK.forEach(q=>{if(q.thema)cnt[q.thema]=(cnt[q.thema]||0)+1});html+='<option disabled>── Themen ──</option>';THEMEN.forEach(t=>{const n=cnt[t.code]||0;html+=`<option value="T|${escapeAttr(t.code)}"${n?'':' disabled'}>${escapeHtml(t.code+' '+t.titel)} (${n})</option>`})}
+  return html;
+}
+function renderQuestion(){document.body.classList.remove('wideContent');v8RenderQuestion()}
+function confirmAnswer(){
+  const q=state.questions[state.current],a=state.answers[state.current];
+  if(!isAnswered(q,a)){openModal('<h2>Antwort fehlt</h2><p>Geben Sie zuerst eine Antwort ein oder wählen Sie mindestens eine Antwort aus.</p><button class="btn secondary" onclick="closeModal()">Schließen</button>');return}
+  state.confirmed[state.current]=true;
+  if(state.mode==='learn'){state.recorded=state.recorded||[];if(!state.recorded[state.current]){state.recorded[state.current]=true;recordProgress([{q,ok:isCorrect(q,a)}]);markSeen([baseKey(q)]);bumpDaily(1)}}
+  saveSession();renderQuestion();
+}
+function afterHistory(entry){
+  try{if(state.mode==='exam'){recordProgress(state.questions.map((q,i)=>({q,ok:isCorrect(q,state.answers[i])})));bumpDaily(state.questions.filter((q,i)=>isAnswered(q,state.answers[i])).length)}}catch(e){}
+  syncAttempt(entry);
+  flushProgress().catch(()=>{});
+}
+
+/* ---------- Erklärungen in Rückmeldung und Rückblick ---------- */
+function origIndex(q,i){if(Array.isArray(q.perm)&&q.perm[i]!=null)return q.perm[i];return (q.options||[]).indexOf(q.shuffled[i])}
+function isRightOpt(q,i){return q.type==='single'?i===q.correct:(Array.isArray(q.correct)&&q.correct.includes(i))}
+function isChosen(q,a,i){return q.type==='single'?a===i:(Array.isArray(a)&&a.includes(i))}
+function explainHtml(q,a){
+  const rich=Array.isArray(q.optExpl)&&q.optExpl.length>0&&Array.isArray(q.shuffled);
+  const steps=Array.isArray(q.steps)&&q.steps.length?q.steps:null;
+  if(!rich&&!steps&&!q.merksatz&&!q.fehlerfalle)return `<p><strong>Richtige Antwort:</strong> ${escapeHtml(answerText(q))}</p><p><strong>Begründung:</strong> ${escapeHtml(q.explanation)}</p><p><strong>Fachliche Grundlage:</strong> ${escapeHtml(q.ref)}</p>`;
+  let h='';
+  if(rich)h+='<div class="optExplList">'+q.shuffled.map((t,i)=>{const r=isRightOpt(q,i),c=isChosen(q,a,i),why=q.optExpl[origIndex(q,i)]||'';return `<div class="optExpl ${r?'isRight':'isWrong'}${c?' chosen':''}"><div class="optHead"><span class="${r?'ok':'bad'}">${r?'richtig':'falsch'}</span>${c?'<span class="pill">Ihre Wahl</span>':''}</div><div class="optText">${escapeHtml(t)}</div>${why?`<div class="why">${escapeHtml(why)}</div>`:''}</div>`}).join('')+'</div>';
+  else h+=`<p><strong>Richtige Antwort:</strong> ${escapeHtml(answerText(q))}</p>`;
+  h+=`<p><strong>Erklärung:</strong> ${escapeHtml(q.explanation)}</p>`;
+  if(steps)h+=`<p><strong>Rechenweg:</strong></p><ol class="steps">${steps.map(s=>`<li>${escapeHtml(s)}</li>`).join('')}</ol>`;
+  if(q.merksatz)h+=`<div class="merkbox"><strong>Merksatz:</strong> ${escapeHtml(q.merksatz)}</div>`;
+  if(q.fehlerfalle)h+=`<div class="fallebox"><strong>Fehlerfalle:</strong> ${escapeHtml(q.fehlerfalle)}</div>`;
+  h+=`<p class="small"><strong>Fundstelle:</strong> ${escapeHtml(q.ref)}</p>`;
+  return h;
+}
+function feedbackBlock(q){
+  const a=state.answers[state.current],ok=isCorrect(q,a),last=state.current>=state.questions.length-1;
+  const nav=state.mode!=='learn'?'':`<p class="row">${last?(state.check?'<button class="btn" onclick="finishSession(false)">Check auswerten</button>':'<button class="btn" onclick="requestFinish()">Lernmodus auswerten</button>'):'<button class="btn" onclick="go(1)">Nächste Aufgabe</button>'}</p>`;
+  return `<div class="feedback" id="feedbackArea"><div class="${ok?'ok':'bad'}">${ok?'Richtig':'Falsch'}</div>${explainHtml(q,a)}<p class="small muted">Einordnung: eigenständig erstellte Übungsaufgabe, keine veröffentlichte Original-Prüfungsaufgabe.</p>${nav}</div>`;
+}
+function reviewHtml(q,a,i){
+  const ok=isCorrect(q,a),status=ok?'Richtig':'Falsch oder offen',cls=ok?'ok':'bad',open=ok?'':' open';
+  return `<details class="review-item"${open}><summary><span class="${cls}">${status}</span> | Aufgabe ${i+1} | Teil ${q.part} | ${escapeHtml(q.category)}</summary><div class="review-body"><p>${promptHtml(q.prompt)}</p><p><strong>Ihre Antwort:</strong> ${escapeHtml(userText(q,a))}</p>${explainHtml(q,a)}<p class="small muted">Eigenständig erstellte Übungsaufgabe, keine veröffentlichte Original-Prüfungsaufgabe.</p></div></details>`;
+}
+function reviewItem(q,i){return reviewHtml(q,state.answers[i],i)}
+function renderResult(stats,entry,auto){wideOn();if(state.check){finishCheck(stats);return}v8RenderResult(stats,entry,auto)}
+
+/* ---------- Fortschritt je Grundaufgabe und Fehlerkartei ---------- */
+const BOX_DAYS={1:1,2:3,3:7};
+function getProg(){return lsGet('prog',{})}
+function setProg(p){lsSet('prog',p)}
+function recordProgress(items){
+  if(!items.length)return;const p=getProg(),now=Date.now(),iso=new Date(now).toISOString();
+  items.forEach(({q,ok})=>{const k=baseKey(q);const e=p[k]||{box:0,st:0,seen:0,r:0,w:0};
+    e.seen=(e.seen||0)+1;e.lc=!!ok;e.la=iso;
+    if(ok){e.r=(e.r||0)+1;e.st=(e.st||0)+1;if(e.box>=1&&e.box<=3){if(e.st>=3){e.box=4;e.due=null}else{e.box=Math.min(3,e.st+1);e.due=new Date(now+BOX_DAYS[e.box]*DAY).toISOString()}}}
+    else{e.w=(e.w||0)+1;e.st=0;e.box=1;e.due=new Date(now+BOX_DAYS[1]*DAY).toISOString()}
+    e.u=iso;e.dirty=1;p[k]=e});
+  setProg(p);
+}
+function karteiItems(){const p=getProg(),keys=new Set(BANK.map(baseKey));return Object.entries(p).filter(([k,e])=>e.box>=1&&e.box<=3&&keys.has(k)).map(([k,e])=>({k,e}))}
+function isDue(e){return !e.due||Date.parse(e.due)<=Date.now()}
+function startKartei(){
+  closeModal();const items=karteiItems();
+  if(!items.length){modal('Fehlerkartei ist leer','Falsch beantwortete Aufgaben landen automatisch hier.');return}
+  const due=items.filter(x=>isDue(x.e)).sort((a,b)=>(Date.parse(a.e.due||0)||0)-(Date.parse(b.e.due||0)||0));
+  const pick=due.length?due.slice(0,20):items.slice().sort((a,b)=>(Date.parse(a.e.la||0)||0)-(Date.parse(b.e.la||0)||0)).slice(0,20);
+  const seed=makeSeed('K'),rng=mulberry32(hashSeed(seed)),m=groupByKey(BANK);
+  const qs=pick.map(x=>{const arr=m.get(x.k);return clone(arr[Math.floor(rng()*arr.length)])});
+  shuffle(qs,rng);beginLearn(qs,rng,seed,'Fehlerkartei');
+}
+let progBusy=false;
+async function flushProgress(){
+  if(!AUTH.user||navigator.onLine===false||progBusy)return;
+  const rows=Object.entries(getProg()).filter(([k,e])=>e.dirty).map(([k,e])=>({user_id:AUTH.user.id,question_id:k,box:e.box||0,seen:e.seen||0,right_count:e.r||0,wrong_count:e.w||0,last_correct:e.lc==null?null:!!e.lc,last_answer:e.la||null,due_at:e.due||null,updated_at:e.u||new Date().toISOString()}));
+  if(!rows.length)return;progBusy=true;
+  try{
+    for(let i=0;i<rows.length;i+=500){const r=await sbFetch('/rest/v1/question_progress?on_conflict=user_id,question_id',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows.slice(i,i+500))});if(!r.ok)return}
+    const p=getProg();rows.forEach(x=>{const e=p[x.question_id];if(e&&e.u===x.updated_at)delete e.dirty});setProg(p);
+  }finally{progBusy=false}
+}
+async function pullProgress(){
+  if(!AUTH.user)return;const p=getProg();let ch=false;
+  for(let off=0;off<50000;off+=1000){
+    const r=await sbFetch('/rest/v1/question_progress?select=question_id,box,seen,right_count,wrong_count,last_correct,last_answer,due_at,updated_at&order=question_id.asc&limit=1000&offset='+off,{method:'GET'});
+    if(!r.ok)break;const rows=await r.json();if(!Array.isArray(rows))break;
+    rows.forEach(x=>{const e=p[x.question_id],ru=Date.parse(x.updated_at||0)||0,lu=e?(Date.parse(e.u||0)||0):-1;if(!e||ru>lu){p[x.question_id]={box:x.box||0,st:x.box===4?3:Math.max(0,(x.box||0)-1),seen:x.seen||0,r:x.right_count||0,w:x.wrong_count||0,lc:x.last_correct,la:x.last_answer,due:x.due_at,u:x.updated_at};ch=true}});
+    if(rows.length<1000)break;
+  }
+  if(ch)setProg(p);
+}
+
+/* ---------- Lektionen: Status und Synchronisierung ---------- */
+const STATUS_TEXT={offen:'nicht begonnen',gelesen:'gelesen',bestanden:'Check bestanden'};
+function getLessons(){return lsGet('lessons',{})}
+function setLessonStatus(b,patch){const l=getLessons();l[b]=Object.assign({},l[b]||{},patch);lsSet('lessons',l)}
+function lessonStatus(b){const s=getLessons()[b]||{};return s.passed?'bestanden':s.read?'gelesen':'offen'}
+async function pushLessons(){
+  if(!AUTH.user||navigator.onLine===false)return;
+  const rows=Object.entries(getLessons()).filter(([k,v])=>v.passed&&v.dirty).map(([k,v])=>({user_id:AUTH.user.id,thema:k,done_at:v.passed}));
+  if(!rows.length)return;
+  const r=await sbFetch('/rest/v1/lesson_progress?on_conflict=user_id,thema',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(rows)});
+  if(r.ok){const l=getLessons();rows.forEach(x=>{if(l[x.thema])delete l[x.thema].dirty});lsSet('lessons',l)}
+}
+async function pullLessons(){
+  if(!AUTH.user)return;const r=await sbFetch('/rest/v1/lesson_progress?select=thema,done_at',{method:'GET'});if(!r.ok)return;
+  const rows=await r.json();if(!Array.isArray(rows))return;const l=getLessons();let ch=false;
+  rows.forEach(x=>{const e=l[x.thema]||{};if(!e.passed){l[x.thema]=Object.assign(e,{passed:x.done_at,read:e.read||x.done_at});ch=true}});
+  if(ch)lsSet('lessons',l);
+}
+async function pullProfile(){
+  if(!AUTH.user)return;const r=await sbFetch('/rest/v1/profiles?select=exam_date,daily_goal&id=eq.'+AUTH.user.id,{method:'GET'});if(!r.ok)return;
+  const t=await r.text();if(!t)return;let rows;try{rows=JSON.parse(t)}catch(e){return}const x=Array.isArray(rows)?rows[0]:rows;if(!x)return;
+  if(x.daily_goal)lsSet('profileGoal',Number(x.daily_goal));
+  if(x.exam_date&&!getPlan()&&String(x.exam_date).slice(0,10)>berlinDay())setPlan({exam:String(x.exam_date).slice(0,10),perWeek:5,start:berlinDay(),done:{}});
+}
+
+/* ---------- Tageszähler, Lernserie, Tagesziel ---------- */
+function bumpDaily(n){if(!n)return;const d=lsGet('daily',{}),k=berlinDay();d[k]=(d[k]||0)+n;lsSet('daily',d)}
+function todayCount(){return lsGet('daily',{})[berlinDay()]||0}
+function streakDays(){const d=lsGet('daily',{});let k=berlinDay(),n=0;if((d[k]||0)<10)k=dayAdd(k,-1);while((d[k]||0)>=10&&n<3660){n++;k=dayAdd(k,-1)}return n}
+function dailyGoal(){const pl=getPlan();if(pl){const g=planGoal(pl);if(g)return g}return lsGet('profileGoal',null)||30}
+function dailyHtml(){
+  const n=todayCount(),g=dailyGoal(),s=streakDays();
+  return `<div class="card"><h3>Tagesziel</h3><p><strong>${n} von ${g}</strong> Aufgaben heute beantwortet.</p><div class="progress"><div style="width:${Math.min(100,Math.round(n/g*100))}%"></div></div>${n>=g?'<p class="ok">Tagesziel erreicht.</p>':''}<p>Lernserie: <strong>${s} ${s===1?'Tag':'Tage'}</strong> in Folge mit mindestens 10 Aufgaben.</p><p class="small muted">${getPlan()?'Das Tagesziel berechnet sich aus Ihrem Lernplan.':'Standardziel 30 Aufgaben. Mit einem Lernplan passt sich das Ziel an.'}</p></div>`;
+}
+
+/* ---------- Prüfungsreife-Ampel ---------- */
+function ampelData(){
+  const since=Date.now()-30*DAY,g={};
+  getHistory().forEach(e=>{if((Date.parse(e.date)||0)<since)return;Object.entries(e.groups||{}).forEach(([k,v])=>{g[k]??={c:0,n:0};g[k].c+=v.c||0;g[k].n+=v.n||0})});
+  return GROUP_ORDER.map(k=>{const v=g[k]||{c:0,n:0},p=v.n?pct(v.c,v.n):0;return {k,c:v.c,n:v.n,p,col:v.n<10?'grau':p>=60?'gruen':p>=50?'gelb':'rot'}});
+}
+function ampelHtml(){
+  const d=ampelData();
+  const tiles=d.map(x=>`<div class="ampelItem"><div><span class="dot ${x.col}"></span><strong>${x.k}</strong></div><div class="small">${escapeHtml(GROUPS[x.k].short.replace(/^[A-E] /,''))}</div><div class="ampelVal">${x.n<10?'zu wenig Daten':x.p+' Prozent'}</div><div class="small muted">${x.n} Aufgaben</div></div>`).join('');
+  let prog;
+  if(d.every(x=>x.n>=10)){
+    const u50=d.filter(x=>x.p<50),u30=d.filter(x=>x.p<30),nm=l=>l.map(x=>`Sachgebiet ${x.k} (${x.p} Prozent)`).join(', ');
+    if(u50.length<=1&&!u30.length)prog='<p class="ok">Nach Ihrem aktuellen Stand würden Sie bestehen.</p>';
+    else{const h=[];if(u30.length)h.push(`${nm(u30)} ${u30.length>1?'liegen':'liegt'} unter 30 Prozent. Jedes Sachgebiet braucht mindestens 30 Prozent.`);if(u50.length>1)h.push(`Unter 50 Prozent liegen: ${nm(u50)}. Höchstens ein Sachgebiet darf unter 50 Prozent liegen.`);prog=`<p class="bad">Nach Ihrem aktuellen Stand würden Sie noch nicht bestehen.</p><p class="small">${escapeHtml(h.join(' '))}</p>`}
+  }else prog='<p class="small muted">Die Prognose erscheint, wenn Sie in allen fünf Sachgebieten in den letzten 30 Tagen mindestens 10 Aufgaben beantwortet haben.</p>';
+  return `<div class="card ampelCard"><h3>Prüfungsreife</h3><p class="small muted">Quote je Sachgebiet in den letzten 30 Tagen, alle Modi. Grün ab 60 Prozent, gelb ab 50 Prozent, rot darunter, grau unter 10 Aufgaben.</p><div class="ampel">${tiles}</div>${prog}<p class="small muted">Regel der IHK: vier Sachgebiete mindestens 50 Prozent, das fünfte mindestens 30 Prozent.</p></div>`;
+}
+
+/* ---------- Lernbereich: Übersicht ---------- */
+const AREA_GROUPS=[{teil:1,g:'A',areas:['Private Vorsorge','Gesetzliche Rentenversicherung','Betriebliche Altersversorgung']},{teil:1,g:'B',areas:['Unfallversicherung','Kranken und Pflegeversicherung']},{teil:1,g:'C',areas:['Rechtliche Grundlagen']},{teil:2,g:'D',areas:['Hausratversicherung','Glasversicherung','Gebäudeversicherung']},{teil:2,g:'E',areas:['Haftpflichtversicherung','Kraftfahrtversicherung','Rechtsschutzversicherung']}];
+function areaList(){const cats=new Set(BANK.map(q=>q.category));const out=['Einstieg'];AREA_GROUPS.forEach(x=>x.areas.forEach(a=>{if(a!=='Glasversicherung'||cats.has(a))out.push(a)}));return out}
+function lessonFor(b){return LEKTIONEN.find(l=>l.bereich===b)}
+function areaCard(b,agg){
+  const l=lessonFor(b),st=lessonStatus(b),v=agg[b];
+  const bases=b==='Einstieg'?0:new Set(BANK.filter(q=>q.category===b).map(baseKey)).size;
+  const info=b==='Einstieg'?'<span class="pill">Check mit 5 gemischten Aufgaben</span>':`<span class="pill">${bases} Aufgaben</span><span class="pill">${v&&v.n?'Quote '+pct(v.c,v.n)+' Prozent':'noch keine Quote'}</span>`;
+  return `<div class="card areaCard" data-area="${escapeAttr(b)}"><h3>${escapeHtml(l?l.titel:b)}</h3><p class="small muted">${escapeHtml(b)}${l&&l.dauer_min?' · etwa '+l.dauer_min+' Minuten':''}</p><p><span class="pill${st==='bestanden'?' pillOk':''}">${STATUS_TEXT[st]}</span>${info}</p>${l?'':'<p class="small muted">Für diesen Bereich gibt es noch keine Einführung. Nutzen Sie Check, Aufgaben und Karteikarten.</p>'}<div class="row">${l?`<button class="btn" onclick="openLesson('${escapeAttr(b)}')">${st==='offen'?'Kapitel starten':'Kapitel öffnen'}</button>`:''}<button class="btn secondary" onclick="startCheck('${escapeAttr(b)}')">Verständnis-Check</button></div></div>`;
+}
+function showAreas(){
+  setView('areas','Lernbereich','Einführungen');
+  const agg=aggregateHistory(getHistory()).cat,areas=areaList();
+  let html=`<div class="start"><p><button class="btn secondary" onclick="showStart()">Hauptmenü</button></p><h2>Lernbereich: Einführungen</h2><p>Jedes Kapitel erklärt einen Bereich Schritt für Schritt. Am Ende prüfen Sie Ihr Verständnis mit 10 Aufgaben. Danach wiederholen Sie die wichtigsten Zahlen mit Karteikarten. Ab 80 Prozent richtig gilt das Kapitel als bestanden.</p><div class="cards">${areaCard('Einstieg',agg)}</div>`;
+  [1,2].forEach(t=>{html+=`<h3>Prüfungsteil ${t}</h3>`;AREA_GROUPS.filter(x=>x.teil===t).forEach(x=>{const as=x.areas.filter(a=>areas.includes(a));if(as.length)html+=`<p class="small"><strong>${escapeHtml(GROUPS[x.g].name)}</strong></p><div class="cards">${as.map(a=>areaCard(a,agg)).join('')}</div>`})});
+  $('screen').innerHTML=html+'</div>';
+}
+
+/* ---------- Kapitel Schritt für Schritt ---------- */
+function paras(t){return String(t||'').split(/\n+/).map(x=>x.trim()).filter(Boolean).map(x=>`<p>${escapeHtml(x)}</p>`).join('')}
+function ulist(a){return Array.isArray(a)&&a.length?`<ul>${a.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>`:''}
+function lessonSteps(l){
+  const st=[];
+  st.push({t:'Lernziel',h:`<h2>${escapeHtml(l.titel)}</h2><p><span class="pill">Lesezeit etwa ${Number(l.dauer_min)||8} Minuten</span><span class="pill">${escapeHtml(l.bereich)}</span></p><div class="merkbox"><strong>Lernziel:</strong> ${escapeHtml(l.ziel||'')}</div><p>Gehen Sie mit „Weiter“ Schritt für Schritt durch das Kapitel. Am Ende folgt ein kurzer Verständnis-Check.</p>`});
+  (l.abschnitte||[]).forEach(a=>st.push({t:a.ueberschrift||'Abschnitt',h:`<h2>${escapeHtml(a.ueberschrift||'')}</h2>${paras(a.text)}${ulist(a.punkte)}`}));
+  if(Array.isArray(l.merksaetze)&&l.merksaetze.length)st.push({t:'Merksätze',h:`<h2>Merksätze</h2><div class="merkbox">${ulist(l.merksaetze)}</div>`});
+  if(l.praxisfall&&l.praxisfall.situation)st.push({t:'Praxisfall',h:`<h2>Praxisfall</h2>${paras(l.praxisfall.situation)}<details class="review-item"><summary>Lösung anzeigen</summary><div class="review-body">${paras(l.praxisfall.loesung)}</div></details>`});
+  if(l.rechenweg&&Array.isArray(l.rechenweg.schritte)&&l.rechenweg.schritte.length)st.push({t:'Rechenweg',h:`<h2>${escapeHtml(l.rechenweg.titel||'Rechenweg')}</h2><ol class="steps">${l.rechenweg.schritte.map(s=>`<li>${escapeHtml(s)}</li>`).join('')}</ol>`});
+  if(Array.isArray(l.fallen)&&l.fallen.length)st.push({t:'Typische Prüfungsfallen',h:`<h2>Typische Prüfungsfallen</h2><div class="fallebox">${ulist(l.fallen)}</div>`});
+  if(Array.isArray(l.zahlen)&&l.zahlen.length)st.push({t:'Zahlen und Fristen',h:`<h2>Zahlen und Fristen</h2><div class="tableScroll"><table class="resulttable"><tr><th>Begriff</th><th>Wert</th><th>Quelle</th></tr>${l.zahlen.map(z=>`<tr><td>${escapeHtml(z.begriff)}</td><td>${escapeHtml(z.wert)}</td><td class="small">${escapeHtml(z.quelle||'')}</td></tr>`).join('')}</table></div>`});
+  st.push({t:'Fundstellen',h:`<h2>Fundstellen</h2>${ulist(l.quellen)||'<p>Proximus 5 und Werte 2026.</p>'}<div class="sourcebox"><strong>Kapitel durchgearbeitet.</strong> Prüfen Sie jetzt Ihr Verständnis mit dem Check. Danach folgen die Karteikarten des Bereichs.</div>`});
+  return st;
+}
+function openLesson(b){
+  const l=lessonFor(b);if(!l){startCheck(b);return}
+  setView('lesson','Einführung',b);
+  if(lessonStatus(b)==='offen')setLessonStatus(b,{started:new Date().toISOString()});
+  LES={b,steps:lessonSteps(l),i:0};renderLesson();
+}
+function lessonGo(d){if(!LES)return;LES.i=Math.max(0,Math.min(LES.steps.length-1,LES.i+d));renderLesson()}
+function renderLesson(){
+  const n=LES.steps.length,i=LES.i,s=LES.steps[i];
+  if(i===n-1&&!(getLessons()[LES.b]||{}).read)setLessonStatus(LES.b,{read:new Date().toISOString()});
+  $('screen').innerHTML=`<div class="start lesson"><div class="lessonTop"><span class="small muted"><strong>Schritt ${i+1} von ${n}</strong> · ${escapeHtml(s.t)}</span><button class="btn secondary" onclick="showAreas()">Zur Übersicht</button></div><div class="progress"><div style="width:${Math.round((i+1)/n*100)}%"></div></div><div class="lessonBody">${s.h}</div><div class="navRow"><button class="btn secondary" onclick="lessonGo(-1)"${i===0?' disabled':''}>Zurück</button>${i<n-1?'<button class="btn" onclick="lessonGo(1)">Weiter</button>':`<button class="btn" onclick="startCheck('${escapeAttr(LES.b)}')">Verständnis-Check starten</button>`}</div></div>`;
+  const c=document.querySelector('.content');if(c)c.scrollTop=0;window.scrollTo(0,0);
+}
+
+/* ---------- Verständnis-Check ---------- */
+function startCheck(b){
+  closeModal();
+  const ein=b==='Einstieg',cands=BANK.filter(q=>ein||q.category===b);
+  if(!cands.length){modal('Keine Aufgaben','Für diesen Bereich gibt es noch keine Aufgaben.');return}
+  const seen=seenMap(),seed=makeSeed('V'),rng=mulberry32(hashSeed(seed));
+  const rank=list=>{const m=groupByKey(list);let keys=[...m.keys()];shuffle(keys,rng);const sc=k=>{const q=m.get(k)[0];return (seen[k]?4:0)+(q.neu?0:2)+((Array.isArray(q.optExpl)&&q.optExpl.length)||(Array.isArray(q.steps)&&q.steps.length)?0:1)};return keys.map((k,i)=>({k,i,s:sc(k)})).sort((x,y)=>x.s-y.s||x.i-y.i).map(x=>{const arr=m.get(x.k);return clone(arr[Math.floor(rng()*arr.length)])})};
+  let qs=ein?GROUP_ORDER.map(g=>rank(cands.filter(q=>q.group===g))[0]).filter(Boolean):rank(cands).slice(0,10);
+  shuffle(qs,rng);
+  beginLearn(qs,rng,seed,'Verständnis-Check: '+b,{check:{b,n:qs.length}});
+}
+function finishCheck(stats){
+  const c=state.check,wrong=state.questions.map((q,i)=>({q,a:state.answers[i],i})).filter(x=>!isCorrect(x.q,x.a));
+  const p=pct(stats.correct,stats.total);
+  CHK={b:c.b,correct:stats.correct,total:stats.total,p,passed:p>=80,wrong};
+  state={...state,mode:'checkdone',check:null};
+  if(CHK.passed){setLessonStatus(c.b,{passed:new Date().toISOString(),best:p,dirty:1});pushLessons().catch(()=>{})}else setLessonStatus(c.b,{last:p});
+  flushProgress().catch(()=>{});
+  const cards=cardsFor(c.b).slice(0,12);
+  if(cards.length)startCards(cards,{title:'Karteikarten: '+c.b,done:showCheckResult,intro:'Zum Abschluss wiederholen Sie die wichtigsten Zahlen und Begriffe des Bereichs.'});else showCheckResult();
+}
+function showCheckResult(){
+  const c=CHK;if(!c){showStart();return}
+  setView('checkresult','Verständnis-Check',c.b);
+  const areas=areaList(),next=areas[areas.indexOf(c.b)+1];
+  const head=c.passed?`<h2 class="ok">Kapitel bestanden</h2><p>Sie haben ${c.correct} von ${c.total} Aufgaben richtig beantwortet. Das sind ${c.p} Prozent.</p>`:`<h2 class="bad">Noch nicht sicher</h2><p>Sie haben ${c.correct} von ${c.total} Aufgaben richtig beantwortet. Das sind ${c.p} Prozent. Zum Bestehen brauchen Sie mindestens 80 Prozent.</p><p><strong>Noch nicht sicher. Gehen Sie das Kapitel noch einmal durch.</strong></p>`;
+  const btns=`<div class="row">${c.passed&&next?`<button class="btn" onclick="openLesson('${escapeAttr(next)}')">Nächstes Kapitel: ${escapeHtml(next)}</button>`:''}${lessonFor(c.b)?`<button class="btn${c.passed?' secondary':''}" onclick="openLesson('${escapeAttr(c.b)}')">Kapitel wiederholen</button>`:''}<button class="btn secondary" onclick="startCheck('${escapeAttr(c.b)}')">Check wiederholen</button><button class="btn secondary" onclick="showAreas()">Zur Übersicht</button><button class="btn secondary" onclick="showStart()">Hauptmenü</button></div>`;
+  const wrong=c.wrong.length?`<h3>Falsch beantwortete Aufgaben</h3>${c.wrong.map(x=>reviewHtml(x.q,x.a,x.i)).join('')}`:'<p class="ok">Alle Aufgaben richtig.</p>';
+  $('screen').innerHTML=`<div class="start">${head}${btns}${wrong}</div>`;
+}
+
+/* ---------- Karteikarten mit Leitner-Logik ---------- */
+const CARD_DAYS=[0,1,3,7,14,30];
+function getCardState(){return lsGet('cards',{})}
+function cardDue(id,cs){const e=(cs||getCardState())[id];return !e||!e.due||Date.parse(e.due)<=Date.now()}
+function cardsFor(sel){
+  const cs=getCardState();let list=KARTEN.filter(k=>sel==='all'||sel==='due'||k.bereich===sel);
+  if(sel==='due')list=list.filter(k=>cardDue(k.id,cs));
+  list=shuffle(list.slice(),Math.random);
+  return list.map((k,i)=>({k,i,d:cardDue(k.id,cs)?0:1})).sort((a,b)=>a.d-b.d||a.i-b.i).map(x=>x.k);
+}
+function cardSelLabel(sel){return sel==='all'?'alle Bereiche':sel==='due'?'fällige Karten':sel}
+function startCardsSel(sel,n){let list=cardsFor(sel);if(n!=='all')list=list.slice(0,Number(n)||40);if(!list.length){modal('Keine Karten','Für diese Auswahl sind gerade keine Karten fällig.');return}startCards(list,{title:'Karteikarten: '+cardSelLabel(sel)})}
+function startCardsFromStart(){startCardsSel($('cardSel')?.value||'all',$('cardCount')?.value||'40')}
+function startCards(list,opts){setView('cards','Karteikarten','Karteikarten');CS=Object.assign({list,i:0,flip:false,known:0,unknown:[],title:'Karteikarten',done:null,intro:''},opts||{});renderCard()}
+function renderCard(){
+  const c=CS.list[CS.i],n=CS.list.length;
+  $('band').textContent=c.bereich||'Karteikarten';
+  $('screen').innerHTML=`<div class="start"><div class="lessonTop"><strong>${escapeHtml(CS.title)}</strong><span class="small muted"><strong>${CS.i+1} von ${n}</strong></span></div><div class="progress"><div style="width:${Math.round(CS.i/n*100)}%"></div></div>${CS.intro&&CS.i===0&&!CS.flip?`<p class="small muted">${escapeHtml(CS.intro)}</p>`:''}<div class="flashcard${CS.flip?' back':''}" onclick="flipCard()" role="button" tabindex="0"><div class="small muted">${CS.flip?'Rückseite':'Vorderseite'} · ${escapeHtml(c.bereich||'')}</div><div class="fcText">${escapeHtml(CS.flip?c.hinten:c.vorne)}</div>${CS.flip&&c.quelle?`<div class="small muted">Quelle: ${escapeHtml(c.quelle)}</div>`:''}${CS.flip?'':'<div class="small muted">Tippen Sie auf die Karte, um sie umzudrehen.</div>'}</div><div class="row cardBtns">${CS.flip?'<button class="btn" onclick="rateCard(true)">Gewusst</button><button class="btn secondary" onclick="rateCard(false)">Nicht gewusst</button>':'<button class="btn" onclick="flipCard()">Karte umdrehen</button>'}<button class="btn secondary" onclick="endCards()">${CS.done?'Überspringen':'Beenden'}</button></div></div>`;
+}
+function flipCard(){if(!CS)return;CS.flip=!CS.flip;renderCard()}
+function rateCard(ok){
+  const c=CS.list[CS.i],cs=getCardState(),e=cs[c.id]||{box:0};
+  if(ok){e.box=Math.min(5,(e.box||0)+1);CS.known++}else{e.box=1;CS.unknown.push(c)}
+  e.due=new Date(Date.now()+(ok?CARD_DAYS[e.box]:0)*DAY).toISOString();cs[c.id]=e;lsSet('cards',cs);
+  CS.i++;CS.flip=false;if(CS.i>=CS.list.length)cardSummary();else renderCard();
+}
+function cardsDone(){const f=CS&&CS.done;if(f)f();else showStart()}
+function endCards(){if(CS.done)cardsDone();else cardSummary()}
+function repeatUnknown(){startCards(CS.unknown.slice(),{title:CS.title,done:CS.done})}
+function cardSummary(){
+  const done=CS.known+CS.unknown.length;
+  $('screen').innerHTML=`<div class="start"><h2>Zusammenfassung</h2><p>Sie haben ${done} von ${CS.list.length} Karten bearbeitet.</p><table class="resulttable"><tr><th>Gewusst</th><td>${CS.known}</td></tr><tr><th>Nicht gewusst</th><td>${CS.unknown.length}</td></tr></table><p class="small muted">Gewusste Karten kommen nach 1, 3, 7, 14 und 30 Tagen wieder. Nicht gewusste Karten bleiben sofort fällig.</p><div class="row">${CS.done?'<button class="btn" onclick="cardsDone()">Weiter zum Ergebnis</button>':''}${CS.unknown.length?`<button class="btn${CS.done?' secondary':''}" onclick="repeatUnknown()">Nicht gewusste wiederholen</button>`:''}${CS.done?'':'<button class="btn secondary" onclick="showStart()">Hauptmenü</button>'}</div></div>`;
+}
+
+/* ---------- Lernplan ---------- */
+const WD_SETS={1:[6],2:[2,4],3:[1,3,5],4:[1,2,4,5],5:[1,2,3,4,5],6:[1,2,3,4,5,6],7:[0,1,2,3,4,5,6]};
+function getPlan(){return lsGet('plan',null)}
+function setPlan(p){lsSet('plan',p)}
+function weakAreas(){const agg=aggregateHistory(getHistory()).cat;return areaList().filter(a=>a!=='Einstieg').map((a,i)=>{const v=agg[a];return {a,i,p:v&&v.n>=5?pct(v.c,v.n):-1}}).sort((x,y)=>x.p-y.p||x.i-y.i).map(x=>x.a)}
+function planBuild(pl){
+  if(!pl||!pl.exam)return null;
+  const today=berlinDay(),start=pl.start&&pl.start<=today?pl.start:today,res={exam:pl.exam,daysLeft:dayDiff(today,pl.exam),days:[],compressed:false,over:false,count:{}};
+  if(res.daysLeft<=0){res.over=true;return res}
+  res.compressed=dayDiff(start,pl.exam)<7;
+  const set=new Set(WD_SETS[pl.perWeek]||WD_SETS[5]),last=dayAdd(pl.exam,-1),dates=[];
+  for(let k=start;k<pl.exam;k=dayAdd(k,1)){if(res.compressed||k===start||k===last||set.has(dayWd(k)))dates.push(k)}
+  const L=dates.length,D=L-1,areas=areaList();
+  let p1,p2,p3;
+  if(res.compressed){p1=D>0?Math.max(1,Math.ceil(D/2)):0;p3=D-p1;p2=0}
+  else{p1=Math.max(1,Math.round(D*0.5));p3=Math.max(Math.min(3,D-p1),Math.round(D*0.2));p2=Math.max(0,D-p1-p3);p3=D-p1-p2}
+  if(p1>areas.length){p2+=p1-areas.length;p1=areas.length}
+  const weak=weakAreas();let j2=0,j3=0;
+  dates.forEach((k,i)=>{
+    let phase,tasks=[];
+    if(i===L-1){phase='Wiederholung';tasks=[{act:'cards',arg:'due',label:'Karteikarten: fällige Karten wiederholen'},{act:'info',label:'Werteübersicht 2026 durchsehen'}]}
+    else if(i<p1){phase='Grundlagen';const ch=areas.slice(Math.floor(i*areas.length/p1),Math.floor((i+1)*areas.length/p1)),n=ch.length>1?20:30;ch.forEach(b=>{if(lessonFor(b))tasks.push({act:'lesson',arg:b,label:'Einführung durcharbeiten: '+b});tasks.push({act:'check',arg:b,label:'Verständnis-Check: '+b});if(b!=='Einstieg')tasks.push({act:'learn',arg:'C|'+b,n,label:n+' Übungsaufgaben: '+b})})}
+    else if(i<p1+p2){phase='Vertiefen';const b=weak[j2%Math.max(1,weak.length)]||'Private Vorsorge';j2++;tasks=[{act:'learn',arg:'C|'+b,n:30,label:'30 Aufgaben im schwächsten Bereich: '+b},{act:'learn',arg:'S|numeric',n:20,label:'20 Rechenaufgaben'},{act:'kartei',label:'Fehlerkartei üben'},{act:'cards',arg:'due',label:'Karteikarten: fällige Karten'}]}
+    else{phase='Prüfungstraining';const t=(Math.floor(j3/2)%2)+1;tasks=j3%2===0?[{act:'exam',label:'Vollprüfung unter Prüfungsbedingungen'}]:[{act:'part',arg:t,label:'Prüfungsteil '+t+' einzeln'}];j3++;tasks.push({act:'kartei',label:'Fehlerkartei üben'})}
+    res.count[phase]=(res.count[phase]||0)+1;res.days.push({date:k,phase,tasks});
+  });
+  return res;
+}
+function planGoal(pl){const P=planBuild(pl);if(!P||P.over)return null;const today=berlinDay(),rest=P.days.filter(d=>d.date>=today).length||1,s=seenMap();let open=0;new Set(BANK.map(baseKey)).forEach(k=>{if(!s[k])open++});return Math.min(80,Math.max(20,Math.ceil(open/rest)))}
+function runTask(date,j){const P=planBuild(getPlan());const d=P&&P.days.find(x=>x.date===date);const t=d&&d.tasks[j];if(!t)return;
+  switch(t.act){case 'lesson':return openLesson(t.arg);case 'check':return startCheck(t.arg);case 'learn':return startLearning(t.arg,String(t.n||20));case 'kartei':return startKartei();case 'cards':return startCardsSel(t.arg||'due','40');case 'exam':return startExam();case 'part':return startExamPart(t.arg);case 'info':return showInfo()}}
+function toggleDone(date,on){const pl=getPlan();if(!pl)return;pl.done=pl.done||{};if(on)pl.done[date]=true;else delete pl.done[date];setPlan(pl)}
+function doneBox(pl,date){return `<label class="doneBox"><input type="checkbox"${pl.done&&pl.done[date]?' checked':''} onchange="toggleDone('${date}',this.checked)"> erledigt</label>`}
+function tasksHtml(d){return `<ul class="taskList">${d.tasks.map((t,j)=>`<li><span>${escapeHtml(t.label)}</span><button class="btn secondary" onclick="runTask('${d.date}',${j})">Starten</button></li>`).join('')}</ul>`}
+function planStartCard(){
+  const pl=getPlan();
+  if(!pl)return '<div class="card"><h3>Lernplan</h3><p>Planen Sie Ihre Vorbereitung Tag für Tag bis zum Prüfungstermin. Die App verteilt Einführungen, Übungen und Prüfungstraining.</p><button class="btn" onclick="showPlan(true)">Lernplan erstellen</button></div>';
+  const P=planBuild(pl),today=berlinDay();
+  if(P.over)return '<div class="card"><h3>Lernplan</h3><p>Der Prüfungstermin ist erreicht. Sie können einen neuen Plan erstellen.</p><button class="btn secondary" onclick="showPlan(true)">Neuen Plan erstellen</button></div>';
+  const d=P.days.find(x=>x.date===today),n=P.days.find(x=>x.date>today),left=`Noch <strong>${P.daysLeft} ${P.daysLeft===1?'Tag':'Tage'}</strong> bis zur Prüfung.`;
+  if(!d)return `<div class="card resumeCard"><h3>Heute laut Lernplan</h3><p>${left} Heute ist kein Lerntag.${n?' Nächster Lerntag: '+escapeHtml(dayLabel(n.date))+'.':''}</p><button class="btn secondary" onclick="showPlan()">Lernplan öffnen</button></div>`;
+  return `<div class="card resumeCard"><h3>Heute laut Lernplan</h3><p>${left} Phase: <strong>${d.phase}</strong>.</p>${tasksHtml(d)}${doneBox(pl,d.date)}<p><button class="btn secondary" onclick="showPlan()">Lernplan öffnen</button></p></div>`;
+}
+function showPlan(edit){
+  setView('plan','Lernplan','Lernplan');
+  const pl=getPlan(),today=berlinDay();
+  let html='<div class="start"><p><button class="btn secondary" onclick="showStart()">Hauptmenü</button></p><h2>Lernplan</h2>';
+  if(!pl||edit){
+    html+=`<p>Geben Sie Ihren Prüfungstermin und Ihre Lerntage pro Woche ein. Die App plant dann jeden Lerntag bis zur Prüfung.</p><div class="card" style="max-width:520px"><div class="field"><label for="planDate">Prüfungsdatum</label><input type="date" id="planDate" min="${dayAdd(today,1)}" value="${pl?escapeAttr(pl.exam):''}"></div><div class="field"><label for="planDays">Lerntage pro Woche</label><select id="planDays">${[1,2,3,4,5,6,7].map(n=>`<option value="${n}"${n===((pl&&pl.perWeek)||5)?' selected':''}>${n} ${n===1?'Lerntag':'Lerntage'}</option>`).join('')}</select></div><p id="planMsg" class="small"></p><div class="row"><button class="btn" onclick="savePlan()">Plan erstellen</button>${pl?'<button class="btn secondary" onclick="showPlan()">Abbrechen</button>':''}</div></div><p class="small muted">Phase 1 Grundlagen: Einführungen, Verständnis-Checks und Übungen je Bereich. Phase 2 Vertiefen: schwächste Bereiche, Rechenaufgaben, Fehlerkartei und Karteikarten. Phase 3 Prüfungstraining: Vollprüfungen und Prüfungsteile. Am letzten Tag nur Wiederholung.</p>`;
+    $('screen').innerHTML=html+'</div>';return;
+  }
+  const P=planBuild(pl);
+  if(P.over){$('screen').innerHTML=html+`<p>Ihr Prüfungstermin am ${escapeHtml(dayLong(pl.exam))} liegt nicht mehr in der Zukunft.</p><div class="row"><button class="btn" onclick="showPlan(true)">Neuen Plan erstellen</button></div></div>`;return}
+  const d=P.days.find(x=>x.date===today),n=P.days.find(x=>x.date>today),goal=planGoal(pl);
+  html+=`${P.compressed?'<div class="scoringNote"><strong>Verdichteter Plan.</strong> Bis zur Prüfung sind es weniger als 7 Tage. Darum stehen mehrere Bereiche an einem Tag, und das Prüfungstraining beginnt früh.</div>':''}<div class="cards"><div class="card"><h3>Tage bis zur Prüfung</h3><p><strong style="font-size:28px">${P.daysLeft}</strong></p><p>Prüfung am ${escapeHtml(dayLong(pl.exam))}. ${pl.perWeek} Lerntage pro Woche. Tagesziel: ${goal} Aufgaben.</p><p>${Object.entries(P.count).map(([k,v])=>`<span class="pill">${k}: ${v} ${v===1?'Tag':'Tage'}</span>`).join('')}</p><div class="row"><button class="btn secondary" onclick="showPlan(true)">Plan ändern</button><button class="btn secondary" onclick="deletePlan()">Plan löschen</button></div></div><div class="card resumeCard"><h3>Heute</h3>${d?`<p>Phase: <strong>${d.phase}</strong></p>${tasksHtml(d)}${doneBox(pl,d.date)}`:`<p>Heute ist kein Lerntag.${n?' Nächster Lerntag: '+escapeHtml(dayLabel(n.date))+'.':''}</p>`}</div></div>`;
+  const weeks=new Map();P.days.forEach(x=>{const w=dayAdd(x.date,-((dayWd(x.date)+6)%7));if(!weeks.has(w))weeks.set(w,[]);weeks.get(w).push(x)});
+  html+='<h3>Wochenliste</h3><div class="planWeeks">'+[...weeks].map(([w,ds],wi)=>`<div class="planWeek"><strong>Woche ${wi+1}, ab ${escapeHtml(dayLabel(w))}</strong>${ds.map(x=>`<div class="planDay${x.date===today?' today':''}${x.date<today?' past':''}"><div class="planDayHead"><span><strong>${escapeHtml(dayLabel(x.date))}</strong> · ${x.phase}${x.date===today?' · heute':''}</span>${doneBox(pl,x.date)}</div><div class="small">${x.tasks.map(t=>escapeHtml(t.label)).join(', ')}</div></div>`).join('')}</div>`).join('')+'</div>';
+  $('screen').innerHTML=html+'</div>';
+}
+async function savePlan(){
+  const d=($('planDate').value||'').trim(),n=Number($('planDays').value||5),today=berlinDay(),m=$('planMsg');
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(d)){m.innerHTML='<span class="bad">Bitte wählen Sie ein Prüfungsdatum.</span>';return}
+  if(d<=today){m.innerHTML='<span class="bad">Das Prüfungsdatum muss in der Zukunft liegen.</span>';return}
+  const pl={exam:d,perWeek:n,start:today,done:{}};setPlan(pl);const goal=planGoal(pl);showPlan();
+  if(AUTH.user)try{await sbFetch('/rest/v1/profiles?id=eq.'+AUTH.user.id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({exam_date:d,daily_goal:goal})})}catch(e){}
+}
+function deletePlan(){askConfirm('Lernplan löschen?','Der Lernplan wird gelöscht. Ihre Ergebnisse bleiben erhalten.','Plan löschen',async()=>{setPlan(null);showStart();if(AUTH.user)try{await sbFetch('/rest/v1/profiles?id=eq.'+AUTH.user.id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({exam_date:null,daily_goal:null})})}catch(e){}})}
+
+/* ---------- Startbildschirm ergänzen ---------- */
+function lernbereichCard(){const ls=getLessons(),areas=areaList(),passed=areas.filter(b=>ls[b]&&ls[b].passed).length;return `<div class="card"><h3>Lernbereich: Einführungen</h3><p>Geführte Einführungen zu allen Bereichen, Schritt für Schritt erklärt. Mit Verständnis-Check und Karteikarten.</p><p class="small muted">${passed} von ${areas.length} Kapiteln bestanden.</p><button class="btn" onclick="showAreas()">Lernbereich öffnen</button></div>`}
+function karteiCard(){const it=karteiItems(),due=it.filter(x=>isDue(x.e)).length;return `<div class="card"><h3>Fehlerkartei</h3>${it.length?`<p><strong>${due}</strong> ${due===1?'Aufgabe ist':'Aufgaben sind'} heute fällig. In der Kartei: ${it.length}.</p>`:'<p>Die Kartei ist leer. Falsch beantwortete Aufgaben landen automatisch hier.</p>'}<p class="small muted">Wiederholung nach 1, 3 und 7 Tagen. Nach drei richtigen Antworten in Folge verlässt eine Aufgabe die Kartei.</p><button class="btn" onclick="startKartei()"${it.length?'':' disabled'}>Fehlerkartei üben</button></div>`}
+function cardsCard(){
+  const cs=getCardState(),due=KARTEN.filter(k=>cardDue(k.id,cs)).length,cnt={};KARTEN.forEach(k=>{cnt[k.bereich]=(cnt[k.bereich]||0)+1});
+  const bs=[...new Set([...areaList(),...Object.keys(cnt)])].filter(b=>cnt[b]);
+  return `<div class="card"><h3>Karteikarten</h3><p>Zahlen, Fristen und Begriffe wiederholen. ${due} von ${KARTEN.length} Karten sind fällig.</p><div class="field"><label for="cardSel">Auswahl</label><select id="cardSel"><option value="all">Alle Karten (${KARTEN.length})</option><option value="due">Nur fällige Karten (${due})</option>${bs.map(b=>`<option value="${escapeAttr(b)}">${escapeHtml(b)} (${cnt[b]})</option>`).join('')}</select></div><div class="field"><label for="cardCount">Anzahl</label><select id="cardCount"><option value="20">20 Karten</option><option value="40" selected>40 Karten</option><option value="all">Alle Karten der Auswahl</option></select></div><button class="btn" onclick="startCardsFromStart()">Karteikarten starten</button></div>`;
+}
+function enhanceStart(){
+  const start=document.querySelector('#screen .start');if(!start)return;
+  const cards=start.querySelector('.cards');if(!cards)return;
+  const intro=start.querySelector('h2+p')||cards;
+  const top=document.createElement('div');top.className='cards topCards';top.innerHTML=lernbereichCard()+planStartCard()+dailyHtml();
+  const amp=document.createElement('div');amp.innerHTML=ampelHtml();
+  intro.after(top);top.after(amp.firstElementChild);
+  const extra=document.createElement('div');extra.innerHTML=karteiCard()+cardsCard();
+  const resume=cards.querySelector('.resumeCard');const els=[...extra.children];
+  if(resume)resume.after(...els);else cards.prepend(...els);
+  const sel=$('studyTopic');if(sel){const f=sel.closest('.field');const d=document.createElement('div');d.className='field checkRow';d.innerHTML='<label><input type="checkbox" id="fNeu"> nur neue Aufgaben</label><label><input type="checkbox" id="fUnseen"> nur noch nicht gesehene</label>';if(f)f.after(d)}
+  const nNeu=new Set(BANK.filter(q=>q.neu).map(baseKey)).size,nEx=new Set(BANK.filter(q=>Array.isArray(q.optExpl)&&q.optExpl.length).map(baseKey)).size;
+  const pills=[...start.querySelectorAll('p')].filter(p=>p.querySelector('.pill')).pop();
+  if(pills)pills.insertAdjacentHTML('beforeend',`<span class="pill">${nNeu} neue Grundaufgaben</span><span class="pill">${nEx} Grundaufgaben mit Begründung je Antwort</span><span class="pill">${LEKTIONEN.length} Einführungen</span><span class="pill">${KARTEN.length} Karteikarten</span>`);
+}
+function showStart(){
+  wideOn();v8ShowStart();
+  try{enhanceStart()}catch(e){console.warn('Start',e)}
+  flushProgress().catch(()=>{});
 }
 
 /* ---------- Start ---------- */
