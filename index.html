@@ -33,6 +33,26 @@
 .doneBox{display:inline-flex;align-items:center;gap:6px;font-size:14px;cursor:pointer}.planWeeks{max-height:460px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:8px 10px}.planWeek{margin:6px 0 12px}
 .planDay{border:1px solid #cbd3df;border-radius:7px;padding:8px 10px;margin:6px 0;background:#fff}.planDay.today{border:2px solid #0a2f66;background:#eff6ff}.planDay.past{opacity:.7}.planDayHead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.tableScroll{overflow-x:auto}
 @media(max-width:800px){.cards{grid-template-columns:minmax(0,1fr)}.ampel{grid-template-columns:repeat(auto-fit,minmax(96px,1fr))}body.wideContent .left{display:none}body.wideContent .main{grid-template-columns:minmax(0,1fr)}.fcText{font-size:18px}.flashcard{min-height:170px}.taskList li{flex-wrap:wrap}.lesson .lessonBody h2{font-size:22px}}
+@media(max-width:800px){
+.top .title{padding:10px 16px}.top .title h1{font-size:16px;line-height:1.3;margin:0}.top .title p{font-size:12px;margin:2px 0 0}
+.band{height:auto;padding:8px 16px;font-size:16px}
+.main{grid-template-columns:minmax(0,1fr)!important;display:flex;flex-direction:column}
+.left{min-height:0!important;height:auto;border-bottom:1px solid #cbd3df;order:-1}
+.left .timer{position:static;display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 12px;font-size:13px}
+.left .timer .glass{font-size:18px;display:inline;margin:0}
+body:not(.inExam) .left{display:none}
+.content{padding:0 14px 16px}.sectionbar{margin:0 -14px 14px -14px}
+.bottom{height:auto;min-height:52px;padding:6px 8px calc(6px + env(safe-area-inset-bottom));gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.bottom::-webkit-scrollbar{display:none}
+.bottom .btn{padding:7px 10px;font-size:13px;flex:0 0 auto}
+.btn,button{min-height:40px}
+input,select,textarea{font-size:16px!important}
+.options label,.option{padding:10px 8px;min-height:44px}
+.card{padding:14px}.start{padding:16px 14px}
+.modalbox{width:calc(100vw - 20px)!important;max-height:calc(100vh - 20px);overflow:auto}
+table{display:block;max-width:100%;overflow-x:auto}
+}
+
 </style>
 </head>
 <body>
@@ -1236,6 +1256,9 @@ async function boot(){
   if(!AUTH.session){showLogin('Ihre Anmeldung ist abgelaufen. Bitte melden Sie sich erneut an.','login');return}
   await afterLogin();
 }
+
+// Handy: Zeitleiste nur bei aktiver Prüfung oder Lerneinheit zeigen
+if(typeof toggleControls==='function'){const _tcMobil=toggleControls;toggleControls=function(on){document.body.classList.toggle('inExam',!!on);return _tcMobil.apply(this,arguments)}}
 
 boot();
 </script>
