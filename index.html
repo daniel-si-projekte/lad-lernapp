@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>LAD 34d Lernapp</title>
+<meta name="robots" content="noindex,nofollow"/>
+<meta name="theme-color" content="#0a2f66"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="LAD 34d"/>
+<link rel="manifest" href="manifest.webmanifest"/>
+<link rel="icon" href="icons/icon-192.png"/>
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png"/>
+<style>
+:root{--blue:#0a2f66;--blue2:#143d78;--light:#f2f4f7;--mid:#d9dee7;--text:#1f2937;--ok:#0f7b43;--bad:#b42318;--warn:#b7791f;--panel:#eef1f6;--line:#cbd3df;}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#e9edf3;font-size:16px}.app{height:100vh;display:flex;flex-direction:column;max-width:1280px;margin:0 auto;background:#fff;box-shadow:0 0 18px rgba(0,0,0,.18)}.top{height:110px;display:grid;grid-template-columns:1fr 155px;align-items:stretch;background:#eef0f3;border-bottom:1px solid #c9ced8}.title{padding:28px 30px 12px 32px}.title h1{font-size:22px;margin:0 0 10px;font-weight:500}.title p{font-size:18px;margin:0}.logo{display:flex;align-items:flex-start;justify-content:center;padding-top:20px}.logo .box{background:var(--blue2);color:#fff;font-size:31px;font-weight:bold;padding:16px 20px;letter-spacing:1px}.band{height:46px;background:#c7ccd2;display:flex;align-items:center;padding-left:32px;font-size:22px;color:#5b6675}.main{flex:1;display:grid;grid-template-columns:150px 1fr 158px;min-height:0}.left{background:#dfe4ea;border-right:1px solid #c9ced8;position:relative}.timer{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:13px;color:#27364d}.timer .glass{font-size:42px;color:var(--blue);display:block;margin-bottom:6px}.content{padding:0 30px 24px 30px;overflow:auto}.right{background:linear-gradient(180deg,#243f73,#122a55);}.sectionbar{height:36px;background:#9da4ad;color:#fff;display:flex;align-items:center;padding:0 16px;margin:0 -30px 26px -30px}.sectionbar .task{background:#777f89;padding:7px 18px;margin-left:14px;min-width:210px}.question p{line-height:1.35;margin:0 0 18px}.prompt{white-space:pre-line;line-height:1.38;margin:0 0 18px}.options{margin-top:18px}.opt{display:flex;align-items:flex-start;gap:12px;margin:14px 0;line-height:1.3;cursor:pointer}.opt input{transform:scale(1.35);margin-top:2px}.opt.correct span{color:var(--ok);font-weight:bold}.opt.wrong span{color:var(--bad);font-weight:bold}.short input{font-size:18px;padding:10px;width:260px;border:1px solid #aab2bd;border-radius:4px}.bottom{height:54px;background:#092b63;display:flex;align-items:center;gap:12px;padding:0 14px;color:#fff}.btn{border:2px solid rgba(255,255,255,.8);background:#183c77;color:#fff;border-radius:6px;padding:7px 13px;font-weight:600;cursor:pointer}.btn:hover{background:#28518f}.btn:disabled{opacity:.45;cursor:not-allowed}.btn.secondary{background:#eef1f6;color:#0b2e66;border-color:#cad0dc}.btn.danger{margin-left:auto;background:#2b3f6f}.btn.warn{background:#8a3d16}.navbtn{font-size:22px;padding:3px 10px;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center}.start{padding:34px 40px}.start h2{font-size:28px;margin:0 0 14px}.start h3{margin:22px 0 8px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:24px}.card{border:1px solid #cbd3df;border-radius:8px;padding:18px;background:#f8fafc}.card h3{margin:0 0 8px;font-size:20px}.card p{margin:6px 0;line-height:1.35}.card button{margin-top:12px}.pill{display:inline-block;background:#e1e7f2;color:#0a2f66;border-radius:999px;padding:4px 10px;font-size:13px;margin:2px}.modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;z-index:10}.modal.on{display:flex}.modalbox{background:#fff;border-radius:9px;max-width:980px;width:92vw;max-height:85vh;overflow:auto;padding:22px;box-shadow:0 20px 50px rgba(0,0,0,.3)}.modalbox h2,.modalbox h3{margin-top:0}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:8px}.qcell{padding:9px 0;text-align:center;border:1px solid #aab2bd;background:#f7f9fc;border-radius:5px;cursor:pointer;font-weight:600}.qcell.answered{background:#dbeafe}.qcell.marked{outline:3px solid #f59e0b}.qcell.current{background:#1e3a8a;color:#fff}.qcell.bad{background:#fee2e2}.qcell.good{background:#dcfce7}.notes{width:100%;min-height:180px;font-size:16px;padding:10px}.calc{display:grid;grid-template-columns:1fr;gap:10px}.calc input{font-size:22px;padding:10px}.calc .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.calc button{padding:14px;font-size:18px}.feedback{border-top:1px solid #cbd3df;margin-top:18px;padding-top:15px}.ok{color:var(--ok);font-weight:bold}.bad{color:var(--bad);font-weight:bold}.warntext{color:var(--warn);font-weight:bold}.muted{color:#657386}.resulttable{border-collapse:collapse;width:100%;margin:15px 0}.resulttable th,.resulttable td{border:1px solid #cbd3df;padding:9px;text-align:left;vertical-align:top}.resulttable th{background:#eef1f6}.pass{background:#dcfce7}.fail{background:#fee2e2}.midpass{background:#fef3c7}.progress{height:8px;background:#e5e7eb;border-radius:5px;overflow:hidden;margin:12px 0}.progress div{height:100%;background:#1e3a8a;width:0}.small{font-size:13px}.sourcebox{background:#f8fafc;border:1px solid #cbd3df;padding:12px;border-radius:6px;line-height:1.45} .hidden{display:none}.review-item{border:1px solid #d1d5db;border-radius:8px;padding:0;margin:12px 0;background:#fff}.review-item summary{cursor:pointer;padding:12px 14px;font-weight:bold}.review-body{padding:0 14px 14px}.statusline{display:flex;align-items:center;justify-content:space-between;margin:0 0 16px}.statusline .tags{display:flex;gap:6px;flex-wrap:wrap}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.field{display:flex;flex-direction:column;gap:6px;margin:8px 0}.field label{font-weight:bold;font-size:14px}.field input,.field select{font-size:16px;padding:9px;border:1px solid #aab2bd;border-radius:5px;background:#fff}.historyCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px}.statCard{border:1px solid var(--line);border-radius:8px;padding:10px;background:#fff}.bar{height:9px;background:#e1e5eb;border-radius:10px;overflow:hidden;margin-top:6px}.bar span{display:block;height:100%;background:#143c78}.historyScroll{max-height:390px;overflow:auto;border:1px solid var(--line);border-radius:8px}.twoCols{display:grid;grid-template-columns:1fr 1fr;gap:16px}.kbd{font-family:Consolas,monospace;background:#eef1f6;border:1px solid #cbd3df;border-radius:4px;padding:1px 5px}.inputHint{font-size:13px;font-weight:bold;margin-top:8px;color:#111827}.reviewControls{position:sticky;top:0;background:#fff;border:1px solid #d1d5db;border-radius:8px;padding:10px;margin:12px 0;z-index:1}.resultActionsTop{position:sticky;top:0;background:#fff;border:2px solid #143d78;border-radius:8px;padding:12px;margin:0 0 18px;z-index:4;box-shadow:0 8px 18px rgba(15,23,42,.12)}.resultActionsTop strong{font-size:18px}.resultActionsTop p{margin:6px 0 8px}.primaryAction{background:#0a2f66!important;color:#fff!important;border-color:#0a2f66!important}.brandNotice{font-size:13px;color:#657386;margin-top:8px}@media(max-width:800px){.app{height:auto;min-height:100vh}.top{grid-template-columns:1fr; height:auto}.logo{display:none}.main{grid-template-columns:80px 1fr}.right{display:none}.content{padding:0 16px 20px}.sectionbar{margin:0 -16px 18px -16px}.bottom{position:sticky;bottom:0;overflow:auto}.title{padding:20px 18px}.left{min-height:500px}.btn{white-space:nowrap}.twoCols{grid-template-columns:1fr}.start{padding:24px 18px}}
+
+.infoPages{display:flex;flex-direction:column;gap:18px;margin-top:12px}.infoPage{background:#fff;border:1px solid #cbd3df;border-radius:6px;padding:10px}.infoPage img{width:100%;height:auto;display:block}.modalbox.infoModal{max-width:1080px}.glossaryTools{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 14px}.glossaryTools input{font-size:16px;padding:10px;border:1px solid #aab2bd;border-radius:6px;min-width:260px;flex:1}.glossaryList{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}.glossaryItem{border:1px solid #cbd3df;border-radius:8px;background:#f8fafc;padding:12px}.glossaryItem strong{display:block;margin-bottom:6px;color:#0a2f66}.profileBadge{display:inline-block;background:#eef1f6;border:1px solid #cbd3df;border-radius:999px;padding:5px 10px;margin:4px 0;color:#0a2f66;font-weight:bold}.profileGrid{display:grid;grid-template-columns:1fr;gap:8px}.profileGrid select,.profileGrid input{font-size:16px;padding:9px;border:1px solid #aab2bd;border-radius:5px;background:#fff}.infoHint{font-size:13px;color:#657386;margin:6px 0}.modalbox.wide{max-width:1120px}.topicNote{font-size:13px;color:#657386;margin-top:4px}
+.qcell.locked{background:#e5e7eb;color:#7b8491;cursor:not-allowed}.resumeCard{border:2px solid #0a2f66;background:#eff6ff}.scoringNote{background:#fff7ed;border:1px solid #fdba74;border-radius:7px;padding:11px 13px;line-height:1.4;margin:12px 0}.saveNotice{font-size:12px;color:#657386;margin-top:22px}.dataKind{background:#fef3c7;color:#854d0e}.unitSuffix{font-weight:700;margin-left:5px}.breakPanel{max-width:760px}.short{display:flex;align-items:center;gap:6px}@media(max-width:800px){.statusline{align-items:flex-start;gap:10px;flex-direction:column}.resulttable{font-size:14px}.resulttable th,.resulttable td{padding:7px}.short input{max-width:75vw}}</style>
+</head>
+<body>
+<div class="app">
+<div class="top"><div class="title"><h1>Prüfung: Geprüfte/r Fachmann/-frau für Versicherungsvermittlung IHK</h1><p id="subtitle">Proximus 5 Übungssimulation</p></div><div class="logo"><div class="box">LAD</div></div></div>
+<div class="band" id="band">Start</div>
+<div class="main"><aside class="left"><div class="timer"><span class="glass">⌛</span><div>Verbleibende Zeit:</div><div id="time">--:--</div></div></aside><main class="content" id="screen"></main><aside class="right"></aside></div>
+<div class="bottom"><button class="btn" id="overviewBtn">Übersicht</button><button class="btn navbtn" id="prevBtn">◀</button><button class="btn navbtn" id="nextBtn">▶</button><button class="btn" id="markBtn">Markieren</button><button class="btn" id="calcBtn">Rechnen</button><button class="btn" id="notesBtn">Notizen</button><button class="btn" id="infoBtn">Info</button><button class="btn" id="historyBtn">Historie</button><button class="btn danger" id="finishBtn">Prüfung beenden</button></div>
+</div>
+<div class="modal" id="modal"><div class="modalbox" id="modalbox"></div></div>
+<script>
+let BANK=[];
+const $=id=>document.getElementById(id);
+const OLD_HISTORY_KEY='history34d_proximus5_v1';
+const HISTORY_PREFIX='history34d_proximus5_v7_';
+const PROFILE_STORE_KEY='lad34d_profiles_v1';
+const ACTIVE_PROFILE_KEY='lad34d_active_profile_v1';
+const GROUPS={
+ A:{name:'A Private Vorsorge, gesetzliche Rentenversicherung, bAV',short:'A Private Vorsorge'},
+ B:{name:'B Unfall, Kranken, Pflege',short:'B Unfall, Kranken, Pflege'},
+ C:{name:'C Rechtliche Grundlagen',short:'C Rechtliche Grundlagen'},
+ D:{name:'D Hausrat und Gebäude',short:'D Hausrat, Gebäude'},
+ E:{name:'E Haftpflicht, Rechtsschutz, Kraftfahrt',short:'E Haftpflicht, Rechtsschutz, Kfz'}
+};
+const GROUP_ORDER=['A','B','C','D','E'];
+const EXAM_DIST={A:30,B:22,C:18,D:22,E:26};
+const EXAM_TYPE_TARGET={A:{short:5,multiple:4},B:{short:4,multiple:3},C:{short:1,multiple:3},D:{short:5,multiple:3},E:{short:4,multiple:4}};
+let INFO_PAGES=[];
+let GLOSSARY=[];
+let state={mode:'start',questions:[],answers:[],confirmed:[],marked:[],notes:[],current:0,seed:'',rng:null,timer:null,remaining:0,part1Done:false,startTime:0,topic:'all',learnCount:'40',finished:false};
+function hashSeed(str){let h=2166136261>>>0;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+function shuffle(a,rng){for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function escapeHtml(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function promptHtml(s){return escapeHtml(s).replace(/\n/g,'<br>')}
+function baseKey(q){return q.seed_id||q.uid||q.category+'|'+String(q.prompt).slice(0,80)}
+function getCategories(){return [...new Set(BANK.map(q=>q.category))].sort((a,b)=>a.localeCompare(b,'de'))}
+function topicOptions(){let html='<option value="all">Alle Bereiche</option>';html+='<option value="P|1">Prüfungsteil 1</option><option value="P|2">Prüfungsteil 2</option>';html+='<option value="S|numeric">Nur Rechenaufgaben</option><option value="S|triple">Nur Triple Choice Fragen</option>';html+='<option disabled>──────────</option>';GROUP_ORDER.forEach(g=>{html+=`<option value="G|${g}">${GROUPS[g].short}</option>`});html+='<option disabled>──────────</option>';getCategories().forEach(c=>{html+=`<option value="C|${escapeAttr(c)}">${escapeHtml(c)}</option>`});return html}
+
+function escapeAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;')}
+function topicLabel(v){if(!v||v==='all')return 'Alle Bereiche';if(v==='P|1')return 'Prüfungsteil 1';if(v==='P|2')return 'Prüfungsteil 2';if(v==='S|numeric')return 'Nur Rechenaufgaben';if(v==='S|triple')return 'Nur Triple Choice Fragen';if(v.startsWith('G|'))return GROUPS[v.slice(2)]?.short||v;if(v.startsWith('C|'))return v.slice(2);return v}
+
+function filteredByTopic(topic){if(!topic||topic==='all')return BANK.slice();if(topic==='P|1')return BANK.filter(q=>(q.part||1)===1);if(topic==='P|2')return BANK.filter(q=>(q.part||1)===2);if(topic==='S|numeric')return BANK.filter(q=>q.numeric===true);if(topic==='S|triple')return BANK.filter(q=>q.type==='multiple'&&Array.isArray(q.answer)&&q.answer.length===3);if(topic.startsWith('G|'))return BANK.filter(q=>q.group===topic.slice(2));if(topic.startsWith('C|'))return BANK.filter(q=>q.category===topic.slice(2));return BANK.slice()}
+
+
+function makeProfileId(){return 'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,9)}
+function getProfiles(){let ps=[];try{ps=JSON.parse(localStorage.getItem(PROFILE_STORE_KEY)||'[]')}catch(e){ps=[]}if(!Array.isArray(ps)||!ps.length){let id=makeProfileId();ps=[{id,name:'Mein Profil'}];try{localStorage.setItem(PROFILE_STORE_KEY,JSON.stringify(ps));localStorage.setItem(ACTIVE_PROFILE_KEY,id);let old=localStorage.getItem(OLD_HISTORY_KEY);if(old&&!localStorage.getItem(HISTORY_PREFIX+id))localStorage.setItem(HISTORY_PREFIX+id,old)}catch(e){}}return ps}
+function saveProfiles(ps){try{localStorage.setItem(PROFILE_STORE_KEY,JSON.stringify(ps))}catch(e){}}
+function getActiveProfile(){let ps=getProfiles();let id=localStorage.getItem(ACTIVE_PROFILE_KEY);let p=ps.find(x=>x.id===id)||ps[0];if(p)try{localStorage.setItem(ACTIVE_PROFILE_KEY,p.id)}catch(e){}return p||{id:'default',name:'Mein Profil'}}
+function historyStorageKey(){return HISTORY_PREFIX+getActiveProfile().id}
+function profileOptions(){let active=getActiveProfile();return getProfiles().map(p=>`<option value="${escapeAttr(p.id)}" ${p.id===active.id?'selected':''}>${escapeHtml(p.name)}</option>`).join('')}
+function activateProfile(id){let ps=getProfiles();if(ps.some(p=>p.id===id)){localStorage.setItem(ACTIVE_PROFILE_KEY,id);renderHistoryStart()}}
+function renameActiveProfile(){let input=$('profileName');if(!input)return;let name=input.value.trim()||'Mein Profil';let ps=getProfiles();let p=getActiveProfile();ps=ps.map(x=>x.id===p.id?{...x,name}:x);saveProfiles(ps);showStart()}
+function createProfile(){let name=prompt('Name des neuen Profils','Neues Profil');if(!name)return;let ps=getProfiles();let id=makeProfileId();ps.push({id,name:name.trim()||'Neues Profil'});saveProfiles(ps);localStorage.setItem(ACTIVE_PROFILE_KEY,id);showStart()}
+function deleteActiveProfile(){let ps=getProfiles();let active=getActiveProfile();if(ps.length<=1){alert('Mindestens ein Profil muss bestehen bleiben.');return}if(!confirm('Aktives Profil und dessen lokale Historie löschen?'))return;ps=ps.filter(p=>p.id!==active.id);try{localStorage.removeItem(HISTORY_PREFIX+active.id)}catch(e){}saveProfiles(ps);localStorage.setItem(ACTIVE_PROFILE_KEY,ps[0].id);showStart()}
+function profilePanelHtml(){let p=getActiveProfile();return `<div class="card"><h3>Profil</h3><p class="small muted">Die Historie wird lokal pro Profil gespeichert. Auf einem anderen Gerät oder in einem anderen Browser ist sie getrennt.</p><div class="profileGrid"><label>Aktives Profil</label><select id="profileSelect" onchange="activateProfile(this.value)">${profileOptions()}</select><label>Profilname</label><input id="profileName" value="${escapeAttr(p.name)}"></div><div class="row"><button class="btn secondary" onclick="renameActiveProfile()">Speichern</button><button class="btn secondary" onclick="createProfile()">Neues Profil</button><button class="btn secondary" onclick="deleteActiveProfile()">Profil löschen</button></div></div>`}
+
+function selectUnique(candidates,count,rng){let map=new Map();candidates.forEach(q=>{let k=baseKey(q);if(!map.has(k))map.set(k,[]);map.get(k).push(q)});let keys=[...map.keys()];shuffle(keys,rng);let out=[];for(const k of keys){let arr=map.get(k);out.push(clone(arr[Math.floor(rng()*arr.length)]));if(count!=='all'&&out.length>=count)break}if(count!=='all'&&out.length<count){let pool=candidates.map(clone);shuffle(pool,rng);for(const q of pool){out.push(q);if(out.length>=count)break}}
+return out}
+
+function selectExamGroup(group,count,rng){
+  const candidates=BANK.filter(q=>q.group===group);
+  const targets=EXAM_TYPE_TARGET[group]||{};
+  let picked=[];let used=new Set();
+  function pickType(type,n){
+    if(!n||n<=0)return;
+    let pool=candidates.filter(q=>q.type===type&&!used.has(baseKey(q)));
+    let sel=selectUnique(pool,n,rng);
+    sel.forEach(q=>{if(!used.has(baseKey(q))){picked.push(q);used.add(baseKey(q))}});
+  }
+  pickType('short',targets.short||0);
+  pickType('multiple',targets.multiple||0);
+  let fillPool=candidates.filter(q=>q.type==='single'&&!used.has(baseKey(q)));
+  let fill=selectUnique(fillPool,Math.max(0,count-picked.length),rng);
+  fill.forEach(q=>{if(!used.has(baseKey(q))&&picked.length<count){picked.push(q);used.add(baseKey(q))}});
+  if(picked.length<count){
+    let restPool=candidates.filter(q=>!used.has(baseKey(q)));
+    let rest=selectUnique(restPool,count-picked.length,rng);
+    rest.forEach(q=>{if(!used.has(baseKey(q))&&picked.length<count){picked.push(q);used.add(baseKey(q))}});
+  }
+  return picked.slice(0,count);
+}
+
+function prepareQuestions(list,rng){return list.map((q,idx)=>{let x=clone(q);x.part=x.part||(x.group==='D'||x.group==='E'?2:1);if(x.type==='single'||x.type==='multiple'){let pairs=(x.options||[]).map((t,i)=>({t,i}));shuffle(pairs,rng);x.shuffled=pairs.map(p=>p.t);if(x.type==='single'){x.correct=pairs.findIndex(p=>p.i===x.answer)}else{x.correct=pairs.map((p,i)=>Array.isArray(x.answer)&&x.answer.includes(p.i)?i:null).filter(v=>v!==null)}}else{x.correct=x.answer}x.sessionId=idx;return x})}
+function showStart(){clearInterval(state.timer);state={...state,mode:'start',questions:[],answers:[],confirmed:[],marked:[],notes:[],current:0,remaining:0,part1Done:false,finished:false};$('subtitle').textContent='Proximus 5 Übungssimulation';$('band').textContent='Start';$('time').textContent='--:--';$('finishBtn').textContent='Prüfung beenden';toggleControls(false);document.querySelector('.content').scrollTop=0;let active=getActiveProfile();$('screen').innerHTML=`<div class="start"><h2>LAD 34d Prüfungssimulation Proximus 5</h2><p>Prüfungsmodus, Lernmodus nach Themenbereich, Prüfungsteil, Rechenaufgaben und Triple Choice, Antwortbestätigung im Lernmodus, Zahlenfragen, Historie und Verzeichnis.</p><p class="brandNotice">LAD Lernsimulation. Nicht offiziell von einer Kammer herausgegeben.</p><p class="profileBadge">Angemeldet: ${escapeHtml(active.name)}</p><div class="cards"><div class="card"><h3>Prüfungsmodus</h3><p>118 Aufgaben nach Bereichsverteilung. Teil 1 läuft mit 90 Minuten. Teil 2 läuft mit 70 Minuten.</p><div class="field"><label for="seedInput">Seed, optional</label><input id="seedInput" placeholder="leer lassen für neue Prüfung"></div><button class="btn" onclick="startExam()">Prüfung starten</button></div><div class="card"><h3>Prüfungsteil 1 einzeln</h3><p>70 Aufgaben aus den Sachgebieten A, B und C. 90 Minuten wie in der Prüfung.</p><button class="btn" onclick="startExamPart(1)">Teil 1 starten</button></div><div class="card"><h3>Prüfungsteil 2 einzeln</h3><p>48 Aufgaben aus den Sachgebieten D und E. 70 Minuten wie in der Prüfung.</p><button class="btn" onclick="startExamPart(2)">Teil 2 starten</button></div><div class="card"><h3>Lernmodus</h3><p>Gezielt nach Bereich, Prüfungsteil, Rechenaufgaben oder Triple Choice üben. Die Lösung erscheint erst nach Antwort bestätigen.</p><div class="field"><label for="studyTopic">Lernfilter</label><select id="studyTopic">${topicOptions()}</select><div class="topicNote">Prüfungsteil 1, Prüfungsteil 2, einzelne Themen, Rechenaufgaben oder Triple Choice sind separat trainierbar.</div></div><div class="field"><label for="learnCount">Anzahl</label><select id="learnCount"><option value="20">20 Lernfragen</option><option value="40" selected>40 Lernfragen</option><option value="60">60 Lernfragen</option><option value="118">118 Lernfragen</option><option value="all">Alle verfügbaren Grundfragen im Filter</option></select></div><div class="field"><label for="learnSeedInput">Seed, optional</label><input id="learnSeedInput" placeholder="leer lassen für neue Auswahl"></div><button class="btn" onclick="startLearning()">Lernmodus starten</button></div><div class="card"><h3>Historie</h3><div id="historyStart" class="small"></div><div class="row"><button class="btn secondary" onclick="showHistory()">Historie anzeigen</button><button class="btn secondary" onclick="exportHistory()">CSV exportieren</button><button class="btn secondary" onclick="clearHistory()">Historie löschen</button></div></div>${profilePanelHtml()}<div class="card"><h3>Info PDF</h3><p>Prüfungsrelevante Werte und Proximus Hinweise wie in der Prüfung aufrufbar.</p><button class="btn secondary" onclick="showInfo()">Info öffnen</button></div><div class="card"><h3>Verzeichnis</h3><p>Wichtige Begriffe aus 34d, Proximus 5 und den prüfungsrelevanten Sparten kurz erklärt.</p><button class="btn secondary" onclick="showGlossary()">Verzeichnis öffnen</button></div></div><h3>Fragenbank</h3><p><span class="pill">${BANK.length} Fragen und Varianten</span><span class="pill">${BANK.filter(q=>q.numeric).length} Rechenaufgaben</span><span class="pill">${BANK.filter(q=>q.type==='multiple'&&Array.isArray(q.answer)&&q.answer.length===3).length} Triple Choice Varianten</span><span class="pill">Mehrfachauswahl mit 3 und 4 richtigen Antworten</span><span class="pill">Proximus Bezug</span></p></div>`;renderHistoryStart()}
+
+function toggleControls(on){['overviewBtn','prevBtn','nextBtn','markBtn','calcBtn','notesBtn','finishBtn'].forEach(id=>{$(id).disabled=!on});$('infoBtn').disabled=false;$('historyBtn').disabled=false}
+function makeSeed(prefix){return prefix+'-'+new Date().toISOString().replace(/[-:.TZ]/g,'').slice(0,14)+'-'+Math.floor(Math.random()*99999)}
+function startExam(){let seed=($('seedInput')?.value||'').trim()||makeSeed('P');let rng=mulberry32(hashSeed(seed));let part1=[],part2=[];GROUP_ORDER.forEach(g=>{let selected=selectExamGroup(g,EXAM_DIST[g],rng);if(g==='A'||g==='B'||g==='C')part1.push(...selected);else part2.push(...selected)});shuffle(part1,rng);shuffle(part2,rng);state={mode:'exam',questions:prepareQuestions(part1.concat(part2),rng),answers:[],confirmed:[],marked:[],notes:[],current:0,seed,rng,timer:null,remaining:0,part1Done:false,startTime:Date.now(),topic:'Prüfung',learnCount:'118',finished:false};toggleControls(true);$('finishBtn').textContent='Prüfung beenden';setTimer(90*60);renderQuestion()}
+function startLearning(topicArg,countArg){let topic=topicArg||$('studyTopic')?.value||'all';let countVal=countArg||$('learnCount')?.value||'40';let seed=($('learnSeedInput')?.value||'').trim()||makeSeed('L');let rng=mulberry32(hashSeed(seed));let candidates=filteredByTopic(topic);let count=countVal==='all'?'all':Number(countVal);let selected=selectUnique(candidates,count,rng);shuffle(selected,rng);state={mode:'learn',questions:prepareQuestions(selected,rng),answers:[],confirmed:[],marked:[],notes:[],current:0,seed,rng,timer:null,remaining:0,part1Done:true,startTime:Date.now(),topic,learnCount:countVal,finished:false};toggleControls(true);$('finishBtn').textContent='Lernmodus beenden';$('time').textContent='--:--';renderQuestion()}
+function setTimer(seconds){clearInterval(state.timer);state.remaining=seconds;updateTimer();state.timer=setInterval(()=>{state.remaining--;updateTimer();if(state.remaining<=0){finishSession(true)}},1000)}
+function updateTimer(){let s=Math.max(0,state.remaining||0);let m=Math.floor(s/60);let sec=s%60;$('time').textContent=String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')}
+function currentPartIndex(i=state.current){let q=state.questions[i];let p=q?.part||1;return state.questions.slice(0,i+1).filter(x=>(x.part||1)===p).length}
+function isAnswered(q,a){if(q.type==='single')return typeof a==='number';if(q.type==='multiple')return Array.isArray(a)&&a.length>0;return a!==undefined&&String(a).trim()!==''}
+function renderQuestion(){if(!state.questions.length){showStart();return}let q=state.questions[state.current];$('subtitle').textContent=state.mode==='exam'?`Schriftlicher Prüfungsteil ${q.part}`:'Lernmodus';$('band').textContent=q.category;let pct=((state.current+1)/state.questions.length)*100;let typeText=q.type==='single'?'Einfachauswahl':q.type==='multiple'?'Mehrfachauswahl':'Eingabe';let input=buildAnswerInput(q);let confirmed=state.mode==='learn'&&state.confirmed[state.current];let feedback=confirmed?feedbackBlock(q):'<div id="feedbackArea"></div>';let confirmBtn=state.mode==='learn'?`<p><button class="btn secondary" onclick="confirmAnswer()">Antwort bestätigen</button></p>`:'';$('screen').innerHTML=`<div class="sectionbar"><span>${escapeHtml(q.category)}</span><span class="task">Aufgabe ${currentPartIndex()}</span></div><div class="statusline"><div class="tags"><span class="pill">Teil ${q.part}</span><span class="pill">${q.group}</span><span class="pill">${typeText}</span>${q.numeric?'<span class="pill">Rechenaufgabe</span>':''}</div><div class="small muted">${state.current+1} von ${state.questions.length}</div></div><div class="progress"><div style="width:${pct}%"></div></div><div class="question"><div class="prompt">${promptHtml(q.prompt)}</div>${input}${confirmBtn}${feedback}</div>`;$('markBtn').className=state.marked[state.current]?'btn secondary':'btn';$('prevBtn').disabled=state.current===0;$('nextBtn').disabled=state.current===state.questions.length-1;$('finishBtn').disabled=false}
+function buildAnswerInput(q){let ans=state.answers[state.current];let confirmed=state.mode==='learn'&&state.confirmed[state.current];if(q.type==='single'){return '<div class="options">'+q.shuffled.map((o,i)=>{let selected=ans===i;let cls='opt';if(confirmed&&i===q.correct)cls+=' correct';if(confirmed&&selected&&i!==q.correct)cls+=' wrong';return `<label class="${cls}"><input type="radio" name="ans" value="${i}" ${selected?'checked':''} onchange="saveSingle(${i})"><span>${escapeHtml(o)}</span></label>`}).join('')+'</div>'}if(q.type==='multiple'){let arr=Array.isArray(ans)?ans:[];return '<p class="small muted">Es können mehrere Antworten richtig sein.</p><div class="options">'+q.shuffled.map((o,i)=>{let selected=arr.includes(i);let cls='opt';if(confirmed&&q.correct.includes(i))cls+=' correct';if(confirmed&&selected&&!q.correct.includes(i))cls+=' wrong';return `<label class="${cls}"><input type="checkbox" value="${i}" ${selected?'checked':''} onchange="saveMulti(${i},this.checked)"><span>${escapeHtml(o)}</span></label>`}).join('')+'</div>'}let val=escapeHtml(ans??'');return `<div class="short"><input id="shortInput" value="${val}" placeholder="Antwort eingeben" inputmode="decimal" oninput="saveShort(this.value)"> <span>Euro</span></div><div class="inputHint">Hinweis<br>Eintrag in Euro ohne Trennpunkte, also z. B. 1212 für eintausendzweihundertzwölf Euro.</div>`}
+function saveSingle(i){state.answers[state.current]=i;if(state.mode==='learn')state.confirmed[state.current]=false;renderQuestion()}
+function saveMulti(i,checked){let arr=Array.isArray(state.answers[state.current])?[...state.answers[state.current]]:[];if(checked&&!arr.includes(i))arr.push(i);if(!checked)arr=arr.filter(x=>x!==i);state.answers[state.current]=arr;if(state.mode==='learn')state.confirmed[state.current]=false;renderQuestion()}
+function saveShort(v){state.answers[state.current]=v;if(state.mode==='learn')state.confirmed[state.current]=false;let fb=$('feedbackArea');if(fb)fb.innerHTML=''}
+function confirmAnswer(){let q=state.questions[state.current];if(!isAnswered(q,state.answers[state.current])){openModal('<h2>Antwort fehlt</h2><p>Geben Sie zuerst eine Antwort ein oder wählen Sie mindestens eine Antwort aus.</p><button class="btn secondary" onclick="closeModal()">Schließen</button>');return}state.confirmed[state.current]=true;renderQuestion()}
+function go(delta){let next=state.current+delta;if(next<0||next>=state.questions.length)return;if(state.mode==='exam'&&!state.part1Done&&state.questions[state.current].part===1&&state.questions[next].part===2){openModal('<h2>Prüfungsteil 1 beenden</h2><p>Sie wechseln jetzt zu Prüfungsteil 2. Der Timer wird auf 70 Minuten gesetzt.</p><button class="btn secondary" onclick="confirmPart2()">Teil 2 starten</button> <button class="btn secondary" onclick="closeModal()">Zurück</button>');return}state.current=next;renderQuestion()}
+function confirmPart2(){state.part1Done=true;closeModal();state.current++;setTimer(70*60);renderQuestion()}
+function parseNumber(v){if(typeof v==='number')return v;let s=String(v??'').toLowerCase().replace(/euro|eur|€/g,'').replace(/\s/g,'');if(!s)return NaN;if(s.includes(',')&&s.includes('.'))s=s.replace(/\./g,'').replace(',','.');else if(s.includes(','))s=s.replace(',','.');else{s=s.replace(/\.(?=\d{3}(\D|$))/g,'')}s=s.replace(/[^0-9.\-]/g,'');return Number(s)}
+function normText(v){return String(v??'').toLowerCase().replace(/euro|eur|€/g,'').replace(/\s/g,'').replace(/\./g,'').replace(',', '.')}
+function isCorrect(q,a){if(!isAnswered(q,a))return false;if(q.type==='single')return a===q.correct;if(q.type==='multiple'){let x=[...a].sort((m,n)=>m-n).join(',');let y=[...q.correct].sort((m,n)=>m-n).join(',');return x===y}if(q.numeric){let user=parseNumber(a);let expected=parseNumber(q.answer);let tol=Number(q.tolerance??0.01);return Number.isFinite(user)&&Number.isFinite(expected)&&Math.abs(user-expected)<=tol}let answers=Array.isArray(q.answer)?q.answer:[q.answer];return answers.some(x=>normText(x)===normText(a))}
+function answerText(q){if(q.type==='single')return q.shuffled[q.correct];if(q.type==='multiple')return q.correct.map(i=>q.shuffled[i]).join(' | ');if(q.numeric)return formatNumber(q.answer)+' Euro';return Array.isArray(q.answer)?q.answer[0]:q.answer}
+function userText(q,a){if(!isAnswered(q,a))return 'Keine Antwort';if(q.type==='single')return q.shuffled[a]??'Keine Antwort';if(q.type==='multiple')return a.map(i=>q.shuffled[i]).join(' | ')||'Keine Antwort';return String(a)}
+function formatNumber(v){let n=parseNumber(v);if(!Number.isFinite(n))return String(v);return Math.round(n*100)/100}
+function feedbackBlock(q){let a=state.answers[state.current];let ok=isCorrect(q,a);return `<div class="feedback" id="feedbackArea"><div class="${ok?'ok':'bad'}">${ok?'Richtig':'Falsch'}</div><p><strong>Richtige Antwort:</strong> ${escapeHtml(answerText(q))}</p><p><strong>Begründung:</strong> ${escapeHtml(q.explanation)}</p><p><strong>Proximus Bezug:</strong> ${escapeHtml(q.ref)}</p></div>`}
+function openModal(html){$('modalbox').innerHTML=html;$('modal').classList.add('on')}
+function closeModal(){$('modal').classList.remove('on');$('modalbox').classList.remove('wide')}
+$('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+$('prevBtn').onclick=()=>go(-1);$('nextBtn').onclick=()=>go(1);$('markBtn').onclick=()=>{state.marked[state.current]=!state.marked[state.current];renderQuestion()};$('overviewBtn').onclick=showOverview;$('notesBtn').onclick=showNotes;$('calcBtn').onclick=showCalc;$('infoBtn').onclick=showInfo;$('historyBtn').onclick=showHistory;$('finishBtn').onclick=requestFinish;
+function showOverview(){if(!state.questions.length){showStart();return}const cells=state.questions.map((q,i)=>{const ans=isAnswered(q,state.answers[i]);const cls=['qcell',ans?'answered':'',state.marked[i]?'marked':'',i===state.current?'current':''].join(' ');return `<div class="${cls}" onclick="state.current=${i};closeModal();renderQuestion()">${q.part}.${state.questions.slice(0,i+1).filter(x=>x.part===q.part).length}</div>`}).join('');openModal(`<h2>Übersicht</h2><p class="muted">Blau bedeutet beantwortet. Orange markiert bedeutet zur Nacharbeit markiert.</p><div class="grid">${cells}</div><p style="margin-top:18px"><button class="btn secondary" onclick="closeModal()">Schließen</button></p>`)}
+function showNotes(){if(!state.questions.length)return;const val=escapeHtml(state.notes[state.current]||'');openModal(`<h2>Notizen zu Aufgabe ${state.questions[state.current].part}.${currentPartIndex()}</h2><textarea class="notes" id="noteText">${val}</textarea><p><button class="btn secondary" onclick="state.notes[state.current]=document.getElementById('noteText').value;closeModal()">Speichern</button> <button class="btn secondary" onclick="closeModal()">Schließen</button></p>`)}
+function showCalc(){openModal(`<h2>Rechner</h2><div class="calc"><input id="calcDisplay" readonly><div class="keys">${['7','8','9','/','4','5','6','*','1','2','3','-','0',',','=','+','C'].map(k=>`<button class="btn secondary" onclick="calcKey('${k}')">${k}</button>`).join('')}</div></div><p><button class="btn secondary" onclick="closeModal()">Schließen</button></p>`)}
+function calcKey(k){const d=$('calcDisplay');if(k==='C'){d.value='';return}if(k==='='){try{let exp=d.value.replace(/,/g,'.');if(!/^[0-9+\-*/().\s]+$/.test(exp))throw new Error('bad');d.value=String(Function('return '+exp)()).replace('.',',')}catch(e){d.value='Fehler'}return}d.value+=k}
+function showInfo(){let pages=INFO_PAGES.map((src,i)=>`<div class="infoPage"><p class="infoHint">Seite ${i+1}</p><img alt="Prüfungsrelevante Werte Seite ${i+1}" src="${src}"></div>`).join('');openModal(`<h2>Info</h2><div class="sourcebox"><p><strong>Prüfungsrelevante Werte 2026.</strong> Diese Ansicht entspricht der hochgeladenen PDF mit den prüfungsrelevanten Sozialversicherungswerten und Proximus 5 Angaben.</p><p class="infoHint">Die Info bleibt während Prüfung und Lernmodus jederzeit über die untere Leiste aufrufbar.</p></div><div class="infoPages">${pages}</div><p><button class="btn secondary" onclick="closeModal()">Schließen</button></p>`);$('modalbox').classList.add('wide')}
+
+
+function showGlossary(){openModal(`<h2>Verzeichnis</h2><p class="muted">Wichtige Begriffe für 34d, Proximus 5 und typische Prüfungsfragen.</p><div class="glossaryTools"><input id="glossarySearch" placeholder="Begriff suchen" oninput="renderGlossary()"><button class="btn secondary" onclick="$('glossarySearch').value='';renderGlossary()">Suche löschen</button></div><div id="glossaryList" class="glossaryList"></div><p><button class="btn secondary" onclick="closeModal()">Schließen</button></p>`);renderGlossary()}
+function renderGlossary(){let box=$('glossaryList');if(!box)return;let q=($('glossarySearch')?.value||'').toLowerCase().trim();let list=GLOSSARY.filter(x=>!q||x.term.toLowerCase().includes(q)||x.text.toLowerCase().includes(q));box.innerHTML=list.map(x=>`<div class="glossaryItem"><strong>${escapeHtml(x.term)}</strong><div>${escapeHtml(x.text)}</div></div>`).join('')||'<p>Kein Begriff gefunden.</p>'}
+
+function requestFinish(){if(!state.questions.length)return;let text=state.mode==='exam'?'Prüfung wirklich beenden?':'Lernmodus wirklich beenden?';openModal(`<h2>${text}</h2><p>Danach wird die Auswertung erstellt und in der Historie gespeichert.</p><button class="btn secondary" onclick="closeModal();finishSession(false)">Beenden und auswerten</button> <button class="btn secondary" onclick="closeModal()">Zurück</button>`)}
+function computeStats(){let group={},cat={},correct=0;state.questions.forEach((q,i)=>{group[q.group]??={right:0,total:0};group[q.group].total++;cat[q.category]??={right:0,total:0};cat[q.category].total++;if(isCorrect(q,state.answers[i])){correct++;group[q.group].right++;cat[q.category].right++}});return{correct,total:state.questions.length,group,cat}}
+function pct(a,b){return b?Math.round((a*1000)/b)/10:0}
+function finishSession(auto){clearInterval(state.timer);if(!state.questions.length)return;state.finished=true;let stats=computeStats();let entry=saveHistory(stats);renderResult(stats,entry,auto)}
+function saveHistory(stats){let groups={},cats={};Object.entries(stats.group).forEach(([k,v])=>groups[k]={c:v.right,n:v.total,p:pct(v.right,v.total)});Object.entries(stats.cat).forEach(([k,v])=>cats[k]={c:v.right,n:v.total,p:pct(v.right,v.total)});let entry={id:Date.now(),date:new Date().toISOString(),mode:state.mode,seed:state.seed,total:stats.total,correct:stats.correct,percent:pct(stats.correct,stats.total),groups,categories:cats,durationSec:Math.max(0,Math.round((Date.now()-state.startTime)/1000)),topic:state.topic,learnCount:state.learnCount};let h=getHistory();h.push(entry);setHistory(h);return entry}
+function repeatLastLearning(){let topic=(state.topic&&state.topic!=='Prüfung')?state.topic:'all';let count=state.learnCount||'40';startLearning(topic,count)}
+function resultActionsHtml(){let repeat=state.mode==='learn'?'<button class="btn secondary" onclick="repeatLastLearning()">Gleichen Lernbereich erneut</button>':'';return `<div class="resultActionsTop"><strong>Weiterarbeiten</strong><p class="small muted">Hauptmenü und nächste Schritte sind hier direkt erreichbar.</p><div class="row"><button class="btn primaryAction" onclick="showStart()">Hauptmenü</button><button class="btn secondary" onclick="startExam()">Neue Prüfungssimulation</button><button class="btn secondary" onclick="startLearning('all','40')">Neuer Lernmodus</button>${repeat}<button class="btn secondary" onclick="showHistory()">Historie</button></div></div>`}
+function renderResult(stats,entry,auto){toggleControls(false);$('finishBtn').disabled=true;$('subtitle').textContent='Auswertung';$('band').textContent='Ergebnis';$('time').textContent='00:00';let groupRows='';let pass50=0;let below30=false;GROUP_ORDER.forEach(g=>{let r=stats.group[g];if(!r)return;let p=pct(r.right,r.total);if(p>=50)pass50++;if(p<30)below30=true;let cls=p>=50?'pass':p>=30?'midpass':'fail';groupRows+=`<tr class="${cls}"><td>${GROUPS[g].name}</td><td>${r.right} von ${r.total}</td><td>${p} Prozent</td><td>${p>=50?'mindestens 50 Prozent':p>=30?'mindestens 30 Prozent':'unter 30 Prozent'}</td></tr>`});let passed=pass50>=4&&!below30;let catRows=Object.entries(stats.cat).sort((a,b)=>pct(a[1].right,a[1].total)-pct(b[1].right,b[1].total)).map(([c,r])=>`<tr><td>${escapeHtml(c)}</td><td>${r.right} von ${r.total}</td><td>${pct(r.right,r.total)} Prozent</td><td><button class="btn secondary" onclick="startLearning('C|${escapeAttr(c)}','40')">Lernen</button></td></tr>`).join('');let review=state.questions.map((q,i)=>reviewItem(q,i)).join('');let headline=state.mode==='exam'?(passed?'Bestanden':'Nicht bestanden'):'Lernmodus Ergebnis';let modeLine=state.mode==='exam'?'Prüfungssimulation':'Lernmodus, '+escapeHtml(topicLabel(state.topic));$('screen').innerHTML=`<div class="start">${resultActionsHtml()}<h2>${headline}</h2><p>${auto?'Die Zeit ist abgelaufen. ':''}${modeLine}. Ergebnis: <strong>${stats.correct} von ${stats.total}</strong> richtig. Quote: <strong>${entry.percent} Prozent</strong>.</p><p>Dieses Ergebnis wurde in der Historie gespeichert. Seed: <span class="kbd">${escapeHtml(state.seed)}</span></p><h3>Auswertung nach Prüfungsbereichen</h3><table class="resulttable"><tr><th>Bereich</th><th>Richtig</th><th>Quote</th><th>Status</th></tr>${groupRows}</table><h3>Auswertung nach Themen</h3><table class="resulttable"><tr><th>Thema</th><th>Richtig</th><th>Quote</th><th>Aktion</th></tr>${catRows}</table><h3>Alle abgefragten Aufgaben, ${state.questions.length}</h3><div class="reviewControls"><button class="btn secondary" onclick="openAllReview(true)">Alle öffnen</button> <button class="btn secondary" onclick="openAllReview(false)">Alle schließen</button> <button class="btn secondary" onclick="showStart()">Neue Simulation</button> <button class="btn secondary" onclick="showHistory()">Historie anzeigen</button></div>${review}</div>`;document.querySelector('.content').scrollTop=0}
+function reviewItem(q,i){let ok=isCorrect(q,state.answers[i]);let status=ok?'Richtig':'Falsch oder offen';let cls=ok?'ok':'bad';let open=ok?'':' open';return `<details class="review-item"${open}><summary><span class="${cls}">${status}</span> | Aufgabe ${i+1} | Teil ${q.part} | ${escapeHtml(q.category)}</summary><div class="review-body"><p>${promptHtml(q.prompt)}</p><p><strong>Ihre Antwort:</strong> ${escapeHtml(userText(q,state.answers[i]))}</p><p><strong>Richtige Antwort:</strong> ${escapeHtml(answerText(q))}</p><p><strong>Begründung:</strong> ${escapeHtml(q.explanation)}</p><p><strong>Proximus Bezug:</strong> ${escapeHtml(q.ref)}</p></div></details>`}
+function openAllReview(open){document.querySelectorAll('.review-item').forEach(d=>d.open=open)}
+function getHistory(){try{let h=JSON.parse(localStorage.getItem(historyStorageKey())||'[]');return Array.isArray(h)?h:[]}catch(e){return[]}}
+
+function setHistory(h){try{localStorage.setItem(historyStorageKey(),JSON.stringify(h.slice(-500)))}catch(e){}}
+
+function aggregateHistory(h){let group={},cat={};h.forEach(e=>{Object.entries(e.groups||{}).forEach(([k,v])=>{group[k]??={c:0,n:0};group[k].c+=v.c||0;group[k].n+=v.n||0});Object.entries(e.categories||{}).forEach(([k,v])=>{cat[k]??={c:0,n:0};cat[k].c+=v.c||0;cat[k].n+=v.n||0})});return{group,cat}}
+function weakest(agg){return Object.entries(agg.cat).filter(([k,v])=>v.n>=3).map(([k,v])=>({name:k,p:pct(v.c,v.n),c:v.c,n:v.n})).sort((a,b)=>a.p-b.p)}
+function renderHistoryStart(){let target=$('historyStart');if(!target)return;let h=getHistory();let profile=getActiveProfile().name;if(!h.length){target.innerHTML=`<p>Profil: <strong>${escapeHtml(profile)}</strong></p><p>Noch keine gespeicherten Durchläufe.</p>`;return}let last=h[h.length-1];let avg=pct(h.reduce((s,e)=>s+(e.correct||0),0),h.reduce((s,e)=>s+(e.total||0),0));let agg=aggregateHistory(h);let weak=weakest(agg).slice(0,3);let cards=weak.map(w=>`<div class="statCard"><strong>${escapeHtml(w.name)}</strong><div>${w.p} Prozent, ${w.c} von ${w.n}</div><div class="bar"><span style="width:${Math.max(3,w.p)}%"></span></div><button class="btn secondary" onclick="startLearning('C|${escapeAttr(w.name)}','40')">Lernen</button></div>`).join('');target.innerHTML=`<p>Profil: <strong>${escapeHtml(profile)}</strong></p><p>Durchläufe: <strong>${h.length}</strong>. Durchschnitt: <strong>${avg} Prozent</strong>. Letzter Durchlauf: <strong>${last.percent} Prozent</strong>.</p>${cards?'<p>Schwächste Themen:</p><div class="historyCards">'+cards+'</div>':''}`}
+
+function modeText(e){if(e.mode==='exam')return (e.topic&&String(e.topic).startsWith('Prüfungsteil'))?e.topic:'Prüfung';return 'Lernen, '+topicLabel(e.topic)}
+function historyTableHtml(h){let rows=h.slice().reverse().map(e=>`<tr><td>${new Date(e.date).toLocaleString('de-DE')}</td><td>${escapeHtml(modeText(e))}</td><td>${escapeHtml(e.seed)}</td><td>${e.correct} von ${e.total}</td><td><strong>${e.percent} Prozent</strong></td><td>${Math.floor((e.durationSec||0)/60)} min</td></tr>`).join('');return `<div class="historyScroll"><table class="resulttable"><tr><th>Datum</th><th>Modus</th><th>Seed</th><th>Richtig</th><th>Quote</th><th>Dauer</th></tr>${rows}</table></div>`}
+function areaHistoryHtml(agg){let gRows=GROUP_ORDER.map(g=>{let v=agg.group[g];if(!v)return '';let p=pct(v.c,v.n);return `<tr><td>${GROUPS[g].name}</td><td>${v.c} von ${v.n}</td><td>${p} Prozent</td><td><button class="btn secondary" onclick="startLearning('G|${g}','40')">Lernen</button></td></tr>`}).join('');let cRows=Object.entries(agg.cat).sort((a,b)=>pct(a[1].c,a[1].n)-pct(b[1].c,b[1].n)).map(([c,v])=>`<tr><td>${escapeHtml(c)}</td><td>${v.c} von ${v.n}</td><td>${pct(v.c,v.n)} Prozent</td><td><button class="btn secondary" onclick="startLearning('C|${escapeAttr(c)}','40')">Lernen</button></td></tr>`).join('');return `<div class="twoCols"><div><h3>Prüfungsbereiche</h3><table class="resulttable"><tr><th>Bereich</th><th>Richtig</th><th>Quote</th><th>Aktion</th></tr>${gRows}</table></div><div><h3>Themen</h3><table class="resulttable"><tr><th>Thema</th><th>Richtig</th><th>Quote</th><th>Aktion</th></tr>${cRows}</table></div></div>`}
+function showHistory(){let h=getHistory();let profile=getActiveProfile().name;if(!h.length){openModal(`<h2>Historie</h2><p>Aktives Profil: <strong>${escapeHtml(profile)}</strong></p><p>Noch keine gespeicherten Ergebnisse.</p><button class="btn secondary" onclick="closeModal()">Schließen</button>`);return}let avg=pct(h.reduce((s,e)=>s+(e.correct||0),0),h.reduce((s,e)=>s+(e.total||0),0));let agg=aggregateHistory(h);openModal(`<h2>Historie</h2><p>Aktives Profil: <strong>${escapeHtml(profile)}</strong>. Durchläufe: <strong>${h.length}</strong>. Gesamtdurchschnitt: <strong>${avg} Prozent</strong>.</p>${areaHistoryHtml(agg)}<h3>Alle Durchläufe</h3>${historyTableHtml(h)}<p><button class="btn secondary" onclick="exportHistory()">CSV exportieren</button> <button class="btn secondary" onclick="clearHistory()">Historie löschen</button> <button class="btn secondary" onclick="closeModal()">Schließen</button></p>`)}
+
+function clearHistory(){if(confirm('Historie für das aktive Profil wirklich löschen?')){localStorage.removeItem(historyStorageKey());renderHistoryStart();closeModal()}}
+
+function exportHistory(){let h=getHistory();if(!h.length){openModal('<h2>CSV Export</h2><p>Keine Historie vorhanden.</p><button class="btn secondary" onclick="closeModal()">Schließen</button>');return}let heads=['Datum','Profil','Modus','Seed','Richtig','Gesamt','Quote','Dauer Sekunden','Thema'];let lines=[heads.join(';')];let profile=getActiveProfile().name;h.forEach(e=>{let vals=[new Date(e.date).toLocaleString('de-DE'),profile,modeText(e),e.seed,e.correct,e.total,e.percent,e.durationSec||0,topicLabel(e.topic)];lines.push(vals.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';'))});let blob=new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='34d_historie_'+getActiveProfile().name.replace(/[^a-z0-9]+/gi,'_')+'.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(a.href)}
+/* V8: stabiler Prüfungsablauf, Wiederaufnahme und transparente Bewertung */
+const SESSION_PREFIX='lad34d_session_v8_';
+const SESSION_SCHEMA=1;
+
+function sessionStorageKey(){return SESSION_PREFIX+getActiveProfile().id}
+function getSavedSession(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(sessionStorageKey())||'null');
+    if(!saved||saved.schema!==SESSION_SCHEMA||!Array.isArray(saved.questions)||!saved.questions.length)return null;
+    return saved;
+  }catch(e){return null}
+}
+function clearSavedSession(){try{localStorage.removeItem(sessionStorageKey())}catch(e){}}
+function saveSession(){
+  if(!['exam','learn'].includes(state.mode)||state.finished||!state.questions.length)return;
+  try{
+    const copy={...state,schema:SESSION_SCHEMA,timer:null,rng:null,lastSaved:Date.now()};
+    localStorage.setItem(sessionStorageKey(),JSON.stringify(copy));
+  }catch(e){}
+}
+function discardSavedSession(){
+  if(confirm('Gespeicherten Zwischenstand für dieses Profil wirklich verwerfen?')){
+    clearSavedSession();
+    showStart();
+  }
+}
+function savedSessionHtml(){
+  const saved=getSavedSession();
+  if(!saved)return '';
+  const mode=saved.mode==='exam'?'Prüfungssimulation':'Lernmodus';
+  const part=saved.mode==='exam'?(saved.inBreak?'Pause vor Teil 2':`Teil ${saved.questions[saved.current]?.part||1}`):topicLabel(saved.topic);
+  const answered=saved.questions.reduce((n,q,i)=>n+(isAnswered(q,saved.answers?.[i])?1:0),0);
+  const stamp=saved.lastSaved?new Date(saved.lastSaved).toLocaleString('de-DE'):'unbekannt';
+  return `<div class="card resumeCard"><h3>Zwischenstand vorhanden</h3><p><strong>${escapeHtml(mode)}</strong>, ${escapeHtml(part)}. Beantwortet: ${answered} von ${saved.questions.length}. Gespeichert: ${escapeHtml(stamp)}.</p><div class="row"><button class="btn" onclick="resumeSession()">Fortsetzen</button><button class="btn secondary" onclick="discardSavedSession()">Verwerfen</button></div></div>`;
+}
+function resumeSession(){
+  const saved=getSavedSession();
+  if(!saved){showStart();return}
+  clearInterval(state.timer);
+  state={...saved,timer:null,rng:null,finished:false};
+  toggleControls(true);
+  $('finishBtn').textContent=state.mode==='exam'?'Prüfung beenden':'Lernmodus beenden';
+  if(state.mode==='exam'){
+    if(state.inBreak){showPartBreak(state.breakReason||'Prüfungsteil 1 wurde beendet.');return}
+    if(state.deadline&&state.deadline<=Date.now()){
+      handleTimerExpired();
+      return;
+    }
+    resumeTimer();
+  }else{
+    $('time').textContent='--:--';
+  }
+  renderQuestion();
+}
+
+function activateProfile(id){
+  const ps=getProfiles();
+  if(ps.some(p=>p.id===id)){
+    try{localStorage.setItem(ACTIVE_PROFILE_KEY,id)}catch(e){}
+    showStart();
+  }
+}
+
+function showStart(){
+  clearInterval(state.timer);
+  state={...state,mode:'start',questions:[],answers:[],confirmed:[],marked:[],notes:[],current:0,remaining:0,deadline:0,part1Done:false,inBreak:false,breakReason:'',finished:false};
+  $('subtitle').textContent='Proximus 5 Lern- und Prüfungssimulation';
+  $('band').textContent='Start';
+  $('time').textContent='--:--';
+  $('finishBtn').textContent='Prüfung beenden';
+  toggleControls(false);
+  document.querySelector('.content').scrollTop=0;
+  const active=getActiveProfile();
+  $('screen').innerHTML=`<div class="start"><h2>LAD 34d Lernapp</h2><p>Prüfungsmodus, Lernmodus nach Themenbereich, Prüfungsteil, Rechenaufgaben und Triple Choice, Antwortbestätigung im Lernmodus, Prüfungsteile einzeln, Historie im Konto und A-Z-Verzeichnis.</p><p class="brandNotice"><strong>LAD Lernsimulation.</strong> Keine offizielle IHK- oder BWV-Prüfung. Die Aufgaben sind eigenständig erstellte Übungsaufgaben; die offizielle Prüfung veröffentlicht ihre Aufgaben nicht.</p><div class="scoringNote"><strong>Bewertungsmodell:</strong> Diese Simulation verwendet 118 Übungsaufgaben mit je einem Punkt. Mehrfachauswahl zählt nur bei vollständig richtiger Auswahl. Die echte schriftliche Prüfung umfasst 118 erreichbare Punkte; Zahl und Gewichtung einzelner Aufgaben werden nicht veröffentlicht.</div><p class="profileBadge">Angemeldet: ${escapeHtml(active.name)}</p><div class="cards">${savedSessionHtml()}<div class="card"><h3>Prüfungsmodus</h3><p>118 Übungsaufgaben nach der Verteilung 30 / 22 / 18 / 22 / 26. Teil 1 läuft 90 Minuten, Teil 2 läuft 70 Minuten.</p><div class="field"><label for="seedInput">Seed, optional</label><input id="seedInput" placeholder="leer lassen für neue Prüfung"></div><button class="btn" onclick="startExam()">Prüfung starten</button></div><div class="card"><h3>Prüfungsteil 1 einzeln</h3><p>70 Aufgaben aus den Sachgebieten A, B und C. 90 Minuten wie in der Prüfung.</p><button class="btn" onclick="startExamPart(1)">Teil 1 starten</button></div><div class="card"><h3>Prüfungsteil 2 einzeln</h3><p>48 Aufgaben aus den Sachgebieten D und E. 70 Minuten wie in der Prüfung.</p><button class="btn" onclick="startExamPart(2)">Teil 2 starten</button></div><div class="card"><h3>Lernmodus</h3><p>Gezielt nach Bereich, Prüfungsteil, Rechenaufgaben oder Triple Choice üben. Die Lösung erscheint erst nach Bestätigung.</p><div class="field"><label for="studyTopic">Lernfilter</label><select id="studyTopic">${topicOptions()}</select><div class="topicNote">Prüfungsteile, Themen, Rechenaufgaben und Triple Choice sind separat trainierbar.</div></div><div class="field"><label for="learnCount">Anzahl</label><select id="learnCount"><option value="20">20 Lernfragen</option><option value="40" selected>40 Lernfragen</option><option value="60">60 Lernfragen</option><option value="118">118 Lernfragen</option><option value="all">Alle verfügbaren Grundfragen im Filter</option></select></div><div class="field"><label for="learnSeedInput">Seed, optional</label><input id="learnSeedInput" placeholder="leer lassen für neue Auswahl"></div><button class="btn" onclick="startLearning()">Lernmodus starten</button></div><div class="card"><h3>Historie</h3><div id="historyStart" class="small"></div><div class="row"><button class="btn secondary" onclick="showHistory()">Historie anzeigen</button><button class="btn secondary" onclick="exportHistory()">CSV exportieren</button><button class="btn secondary" onclick="clearHistory()">Historie löschen</button></div></div>${profilePanelHtml()}<div class="card"><h3>Info PDF</h3><p>Die offizielle einseitige BWV-Werteübersicht 2026 enthält die Werte für beide Prüfungsteile.</p><button class="btn secondary" onclick="showInfo()">Info öffnen</button></div><div class="card"><h3>Verzeichnis</h3><p>Wichtige Begriffe aus 34d, Proximus 5 und den prüfungsrelevanten Sparten kurz erklärt.</p><button class="btn secondary" onclick="showGlossary()">Verzeichnis öffnen</button></div></div><h3>Fragenbank</h3><p><span class="pill">${BANK.length} Aufgabenvarianten</span><span class="pill">${new Set(BANK.map(baseKey)).size} Grundaufgaben</span><span class="pill">${BANK.filter(q=>q.numeric).length} Rechenvarianten</span><span class="pill">Mehrfachauswahl mit 2, 3 oder 4 richtigen Antworten</span><span class="pill">Proximus-Bezug</span></p></div>`;
+  renderHistoryStart();
+}
+
+function startExam(){
+  closeModal();
+  const seed=($('seedInput')?.value||'').trim()||makeSeed('P');
+  const rng=mulberry32(hashSeed(seed));
+  const part1=[],part2=[];
+  GROUP_ORDER.forEach(g=>{
+    const selected=selectExamGroup(g,EXAM_DIST[g],rng);
+    if(g==='A'||g==='B'||g==='C')part1.push(...selected);else part2.push(...selected);
+  });
+  shuffle(part1,rng);shuffle(part2,rng);
+  state={mode:'exam',questions:prepareQuestions(part1.concat(part2),rng),answers:[],confirmed:[],marked:[],notes:[],current:0,seed,rng:null,timer:null,remaining:0,deadline:0,part1Done:false,inBreak:false,breakReason:'',startTime:Date.now(),topic:'Prüfung',learnCount:'118',finished:false};
+  toggleControls(true);
+  $('finishBtn').textContent='Prüfung beenden';
+  setTimer(90*60);
+  renderQuestion();
+}
+function startLearning(topicArg,countArg){
+  closeModal();
+  const topic=topicArg||$('studyTopic')?.value||'all';
+  const countVal=countArg||$('learnCount')?.value||'40';
+  const seed=($('learnSeedInput')?.value||'').trim()||makeSeed('L');
+  const rng=mulberry32(hashSeed(seed));
+  const candidates=filteredByTopic(topic);
+  const count=countVal==='all'?'all':Number(countVal);
+  const selected=selectUnique(candidates,count,rng);
+  shuffle(selected,rng);
+  state={mode:'learn',questions:prepareQuestions(selected,rng),answers:[],confirmed:[],marked:[],notes:[],current:0,seed,rng:null,timer:null,remaining:0,deadline:0,part1Done:true,inBreak:false,breakReason:'',startTime:Date.now(),topic,learnCount:countVal,finished:false};
+  toggleControls(true);
+  $('finishBtn').textContent='Lernmodus beenden';
+  $('time').textContent='--:--';
+  saveSession();
+  renderQuestion();
+}
+
+function setTimer(seconds){
+  clearInterval(state.timer);
+  state.remaining=seconds;
+  state.deadline=Date.now()+seconds*1000;
+  updateTimer();
+  state.timer=setInterval(tickTimer,1000);
+  saveSession();
+}
+function resumeTimer(){
+  clearInterval(state.timer);
+  tickTimer();
+  if(state.remaining>0)state.timer=setInterval(tickTimer,1000);
+}
+function tickTimer(){
+  if(state.finished||state.inBreak){clearInterval(state.timer);return}
+  state.remaining=Math.max(0,Math.ceil(((state.deadline||Date.now())-Date.now())/1000));
+  updateTimer();
+  if(state.remaining<=0){
+    clearInterval(state.timer);
+    handleTimerExpired();
+  }else if(state.remaining%5===0){
+    saveSession();
+  }
+}
+function handleTimerExpired(){
+  if(state.mode==='exam'&&!state.part1Done){
+    submitPart1('Die Zeit für Prüfungsteil 1 ist abgelaufen.');
+  }else{
+    finishSession(true);
+  }
+}
+
+function questionUnit(q){
+  if(q.unit!==undefined)return q.unit;
+  if(q.type!=='short')return '';
+  if(/Prozentsatz|Prozent/i.test(q.prompt))return '%';
+  if(/wie viele Tage|Tage bedeutet/i.test(q.prompt))return 'Tage';
+  if(/Euro|Entschädigung|Leistung|Betrag|Kapitalbedarf|Ablaufleistung|Mietausfall/i.test(q.prompt))return 'Euro';
+  return '';
+}
+function formatNumber(v){
+  const n=parseNumber(v);
+  if(!Number.isFinite(n))return String(v);
+  return new Intl.NumberFormat('de-DE',{maximumFractionDigits:2}).format(Math.round(n*100)/100);
+}
+function buildAnswerInput(q){
+  const ans=state.answers[state.current];
+  const confirmed=state.mode==='learn'&&state.confirmed[state.current];
+  if(q.type==='single'){
+    return '<div class="options">'+q.shuffled.map((o,i)=>{
+      const selected=ans===i;let cls='opt';
+      if(confirmed&&i===q.correct)cls+=' correct';
+      if(confirmed&&selected&&i!==q.correct)cls+=' wrong';
+      return `<label class="${cls}"><input type="radio" name="ans" value="${i}" ${selected?'checked':''} onchange="saveSingle(${i})"><span>${escapeHtml(o)}</span></label>`;
+    }).join('')+'</div>';
+  }
+  if(q.type==='multiple'){
+    const arr=Array.isArray(ans)?ans:[];
+    return `<p class="small muted">Es können mehrere Antworten richtig sein. Gewertet wird nur die vollständig richtige Auswahl.</p><div class="options">`+q.shuffled.map((o,i)=>{
+      const selected=arr.includes(i);let cls='opt';
+      if(confirmed&&q.correct.includes(i))cls+=' correct';
+      if(confirmed&&selected&&!q.correct.includes(i))cls+=' wrong';
+      return `<label class="${cls}"><input type="checkbox" value="${i}" ${selected?'checked':''} onchange="saveMulti(${i},this.checked)"><span>${escapeHtml(o)}</span></label>`;
+    }).join('')+'</div>';
+  }
+  const val=escapeHtml(ans??'');
+  const unit=questionUnit(q);
+  const suffix=unit?` <span class="unitSuffix">${escapeHtml(unit)}</span>`:'';
+  const hint=unit==='Euro'?'Eingabe in Euro; deutsche Dezimalschreibweise ist möglich, z. B. 5812,50.':unit==='%'?'Nur den Zahlenwert eingeben, z. B. 10.':'Nur den gefragten Wert eingeben.';
+  return `<div class="short"><input id="shortInput" value="${val}" placeholder="Antwort eingeben" inputmode="decimal" oninput="saveShort(this.value)">${suffix}</div><div class="inputHint">${hint}</div>`;
+}
+function answerText(q){
+  if(q.type==='single')return q.shuffled[q.correct];
+  if(q.type==='multiple')return q.correct.map(i=>q.shuffled[i]).join(' | ');
+  if(q.numeric){const unit=questionUnit(q);return formatNumber(q.answer)+(unit?` ${unit}`:'')}
+  return Array.isArray(q.answer)?q.answer[0]:q.answer;
+}
+
+function renderQuestion(){
+  if(!state.questions.length){showStart();return}
+  const q=state.questions[state.current];
+  $('subtitle').textContent=state.mode==='exam'?`Schriftlicher Prüfungsteil ${q.part}`:'Lernmodus';
+  $('band').textContent=q.category;
+  const progress=((state.current+1)/state.questions.length)*100;
+  const typeText=q.type==='single'?'Einfachauswahl':q.type==='multiple'?'Mehrfachauswahl':'Kurzantwort';
+  const input=buildAnswerInput(q);
+  const confirmed=state.mode==='learn'&&state.confirmed[state.current];
+  const feedback=confirmed?feedbackBlock(q):'<div id="feedbackArea"></div>';
+  const confirmBtn=state.mode==='learn'?'<p><button class="btn secondary" onclick="confirmAnswer()">Antwort bestätigen</button></p>':'';
+  const answered=state.questions.reduce((n,item,i)=>n+(isAnswered(item,state.answers[i])?1:0),0);
+  const marked=state.marked.filter(Boolean).length;
+  $('screen').innerHTML=`<div class="sectionbar"><span>${escapeHtml(q.category)}</span><span class="task">Aufgabe ${currentPartIndex()}</span></div><div class="statusline"><div class="tags"><span class="pill">Teil ${q.part}</span><span class="pill">${q.group}</span><span class="pill">${typeText}</span>${q.numeric?'<span class="pill">Rechenaufgabe</span>':''}<span class="pill dataKind">Eigenständig erstellte Übungsaufgabe</span></div><div class="small muted">${state.current+1} von ${state.questions.length} · ${answered} beantwortet · ${marked} markiert</div></div><div class="progress"><div style="width:${progress}%"></div></div><div class="question"><div class="prompt">${promptHtml(q.prompt)}</div>${input}${confirmBtn}${feedback}</div><p class="saveNotice">Zwischenstand wird automatisch im aktiven Profil gespeichert.</p>`;
+  $('markBtn').className=state.marked[state.current]?'btn secondary':'btn';
+  $('prevBtn').disabled=state.current===0||(state.mode==='exam'&&state.part1Done&&q.part===2&&state.questions[state.current-1]?.part===1);
+  $('nextBtn').disabled=state.current===state.questions.length-1;
+  $('nextBtn').title=state.mode==='exam'&&!state.part1Done&&q.part===1&&state.questions[state.current+1]?.part===2?'Teil 1 abgeben':'Nächste Aufgabe';
+  $('finishBtn').disabled=false;
+  saveSession();
+}
+
+function saveSingle(i){state.answers[state.current]=i;if(state.mode==='learn')state.confirmed[state.current]=false;saveSession();renderQuestion()}
+function saveMulti(i,checked){let arr=Array.isArray(state.answers[state.current])?[...state.answers[state.current]]:[];if(checked&&!arr.includes(i))arr.push(i);if(!checked)arr=arr.filter(x=>x!==i);state.answers[state.current]=arr;if(state.mode==='learn')state.confirmed[state.current]=false;saveSession();renderQuestion()}
+function saveShort(v){state.answers[state.current]=v;if(state.mode==='learn')state.confirmed[state.current]=false;const fb=$('feedbackArea');if(fb)fb.innerHTML='';saveSession()}
+function confirmAnswer(){
+  const q=state.questions[state.current];
+  if(!isAnswered(q,state.answers[state.current])){openModal('<h2>Antwort fehlt</h2><p>Geben Sie zuerst eine Antwort ein oder wählen Sie mindestens eine Antwort aus.</p><button class="btn secondary" onclick="closeModal()">Schließen</button>');return}
+  state.confirmed[state.current]=true;
+  saveSession();
+  renderQuestion();
+}
+
+function partStats(part){
+  const indexes=state.questions.map((q,i)=>q.part===part?i:-1).filter(i=>i>=0);
+  return {total:indexes.length,answered:indexes.filter(i=>isAnswered(state.questions[i],state.answers[i])).length};
+}
+function part1ConfirmHtml(){
+  const s=partStats(1),open=s.total-s.answered;
+  return `<h2>Prüfungsteil 1 abgeben?</h2><p>${s.answered} von ${s.total} Aufgaben sind beantwortet. ${open?`<strong>${open} Aufgaben sind noch offen.</strong>`:'Alle Aufgaben sind beantwortet.'}</p><p>Nach der Abgabe ist Teil 1 gesperrt. Danach kann Prüfungsteil 2 mit 70 Minuten gestartet werden.</p><button class="btn" onclick="closeModal();submitPart1('Prüfungsteil 1 wurde abgegeben.')">Teil 1 verbindlich abgeben</button> <button class="btn secondary" onclick="closeModal()">Zurück</button>`;
+}
+function go(delta){
+  const next=state.current+delta;
+  if(next<0||next>=state.questions.length)return;
+  const target=state.questions[next];
+  if(state.mode==='exam'&&!state.part1Done&&target.part===2){openModal(part1ConfirmHtml());return}
+  if(state.mode==='exam'&&!state.examPart&&state.part1Done&&target.part===1){openModal('<h2>Prüfungsteil 1 ist gesperrt</h2><p>Nach der Abgabe können Antworten aus Teil 1 nicht mehr verändert werden.</p><button class="btn secondary" onclick="closeModal()">Schließen</button>');return}
+  state.current=next;
+  saveSession();
+  renderQuestion();
+}
+function submitPart1(reason){
+  clearInterval(state.timer);
+  state.part1Done=true;
+  state.inBreak=true;
+  state.deadline=0;
+  state.remaining=0;
+  state.breakReason=reason||'Prüfungsteil 1 wurde beendet.';
+  saveSession();
+  showPartBreak(state.breakReason);
+}
+function showPartBreak(reason){
+  toggleControls(false);
+  $('subtitle').textContent='Pause zwischen den Prüfungsteilen';
+  $('band').textContent='Teil 1 abgeschlossen';
+  $('time').textContent='Pause';
+  $('screen').innerHTML=`<div class="start breakPanel"><h2>Prüfungsteil 1 ist abgeschlossen</h2><p>${escapeHtml(reason)}</p><p>Die Antworten aus Teil 1 sind jetzt gesperrt. Starten Sie Prüfungsteil 2, wenn Sie bereit sind. Dafür stehen 70 Minuten zur Verfügung.</p><div class="row"><button class="btn" onclick="startPart2()">Prüfungsteil 2 starten</button><button class="btn secondary" onclick="showInfo()">Info öffnen</button></div></div>`;
+  saveSession();
+}
+function startPart2(){
+  closeModal();
+  state.inBreak=false;
+  const first=state.questions.findIndex(q=>q.part===2);
+  state.current=first>=0?first:state.current;
+  toggleControls(true);
+  setTimer(70*60);
+  renderQuestion();
+}
+function confirmPart2(){closeModal();submitPart1('Prüfungsteil 1 wurde abgegeben.')}
+function jumpToQuestion(i){
+  const target=state.questions[i];
+  if(!target)return;
+  if(state.mode==='exam'&&!state.part1Done&&target.part===2){openModal(part1ConfirmHtml());return}
+  if(state.mode==='exam'&&!state.examPart&&state.part1Done&&target.part===1){openModal('<h2>Prüfungsteil 1 ist gesperrt</h2><p>Nach der Abgabe können Antworten aus Teil 1 nicht mehr verändert werden.</p><button class="btn secondary" onclick="closeModal()">Schließen</button>');return}
+  state.current=i;
+  closeModal();
+  saveSession();
+  renderQuestion();
+}
+function showOverview(){
+  if(!state.questions.length){showStart();return}
+  const cells=state.questions.map((q,i)=>{
+    const ans=isAnswered(q,state.answers[i]);
+    const locked=state.mode==='exam'&&!state.examPart&&((!state.part1Done&&q.part===2)||(state.part1Done&&q.part===1));
+    const cls=['qcell',ans?'answered':'',state.marked[i]?'marked':'',i===state.current?'current':'',locked?'locked':''].join(' ');
+    const number=state.questions.slice(0,i+1).filter(x=>x.part===q.part).length;
+    return `<div class="${cls}" ${locked?'title="Dieser Prüfungsteil ist gesperrt"':`onclick="jumpToQuestion(${i})"`}>${q.part}.${number}</div>`;
+  }).join('');
+  openModal(`<h2>Übersicht</h2><p class="muted">Blau bedeutet beantwortet, Orange markiert bedeutet zur Nacharbeit markiert, Grau bedeutet gesperrt.</p><div class="grid">${cells}</div><p style="margin-top:18px"><button class="btn secondary" onclick="closeModal()">Schließen</button></p>`);
+}
+function showNotes(){
+  if(!state.questions.length)return;
+  const val=escapeHtml(state.notes[state.current]||'');
+  openModal(`<h2>Notizen zu Aufgabe ${state.questions[state.current].part}.${currentPartIndex()}</h2><textarea class="notes" id="noteText">${val}</textarea><p><button class="btn secondary" onclick="state.notes[state.current]=document.getElementById('noteText').value;saveSession();closeModal()">Speichern</button> <button class="btn secondary" onclick="closeModal()">Schließen</button></p>`);
+}
+
+function showInfo(){
+  const pages=INFO_PAGES.map((src,i)=>`<div class="infoPage"><p class="infoHint">Offizielle BWV-Werteübersicht 2026 · Seite ${i+1} von ${INFO_PAGES.length}</p><img alt="Prüfungsrelevante Werte 2026 Seite ${i+1}" src="${src}"></div>`).join('');
+  openModal(`<h2>Info</h2><div class="sourcebox"><p><strong>Prüfungsrelevante Werte 2026.</strong> Die offizielle PDF umfasst eine Seite und enthält die Werte für Prüfungsteil 1 und Prüfungsteil 2.</p><p class="infoHint">Die Info ist während Prüfung und Lernmodus jederzeit über die untere Leiste aufrufbar.</p></div><div class="infoPages">${pages}</div><p><button class="btn secondary" onclick="closeModal()">Schließen</button></p>`);
+  $('modalbox').classList.add('wide');
+}
+function feedbackBlock(q){
+  const a=state.answers[state.current],ok=isCorrect(q,a);
+  return `<div class="feedback" id="feedbackArea"><div class="${ok?'ok':'bad'}">${ok?'Richtig':'Falsch'}</div><p><strong>Richtige Antwort:</strong> ${escapeHtml(answerText(q))}</p><p><strong>Begründung:</strong> ${escapeHtml(q.explanation)}</p><p><strong>Fachliche Grundlage:</strong> ${escapeHtml(q.ref)}</p><p class="small muted">Einordnung: eigenständig erstellte Übungsaufgabe, keine veröffentlichte Original-Prüfungsaufgabe.</p></div>`;
+}
+
+function requestFinish(){
+  if(!state.questions.length)return;
+  if(state.mode==='exam'&&!state.part1Done){openModal(part1ConfirmHtml());return}
+  const open=state.questions.reduce((n,q,i)=>n+(!isAnswered(q,state.answers[i])?1:0),0);
+  const text=state.mode==='exam'?(state.examPart?'Prüfungsteil '+state.examPart+' beenden?':'Prüfungsteil 2 und gesamte Prüfung beenden?'):'Lernmodus wirklich beenden?';
+  openModal(`<h2>${text}</h2><p>${open?`<strong>${open} Aufgaben sind noch offen.</strong> `:''}Danach wird die Auswertung erstellt und in der Historie gespeichert.</p><button class="btn" onclick="closeModal();finishSession(false)">Beenden und auswerten</button> <button class="btn secondary" onclick="closeModal()">Zurück</button>`);
+}
+function finishSession(auto){
+  clearInterval(state.timer);
+  if(!state.questions.length||state.finished)return;
+  state.finished=true;
+  state.deadline=0;
+  const stats=computeStats();
+  const entry=saveHistory(stats);
+  clearSavedSession();
+  renderResult(stats,entry,auto);
+}
+function saveHistory(stats){
+  const groups={},cats={};
+  Object.entries(stats.group).forEach(([k,v])=>groups[k]={c:v.right,n:v.total,p:pct(v.right,v.total)});
+  Object.entries(stats.cat).forEach(([k,v])=>cats[k]={c:v.right,n:v.total,p:pct(v.right,v.total)});
+  const wrongKeys=state.questions.filter((q,i)=>!isCorrect(q,state.answers[i])).map(baseKey);
+  const entry={id:Date.now(),date:new Date().toISOString(),mode:state.mode,seed:state.seed,total:stats.total,correct:stats.correct,percent:pct(stats.correct,stats.total),groups,categories:cats,durationSec:Math.max(0,Math.round((Date.now()-state.startTime)/1000)),topic:state.topic,learnCount:state.learnCount,wrongKeys};
+  const h=getHistory();h.push(entry);setHistory(h);syncAttempt(entry);return entry;
+}
+function startWrongLearning(){
+  const wrong=state.questions.filter((q,i)=>!isCorrect(q,state.answers[i])).map(q=>{
+    const x=clone(q);delete x.shuffled;delete x.correct;delete x.sessionId;return x;
+  });
+  if(!wrong.length){openModal('<h2>Keine Fehler</h2><p>In diesem Durchlauf gibt es keine falsch beantworteten Aufgaben.</p><button class="btn secondary" onclick="closeModal()">Schließen</button>');return}
+  const seed=makeSeed('F');
+  const rng=mulberry32(hashSeed(seed));
+  shuffle(wrong,rng);
+  state={mode:'learn',questions:prepareQuestions(wrong,rng),answers:[],confirmed:[],marked:[],notes:[],current:0,seed,rng:null,timer:null,remaining:0,deadline:0,part1Done:true,inBreak:false,breakReason:'',startTime:Date.now(),topic:'Fehler aus letztem Durchlauf',learnCount:String(wrong.length),finished:false};
+  toggleControls(true);$('finishBtn').textContent='Lernmodus beenden';$('time').textContent='--:--';saveSession();renderQuestion();
+}
+function resultActionsHtml(){
+  const wrong=state.questions.filter((q,i)=>!isCorrect(q,state.answers[i])).length;
+  const repeat=state.mode==='learn'?'<button class="btn secondary" onclick="repeatLastLearning()">Gleichen Lernbereich erneut</button>':'';
+  const wrongButton=wrong?`<button class="btn secondary" onclick="startWrongLearning()">Fehler wiederholen (${wrong})</button>`:'';
+  return `<div class="resultActionsTop"><strong>Weiterarbeiten</strong><p class="small muted">Hauptmenü und nächste Schritte sind direkt erreichbar.</p><div class="row"><button class="btn primaryAction" onclick="showStart()">Hauptmenü</button><button class="btn secondary" onclick="startExam()">Neue Prüfungssimulation</button><button class="btn secondary" onclick="startLearning('all','40')">Neuer Lernmodus</button>${wrongButton}${repeat}<button class="btn secondary" onclick="showHistory()">Historie</button></div></div>`;
+}
+function renderResult(stats,entry,auto){
+  toggleControls(false);$('finishBtn').disabled=true;$('subtitle').textContent='Auswertung';$('band').textContent='Ergebnis';$('time').textContent='00:00';
+  let groupRows='',pass50=0,below30=false;
+  GROUP_ORDER.forEach(g=>{
+    const r=stats.group[g];if(!r)return;const p=pct(r.right,r.total);if(p>=50)pass50++;if(p<30)below30=true;
+    const cls=p>=50?'pass':p>=30?'midpass':'fail';
+    groupRows+=`<tr class="${cls}"><td>${GROUPS[g].name}</td><td>${r.right} von ${r.total}</td><td>${p} Prozent</td><td>${p>=50?'mindestens 50 Prozent':p>=30?'mindestens 30 Prozent':'unter 30 Prozent'}</td></tr>`;
+  });
+  const passed=state.examPart?Object.values(stats.group).every(r=>pct(r.right,r.total)>=50):(pass50>=4&&!below30);
+  const catRows=Object.entries(stats.cat).sort((a,b)=>pct(a[1].right,a[1].total)-pct(b[1].right,b[1].total)).map(([c,r])=>`<tr><td>${escapeHtml(c)}</td><td>${r.right} von ${r.total}</td><td>${pct(r.right,r.total)} Prozent</td><td><button class="btn secondary" onclick="startLearning('C|${escapeAttr(c)}','40')">Lernen</button></td></tr>`).join('');
+  const review=state.questions.map((q,i)=>reviewItem(q,i)).join('');
+  const headline=state.mode==='exam'?(state.examPart?('Prüfungsteil '+state.examPart+(passed?': Richtwert erreicht':': Richtwert nicht erreicht')):(passed?'Bestanden':'Nicht bestanden')):'Lernmodus Ergebnis';
+  const modeLine=state.mode==='exam'?(state.examPart?'Prüfungsteil '+state.examPart+' einzeln (Richtwert: jedes Sachgebiet mindestens 50 Prozent)':'Prüfungssimulation'):'Lernmodus, '+escapeHtml(topicLabel(state.topic));
+  $('screen').innerHTML=`<div class="start">${resultActionsHtml()}<h2>${headline}</h2><p>${auto?'Die Zeit ist abgelaufen. ':''}${modeLine}. Ergebnis: <strong>${stats.correct} von ${stats.total} Punkten</strong>. Quote: <strong>${entry.percent} Prozent</strong>.</p><div class="scoringNote">Bewertung: ein Punkt je vollständig richtiger Aufgabe, keine Teilpunkte bei Mehrfachauswahl. Bestehensanzeige nach der 50/50/50/50/30-Regel über die fünf Sachgebiete.</div><p>Dieses Ergebnis wurde in der Historie des aktiven Profils gespeichert. Seed: <span class="kbd">${escapeHtml(state.seed)}</span></p><h3>Auswertung nach Prüfungsbereichen</h3><table class="resulttable"><tr><th>Bereich</th><th>Richtig</th><th>Quote</th><th>Status</th></tr>${groupRows}</table><h3>Auswertung nach Themen</h3><table class="resulttable"><tr><th>Thema</th><th>Richtig</th><th>Quote</th><th>Aktion</th></tr>${catRows}</table><h3>Alle abgefragten Aufgaben, ${state.questions.length}</h3><div class="reviewControls"><button class="btn secondary" onclick="openAllReview(true)">Alle öffnen</button> <button class="btn secondary" onclick="openAllReview(false)">Alle schließen</button> <button class="btn secondary" onclick="showStart()">Hauptmenü</button> <button class="btn secondary" onclick="showHistory()">Historie anzeigen</button></div>${review}</div>`;
+  document.querySelector('.content').scrollTop=0;
+}
+function reviewItem(q,i){
+  const ok=isCorrect(q,state.answers[i]),status=ok?'Richtig':'Falsch oder offen',cls=ok?'ok':'bad',open=ok?'':' open';
+  return `<details class="review-item"${open}><summary><span class="${cls}">${status}</span> | Aufgabe ${i+1} | Teil ${q.part} | ${escapeHtml(q.category)}</summary><div class="review-body"><p>${promptHtml(q.prompt)}</p><p><strong>Ihre Antwort:</strong> ${escapeHtml(userText(q,state.answers[i]))}</p><p><strong>Richtige Antwort:</strong> ${escapeHtml(answerText(q))}</p><p><strong>Begründung:</strong> ${escapeHtml(q.explanation)}</p><p><strong>Fachliche Grundlage:</strong> ${escapeHtml(q.ref)}</p><p class="small muted">Eigenständig erstellte Übungsaufgabe, keine veröffentlichte Original-Prüfungsaufgabe.</p></div></details>`;
+}
+function exportHistory(){
+  const h=getHistory();
+  if(!h.length){openModal('<h2>CSV Export</h2><p>Keine Historie vorhanden.</p><button class="btn secondary" onclick="closeModal()">Schließen</button>');return}
+  const heads=['Datum','Profil','Modus','Seed','Richtig','Gesamt','Quote','Dauer Sekunden','Thema'];
+  const lines=[heads.join(';')],profile=getActiveProfile().name;
+  h.forEach(e=>{const vals=[new Date(e.date).toLocaleString('de-DE'),profile,modeText(e),e.seed,e.correct,e.total,e.percent,e.durationSec||0,topicLabel(e.topic)];lines.push(vals.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';'))});
+  const blob=new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a'),url=URL.createObjectURL(blob);
+  a.href=url;a.download='34d_historie_'+getActiveProfile().name.replace(/[^a-z0-9]+/gi,'_')+'.csv';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+window.addEventListener('beforeunload',saveSession);
+
+/* ===== LAD 34d Lernapp: Login, geschützte Inhalte, Team, Synchronisierung ===== */
+const APP_VERSION='1.0.0';
+const SB={url:'https://kwnjmjiirmldgodmfglj.supabase.co',key:'sb_publishable_bBPetwMQ-mx0vCxidpMnzA_qfDQTlAS'};
+const AUTH_KEY='lad34d_auth_v1';
+let AUTH={session:null,user:null,isAdmin:false};
+let CONTENT_VERSION='';
+
+/* ---------- Hilfen ---------- */
+function sbHeaders(extra){const h={apikey:SB.key,'Content-Type':'application/json'};if(AUTH.session&&AUTH.session.access_token)h.Authorization='Bearer '+AUTH.session.access_token;return Object.assign(h,extra||{})}
+function saveAuth(){try{if(AUTH.session)localStorage.setItem(AUTH_KEY,JSON.stringify(AUTH.session));else localStorage.removeItem(AUTH_KEY)}catch(e){}}
+function loadAuth(){try{const s=JSON.parse(localStorage.getItem(AUTH_KEY)||'null');if(s&&s.access_token&&s.user){AUTH.session=s;AUTH.user=s.user}}catch(e){}}
+function setSession(data){if(!data||!data.access_token)return false;const s={access_token:data.access_token,refresh_token:data.refresh_token,expires_at:data.expires_at||(Math.floor(Date.now()/1000)+(data.expires_in||3600)),user:data.user||(AUTH.session&&AUTH.session.user)};AUTH.session=s;AUTH.user=s.user;saveAuth();return true}
+function authErrorText(t){t=String(t||'');if(/NICHT_EINGELADEN/i.test(t))return 'Diese E-Mail-Adresse ist nicht freigeschaltet. Bitte wenden Sie sich an Ihren Ansprechpartner bei LAD.';if(/invalid_credentials|Invalid login credentials|invalid_grant/i.test(t))return 'E-Mail-Adresse oder Passwort ist nicht korrekt.';if(/already|registered|exists/i.test(t))return 'Für diese E-Mail-Adresse gibt es bereits ein Konto. Bitte melden Sie sich an.';if(/password/i.test(t)&&/(short|least|weak|characters)/i.test(t))return 'Das Passwort ist zu kurz. Bitte mindestens 8 Zeichen wählen.';if(/email/i.test(t)&&/invalid/i.test(t))return 'Bitte geben Sie eine gültige E-Mail-Adresse ein.';if(/Failed to fetch|NetworkError|network/i.test(t))return 'Keine Verbindung zum Server. Bitte prüfen Sie Ihre Internetverbindung.';return 'Die Anmeldung hat nicht geklappt. Bitte versuchen Sie es erneut.'}
+async function authCall(path,body){const r=await fetch(SB.url+'/auth/v1/'+path,{method:'POST',headers:{apikey:SB.key,'Content-Type':'application/json'},body:JSON.stringify(body)});let j=null;try{j=await r.json()}catch(e){}if(!r.ok){throw new Error((j&&(j.message||j.msg||j.error_description||j.error_code||j.error))||('HTTP '+r.status))}return j}
+async function refreshSession(){if(!AUTH.session||!AUTH.session.refresh_token)return false;try{const j=await authCall('token?grant_type=refresh_token',{refresh_token:AUTH.session.refresh_token});return setSession(j)}catch(e){if(/Failed to fetch|NetworkError/i.test(String(e.message)))return false;AUTH.session=null;AUTH.user=null;saveAuth();return false}}
+async function ensureFresh(){if(!AUTH.session)return false;const left=(AUTH.session.expires_at||0)-Math.floor(Date.now()/1000);if(left<90){return await refreshSession()}return true}
+async function sbFetch(path,opts){opts=opts||{};await ensureFresh();let r=await fetch(SB.url+path,Object.assign({},opts,{headers:sbHeaders(opts.headers)}));if(r.status===401&&AUTH.session){if(await refreshSession())r=await fetch(SB.url+path,Object.assign({},opts,{headers:sbHeaders(opts.headers)}))}return r}
+async function rpc(name,args){const r=await sbFetch('/rest/v1/rpc/'+name,{method:'POST',body:JSON.stringify(args||{})});if(!r.ok)throw new Error('HTTP '+r.status);const t=await r.text();return t?JSON.parse(t):null}
+function setAllControls(on){['overviewBtn','prevBtn','nextBtn','markBtn','calcBtn','notesBtn','finishBtn','infoBtn','historyBtn'].forEach(id=>{const b=$(id);if(b)b.disabled=!on})}
+
+/* ---------- IndexedDB für Inhalte ---------- */
+function idb(){return new Promise((res,rej)=>{if(!('indexedDB' in window))return rej(new Error('no idb'));const q=indexedDB.open('lad34d',1);q.onupgradeneeded=()=>q.result.createObjectStore('kv');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
+async function idbGet(k){try{const db=await idb();return await new Promise((res,rej)=>{const t=db.transaction('kv','readonly').objectStore('kv').get(k);t.onsuccess=()=>res(t.result);t.onerror=()=>rej(t.error)})}catch(e){return null}}
+async function idbPut(k,v){try{const db=await idb();await new Promise((res,rej)=>{const t=db.transaction('kv','readwrite').objectStore('kv').put(v,k);t.onsuccess=()=>res();t.onerror=()=>rej(t.error)})}catch(e){}}
+
+/* ---------- Inhalte laden ---------- */
+function applyContent(c){BANK=Array.isArray(c.bank)?c.bank:[];INFO_PAGES=Array.isArray(c.info_pages)?c.info_pages:[];GLOSSARY=Array.isArray(c.glossary)?c.glossary:[];CONTENT_VERSION=c.version||''}
+function showLoading(text,pctVal){$('band').textContent='Bitte warten';$('subtitle').textContent='LAD 34d Lernapp';$('screen').innerHTML=`<div class="start breakPanel"><h2>${escapeHtml(text)}</h2><div class="progress"><div style="width:${Math.max(3,pctVal||0)}%"></div></div><p class="muted small">Die Inhalte werden einmalig geladen und danach auf diesem Gerät gespeichert.</p></div>`}
+async function loadContent(){
+  const cached=await idbGet('inhalt');
+  let remote=null;
+  if(navigator.onLine!==false){
+    try{
+      const r=await sbFetch('/storage/v1/object/authenticated/inhalte/version.json?t='+Date.now(),{method:'GET'});
+      if(r.status===400||r.status===403||r.status===404){if(r.status!==404||!cached)return {error:'gesperrt'}}
+      else if(r.ok){remote=await r.json()}
+    }catch(e){remote=null}
+  }
+  if(remote&&(!cached||cached.version!==remote.version)){
+    showLoading('Inhalte werden geladen',10);
+    try{
+      const r=await sbFetch('/storage/v1/object/authenticated/inhalte/'+encodeURIComponent(remote.datei),{method:'GET'});
+      if(!r.ok)return cached?(applyContent(cached),{ok:true}):{error:r.status===403||r.status===400?'gesperrt':'laden'};
+      showLoading('Inhalte werden geladen',70);
+      const c=await r.json();
+      c.version=c.version||remote.version;
+      await idbPut('inhalt',c);
+      applyContent(c);
+      return {ok:true};
+    }catch(e){if(cached){applyContent(cached);return {ok:true}}return {error:'laden'}}
+  }
+  if(cached){applyContent(cached);return {ok:true}}
+  return {error:navigator.onLine===false?'offline':'laden'};
+}
+
+/* ---------- Anmeldung ---------- */
+function showLogin(msg,tab){
+  clearInterval(state.timer);
+  state={...state,mode:'login',questions:[]};
+  setAllControls(false);
+  $('subtitle').textContent='LAD 34d Lernapp';$('band').textContent='Anmeldung';$('time').textContent='--:--';
+  const reg=tab==='reg';
+  $('screen').innerHTML=`<div class="start breakPanel"><h2>${reg?'Registrieren':'Anmelden'}</h2><p>Lern- und Prüfungssimulation für die Sachkundeprüfung Versicherungsvermittlung IHK auf Grundlage von Proximus 5.</p><p class="scoringNote">Nur für eingeladene Personen. Die Einladung erhalten Sie von LAD. Registrieren Sie sich mit genau der E-Mail-Adresse, an die Sie eingeladen wurden.</p>${msg?`<p class="bad">${escapeHtml(msg)}</p>`:''}<div class="card"><div class="row" style="margin-bottom:10px"><button class="btn ${reg?'secondary':''}" onclick="showLogin('','login')">Anmelden</button><button class="btn ${reg?'':'secondary'}" onclick="showLogin('','reg')">Registrieren</button></div>${reg?`<div class="field"><label for="regName">Ihr Name</label><input id="regName" autocomplete="name" placeholder="Vorname Nachname"></div>`:''}<div class="field"><label for="authEmail">E-Mail-Adresse</label><input id="authEmail" type="email" autocomplete="email" placeholder="name@beispiel.de"></div><div class="field"><label for="authPass">Passwort${reg?' (mindestens 8 Zeichen)':''}</label><input id="authPass" type="password" autocomplete="${reg?'new-password':'current-password'}"></div><p><button class="btn" id="authSubmit" onclick="${reg?'doRegister()':'doLogin()'}">${reg?'Konto anlegen':'Anmelden'}</button></p><p class="small muted">Passwort vergessen? Bitte wenden Sie sich an Ihren Ansprechpartner bei LAD. Er kann Ihr Passwort zurücksetzen.</p></div><p class="brandNotice">LAD Lernsimulation. Keine offizielle IHK- oder BWV-Prüfung.</p></div>`;
+  const pass=$('authPass');if(pass)pass.addEventListener('keydown',e=>{if(e.key==='Enter'){reg?doRegister():doLogin()}});
+}
+function authBusy(on){const b=$('authSubmit');if(b){b.disabled=on;b.textContent=on?'Bitte warten':(b.getAttribute('onclick')==='doRegister()'?'Konto anlegen':'Anmelden')}}
+async function doLogin(){
+  const email=($('authEmail').value||'').trim().toLowerCase(),password=$('authPass').value||'';
+  if(!email||!password){showLogin('Bitte E-Mail-Adresse und Passwort eingeben.','login');return}
+  authBusy(true);
+  try{const j=await authCall('token?grant_type=password',{email,password});setSession(j);await afterLogin()}
+  catch(e){showLogin(authErrorText(e.message),'login');const f=$('authEmail');if(f)f.value=email}
+}
+async function doRegister(){
+  const name=($('regName').value||'').trim(),email=($('authEmail').value||'').trim().toLowerCase(),password=$('authPass').value||'';
+  if(!name||!email||!password){showLogin('Bitte Name, E-Mail-Adresse und Passwort eingeben.','reg');return}
+  if(password.length<8){showLogin('Das Passwort ist zu kurz. Bitte mindestens 8 Zeichen wählen.','reg');return}
+  authBusy(true);
+  try{
+    let j=await authCall('signup',{email,password,data:{display_name:name}});
+    if(!j||!j.access_token){j=await authCall('token?grant_type=password',{email,password})}
+    setSession(j);await afterLogin();
+  }catch(e){showLogin(authErrorText(e.message),'reg');const f=$('authEmail');if(f)f.value=email;const n=$('regName');if(n)n.value=name}
+}
+async function logout(){
+  closeModal();
+  try{saveSession()}catch(e){}
+  try{await sbFetch('/auth/v1/logout',{method:'POST'})}catch(e){}
+  AUTH={session:null,user:null,isAdmin:false};saveAuth();
+  BANK=[];INFO_PAGES=[];GLOSSARY=[];
+  showLogin('Sie wurden abgemeldet.','login');
+}
+async function afterLogin(){
+  showLoading('Inhalte werden geprüft',5);
+  const res=await loadContent();
+  if(res.error){
+    if(res.error==='gesperrt'){showLogin('Ihr Zugang ist gesperrt oder nicht freigeschaltet. Bitte wenden Sie sich an Ihren Ansprechpartner bei LAD.','login');return}
+    if(res.error==='offline'){showLogin('Sie sind offline. Für die erste Anmeldung auf diesem Gerät wird eine Internetverbindung benötigt.','login');return}
+    showLogin('Die Inhalte konnten nicht geladen werden. Bitte versuchen Sie es später erneut.','login');return;
+  }
+  setAllControls(true);
+  showStart();
+  backgroundSync();
+}
+async function backgroundSync(){
+  try{AUTH.isAdmin=!!(await rpc('is_admin',{}))}catch(e){}
+  try{await pullAttempts()}catch(e){}
+  try{await flushQueue()}catch(e){}
+  try{await touchProfile()}catch(e){}
+  if(state.mode==='start')showStart();
+}
+
+/* ---------- Ergebnisse synchronisieren ---------- */
+function queueKey(){return 'lad34d_queue_'+(AUTH.user?AUTH.user.id:'gast')}
+function getQueue(){try{return JSON.parse(localStorage.getItem(queueKey())||'[]')}catch(e){return[]}}
+function setQueue(q){try{localStorage.setItem(queueKey(),JSON.stringify(q))}catch(e){}}
+function attemptPayload(entry,examPart){
+  const groups=entry.groups||{};
+  let passed=null;
+  if(entry.mode==='exam'){
+    const ps=Object.values(groups).map(g=>g.p);
+    if(examPart)passed=ps.length>0&&ps.every(p=>p>=50);
+    else passed=ps.length===5&&ps.filter(p=>p>=50).length>=4&&!ps.some(p=>p<30);
+  }
+  return {client_id:String(entry.id),created_at:entry.date,mode:entry.mode==='exam'?(examPart?'exam'+examPart:'exam'):entry.mode,topic:entry.topic||'',total:entry.total,correct:entry.correct,percent:entry.percent,passed,groups,categories:entry.categories||{},duration_sec:entry.durationSec||0};
+}
+function syncAttempt(entry){if(!AUTH.user)return;const q=getQueue();q.push(attemptPayload(entry,state.examPart));setQueue(q);flushQueue()}
+async function flushQueue(){
+  if(!AUTH.user||navigator.onLine===false)return;
+  let q=getQueue();if(!q.length)return;
+  const r=await sbFetch('/rest/v1/attempts?on_conflict=user_id,client_id',{method:'POST',headers:{Prefer:'resolution=ignore-duplicates,return=minimal'},body:JSON.stringify(q)});
+  if(r.ok)setQueue([]);
+}
+async function pullAttempts(){
+  if(!AUTH.user)return;
+  const r=await sbFetch('/rest/v1/attempts?select=client_id,created_at,mode,topic,total,correct,percent,groups,categories,duration_sec&order=created_at.asc&limit=1000',{method:'GET'});
+  if(!r.ok)return;
+  const rows=await r.json();
+  const h=getHistory();const have=new Set(h.map(e=>String(e.id)));let changed=false;
+  rows.forEach(x=>{if(have.has(String(x.client_id)))return;h.push({id:Number(x.client_id)||Date.parse(x.created_at),date:x.created_at,mode:String(x.mode).startsWith('exam')?'exam':x.mode,seed:'',total:x.total,correct:x.correct,percent:Number(x.percent),groups:x.groups||{},categories:x.categories||{},durationSec:x.duration_sec||0,topic:x.topic||'',learnCount:''});changed=true});
+  if(changed){h.sort((a,b)=>new Date(a.date)-new Date(b.date));setHistory(h)}
+}
+async function touchProfile(){
+  if(!AUTH.user)return;
+  const k='lad34d_touch_'+AUTH.user.id,last=Number(localStorage.getItem(k)||0);
+  if(Date.now()-last<5*60*1000)return;
+  const r=await sbFetch('/rest/v1/profiles?id=eq.'+AUTH.user.id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({last_seen:new Date().toISOString()})});
+  if(r.ok)try{localStorage.setItem(k,String(Date.now()))}catch(e){}
+}
+window.addEventListener('online',()=>{flushQueue().catch(()=>{})});
+
+/* ---------- Konto auf dem Startbildschirm ---------- */
+function profilePanelHtml(){
+  const u=AUTH.user||{};const name=(u.user_metadata&&u.user_metadata.display_name)||u.email||'';
+  return `<div class="card"><h3>Konto</h3><p><strong>${escapeHtml(name)}</strong><br><span class="small muted">${escapeHtml(u.email||'')}</span></p><p class="small muted">Ihre Ergebnisse werden in Ihrem Konto gespeichert und erscheinen auf jedem Gerät in der Historie.</p><div class="row">${AUTH.isAdmin?'<button class="btn" onclick="showTeam()">Team verwalten</button>':''}<button class="btn secondary" onclick="logout()">Abmelden</button></div><p class="saveNotice">App-Version ${APP_VERSION}${CONTENT_VERSION?' · Inhalte '+escapeHtml(CONTENT_VERSION):''}</p></div>`;
+}
+function getActiveProfile(){const u=AUTH.user;if(!u)return {id:'gast',name:'Gast'};return {id:u.id,name:(u.user_metadata&&u.user_metadata.display_name)||u.email}}
+
+/* ---------- Bestätigungsdialog ohne confirm() ---------- */
+function askConfirm(title,text,okLabel,onOk){window.__confirmOk=onOk;openModal(`<h2>${escapeHtml(title)}</h2><p>${escapeHtml(text)}</p><button class="btn" onclick="closeModal();(window.__confirmOk||function(){})()">${escapeHtml(okLabel)}</button> <button class="btn secondary" onclick="closeModal()">Abbrechen</button>`)}
+function clearHistory(){askConfirm('Historie löschen?','Die Historie auf diesem Gerät wird gelöscht. Ergebnisse in Ihrem Konto bleiben erhalten und werden beim nächsten Anmelden wieder geladen.','Historie löschen',()=>{try{localStorage.removeItem(historyStorageKey())}catch(e){}renderHistoryStart()})}
+function discardSavedSession(){askConfirm('Zwischenstand verwerfen?','Der gespeicherte Zwischenstand wird gelöscht.','Verwerfen',()=>{clearSavedSession();showStart()})}
+
+/* ---------- Prüfungsteil einzeln ---------- */
+function startExamPart(part){
+  closeModal();
+  const seed=makeSeed('T'+part);
+  const rng=mulberry32(hashSeed(seed));
+  const groups=part===1?['A','B','C']:['D','E'];
+  let qs=[];groups.forEach(g=>qs.push(...selectExamGroup(g,EXAM_DIST[g],rng)));
+  shuffle(qs,rng);
+  state={mode:'exam',examPart:part,questions:prepareQuestions(qs,rng),answers:[],confirmed:[],marked:[],notes:[],current:0,seed,rng:null,timer:null,remaining:0,deadline:0,part1Done:true,inBreak:false,breakReason:'',startTime:Date.now(),topic:'Prüfungsteil '+part,learnCount:String(qs.length),finished:false};
+  toggleControls(true);
+  $('finishBtn').textContent='Prüfungsteil beenden';
+  setTimer((part===1?90:70)*60);
+  renderQuestion();
+}
+
+/* ---------- Team (nur Admin) ---------- */
+function fmtDate(d){if(!d)return '';try{return new Date(d).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}catch(e){return String(d)}}
+function ampel(r){const last=r.last_exam_percent,passed=Number(r.exams_passed||0);if(passed>=2)return '<span class="ok">grün</span>';if(last!=null&&Number(last)>=50)return '<span class="warntext">gelb</span>';return '<span class="bad">rot</span>'}
+async function showTeam(){
+  openModal('<h2>Team</h2><p>Daten werden geladen.</p>');$('modalbox').classList.add('wide');
+  let inv=[],ov=[];
+  try{inv=await rpc('team_invites',{})||[];ov=await rpc('team_overview',{})||[]}catch(e){openModal('<h2>Team</h2><p class="bad">Die Teamdaten konnten nicht geladen werden. Bitte prüfen Sie die Internetverbindung.</p><button class="btn secondary" onclick="closeModal()">Schließen</button>');return}
+  const invRows=inv.map(i=>`<tr class="${i.revoked?'fail':''}"><td>${escapeHtml(i.name||'')}</td><td>${escapeHtml(i.email)}</td><td>${fmtDate(i.invited_at)}</td><td>${i.revoked?'gesperrt':(i.registered?'registriert':'noch nicht registriert')}</td><td class="row"><button class="btn secondary" onclick="setInviteRevoked('${escapeAttr(i.email)}',${!i.revoked})">${i.revoked?'Entsperren':'Sperren'}</button><button class="btn secondary" onclick="deleteInvite('${escapeAttr(i.email)}')">Entfernen</button></td></tr>`).join('')||'<tr><td colspan="5">Noch keine Einladungen.</td></tr>';
+  const ovRows=ov.map(r=>`<tr><td><a href="#" onclick="showMember('${escapeAttr(r.user_id)}','${escapeAttr(r.display_name||r.email)}');return false">${escapeHtml(r.display_name||'')}</a><br><span class="small muted">${escapeHtml(r.email||'')}</span></td><td>${fmtDate(r.last_seen)}</td><td>${r.attempts_total}</td><td>${r.exams_passed} von ${r.exams_total}</td><td>${r.last_exam_percent!=null?r.last_exam_percent+' Prozent':'keine'}</td><td>${r.best_exam_percent!=null?r.best_exam_percent+' Prozent':'keine'}</td><td>${r.avg_percent!=null?r.avg_percent+' Prozent':'keine'}</td><td>${ampel(r)}</td></tr>`).join('')||'<tr><td colspan="8">Noch keine registrierten Personen.</td></tr>';
+  openModal(`<h2>Team</h2><div class="sourcebox"><strong>Person einladen</strong><p class="small">Tragen Sie Name und E-Mail-Adresse ein. Schicken Sie der Person danach den Link zur App. Sie registriert sich mit genau dieser E-Mail-Adresse und wählt ein eigenes Passwort.</p><div class="row"><input id="invName" placeholder="Name" style="font-size:16px;padding:9px;border:1px solid #aab2bd;border-radius:5px"><input id="invEmail" type="email" placeholder="E-Mail-Adresse" style="font-size:16px;padding:9px;border:1px solid #aab2bd;border-radius:5px;min-width:240px"><button class="btn" onclick="addInvite()">Einladen</button><button class="btn secondary" onclick="copyAppLink()">Link zur App kopieren</button></div><p id="teamMsg" class="small"></p></div><h3>Einladungen</h3><div class="historyScroll"><table class="resulttable"><tr><th>Name</th><th>E-Mail</th><th>Eingeladen</th><th>Status</th><th>Aktion</th></tr>${invRows}</table></div><h3>Lernstand</h3><p class="small muted">Prüfungsreife: grün ab zwei bestandenen Vollprüfungen, gelb ab einer letzten Prüfung mit mindestens 50 Prozent, sonst rot. Namen anklicken für Details.</p><div class="historyScroll"><table class="resulttable"><tr><th>Person</th><th>Zuletzt aktiv</th><th>Durchläufe</th><th>Vollprüfungen bestanden</th><th>Letzte Prüfung</th><th>Beste Prüfung</th><th>Durchschnitt</th><th>Prüfungsreife</th></tr>${ovRows}</table></div><h3>Passwort zurücksetzen</h3><div class="row"><input id="pwEmail" type="email" placeholder="E-Mail-Adresse" style="font-size:16px;padding:9px;border:1px solid #aab2bd;border-radius:5px;min-width:220px"><input id="pwNew" type="text" placeholder="Neues Passwort (mind. 8 Zeichen)" style="font-size:16px;padding:9px;border:1px solid #aab2bd;border-radius:5px;min-width:220px"><button class="btn secondary" onclick="resetPassword()">Passwort setzen</button></div><p id="pwMsg" class="small"></p><p><button class="btn secondary" onclick="closeModal()">Schließen</button></p>`);
+  $('modalbox').classList.add('wide');
+}
+async function addInvite(){
+  const name=($('invName').value||'').trim(),email=($('invEmail').value||'').trim().toLowerCase(),m=$('teamMsg');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){m.innerHTML='<span class="bad">Bitte eine gültige E-Mail-Adresse eingeben.</span>';return}
+  const r=await sbFetch('/rest/v1/invites',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({email,name,revoked:false})});
+  if(r.ok){await showTeam();const mm=$('teamMsg');if(mm)mm.innerHTML='<span class="ok">Eingeladen. Schicken Sie der Person jetzt den Link zur App.</span>'}
+  else m.innerHTML='<span class="bad">Die Einladung konnte nicht gespeichert werden.</span>';
+}
+async function setInviteRevoked(email,revoked){const r=await sbFetch('/rest/v1/invites?email=eq.'+encodeURIComponent(email),{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({revoked})});if(r.ok)showTeam()}
+function deleteInvite(email){askConfirm('Einladung entfernen?','Die Person kann sich danach nicht mehr registrieren und keine Inhalte mehr laden. Ein bestehendes Konto bleibt bestehen, hat aber keinen Zugang mehr.','Entfernen',async()=>{await sbFetch('/rest/v1/invites?email=eq.'+encodeURIComponent(email),{method:'DELETE',headers:{Prefer:'return=minimal'}});showTeam()})}
+function copyAppLink(){const link=location.origin+location.pathname;const m=$('teamMsg');const done=()=>{if(m)m.innerHTML='<span class="ok">Link kopiert: '+escapeHtml(link)+'</span>'};if(navigator.clipboard)navigator.clipboard.writeText(link).then(done,()=>{if(m)m.textContent=link});else if(m)m.textContent=link}
+async function resetPassword(){const email=($('pwEmail').value||'').trim().toLowerCase(),pw=$('pwNew').value||'',m=$('pwMsg');if(pw.length<8){m.innerHTML='<span class="bad">Das Passwort muss mindestens 8 Zeichen haben.</span>';return}try{const ok=await rpc('admin_set_password',{target_email:email,new_password:pw});m.innerHTML=ok?'<span class="ok">Passwort gesetzt. Teilen Sie es der Person persönlich mit.</span>':'<span class="bad">Zu dieser E-Mail-Adresse gibt es kein Konto.</span>'}catch(e){m.innerHTML='<span class="bad">Das Passwort konnte nicht gesetzt werden.</span>'}}
+async function showMember(id,name){
+  const r=await sbFetch('/rest/v1/attempts?user_id=eq.'+encodeURIComponent(id)+'&order=created_at.desc&limit=100',{method:'GET'});
+  const rows=r.ok?await r.json():[];
+  const agg={},cat={};rows.forEach(a=>{Object.entries(a.groups||{}).forEach(([k,v])=>{agg[k]??={c:0,n:0};agg[k].c+=v.c||0;agg[k].n+=v.n||0});Object.entries(a.categories||{}).forEach(([k,v])=>{cat[k]??={c:0,n:0};cat[k].c+=v.c||0;cat[k].n+=v.n||0})});
+  const gRows=GROUP_ORDER.map(g=>agg[g]?`<tr><td>${GROUPS[g].name}</td><td>${agg[g].c} von ${agg[g].n}</td><td>${pct(agg[g].c,agg[g].n)} Prozent</td></tr>`:'').join('');
+  const weak=Object.entries(cat).filter(([k,v])=>v.n>=3).sort((a,b)=>pct(a[1].c,a[1].n)-pct(b[1].c,b[1].n)).slice(0,5).map(([k,v])=>`<li>${escapeHtml(k)}: ${pct(v.c,v.n)} Prozent</li>`).join('');
+  const aRows=rows.map(a=>`<tr class="${a.passed===true?'pass':a.passed===false?'fail':''}"><td>${fmtDate(a.created_at)}</td><td>${escapeHtml(a.mode==='exam'?'Vollprüfung':a.mode==='exam1'?'Prüfungsteil 1':a.mode==='exam2'?'Prüfungsteil 2':'Lernen, '+(a.topic||''))}</td><td>${a.correct} von ${a.total}</td><td>${a.percent} Prozent</td><td>${a.passed===true?'bestanden':a.passed===false?'nicht bestanden':''}</td></tr>`).join('')||'<tr><td colspan="5">Noch keine Durchläufe.</td></tr>';
+  openModal(`<h2>${escapeHtml(name)}</h2><h3>Quote je Sachgebiet (alle Durchläufe)</h3><table class="resulttable"><tr><th>Sachgebiet</th><th>Richtig</th><th>Quote</th></tr>${gRows||'<tr><td colspan="3">Keine Daten.</td></tr>'}</table>${weak?'<h3>Schwächste Themen</h3><ul>'+weak+'</ul>':''}<h3>Durchläufe</h3><div class="historyScroll"><table class="resulttable"><tr><th>Datum</th><th>Modus</th><th>Richtig</th><th>Quote</th><th>Ergebnis</th></tr>${aRows}</table></div><p><button class="btn secondary" onclick="showTeam()">Zurück zum Team</button> <button class="btn secondary" onclick="closeModal()">Schließen</button></p>`);
+  $('modalbox').classList.add('wide');
+}
+
+/* ---------- Start ---------- */
+async function boot(){
+  if('serviceWorker' in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('./sw.js').catch(()=>{})}
+  loadAuth();
+  if(!AUTH.session){showLogin('','login');return}
+  if(navigator.onLine!==false){await ensureFresh()}
+  if(!AUTH.session){showLogin('Ihre Anmeldung ist abgelaufen. Bitte melden Sie sich erneut an.','login');return}
+  await afterLogin();
+}
+
+boot();
+</script>
+</body>
+</html>
