@@ -1333,7 +1333,7 @@ function showTaktik(){openModal(`<h2>Prüfungstaktik</h2><ul>
 <li>Lesen Sie bei Mehrfachauswahl genau, wie viele Antworten richtig sind.</li>
 <li>Werte wie Grenzen und Beträge stehen auf den Infoseiten. Schlagen Sie dort nach, statt zu raten.</li></ul><button class="btn" onclick="closeModal()">Schließen</button>`)}
 function trainCard(){return `<div class="card"><h3>Training und Prognose</h3><p>Gezielt rechnen, eigene Fehlerfallen üben und sehen, wie die Prüfung nach heutigem Stand ausgehen würde.</p>
-<div style="display:flex;flex-wrap:wrap;gap:6px"><button class="btn" onclick="showPrognose()">Prognose</button><button class="btn secondary" onclick="showRechen()">Rechentrainer</button><button class="btn secondary" onclick="startFallen()">Fehlerfallen</button><button class="btn secondary" onclick="showVerlauf()">Verlauf</button><button class="btn secondary" onclick="showEinstieg()">So starten Sie</button><button class="btn secondary" onclick="showTaktik()">Prüfungstaktik</button></div></div>`}
+<div style="display:flex;flex-wrap:wrap;gap:6px"><button class="btn" onclick="showPrognose()">Prognose</button><button class="btn secondary" onclick="showRechen()">Rechentrainer</button><button class="btn secondary" onclick="startFallen()">Fehlerfallen</button><button class="btn secondary" onclick="showVerlauf()">Verlauf</button><button class="btn secondary" onclick="startInfoTraining()">Infoseiten-Training</button><button class="btn secondary" onclick="showGeneralprobe()">Generalprobe</button><button class="btn secondary" onclick="showEinstieg()">So starten Sie</button><button class="btn secondary" onclick="showTaktik()">Prüfungstaktik</button></div></div>`}
 const v8Enh=enhanceStart;enhanceStart=function(){v8Enh();try{const c=document.querySelector('#screen .start .cards:not(.topCards)');if(c&&!document.getElementById('trainCard')){const d=document.createElement('div');d.innerHTML=trainCard();d.firstElementChild.id='trainCard';c.prepend(d.firstElementChild)}}catch(e){}};
 setInterval(()=>{try{const t=$('time');if(!t)return;if(state.mode!=='exam'||state.finished||!state.questions||!state.questions.length||!state.remaining){t.style.color='';return}
  const total=((state.examPart||(state.part1Done?2:1))===2?70:90)*60000;const left=state.remaining*1000;const used=1-left/total;
@@ -1386,6 +1386,15 @@ function showVerlauf(){const h=getHistory().filter(e=>e.mode==='exam'||e.mode===
  if(!h.length){openModal('<h2>Verlauf</h2><p>Noch keine Prüfungssimulation geschrieben. Hier sehen Sie später, wie sich Ihre Ergebnisse entwickeln.</p><button class="btn" onclick="closeModal()">OK</button>');return}
  const rows=h.map(e=>{const g=e.groups||{};const cells=GROUP_ORDER.map(k=>{const v=g[k];if(!v||!v.n)return '<td>-</td>';const p=pct(v.c,v.n);return `<td class="${p>=50?'pass':p>=30?'midpass':'fail'}">${p}</td>`}).join('');const d=new Date(e.date);return `<tr><td>${isNaN(d)?'':d.toLocaleDateString('de-DE')}</td>${cells}</tr>`}).join('');
  openModal(`<h2>Verlauf</h2><p>Ihre letzten Prüfungssimulationen, neueste oben. Werte in Prozent je Bereich.</p><div style="overflow-x:auto"><table><tr><th>Datum</th>${GROUP_ORDER.map(k=>'<th>'+k+'</th>').join('')}</tr>${rows}</table></div><button class="btn secondary" onclick="closeModal()">Schließen</button>`)}
+
+/* ---------- Infoseiten-Training und Generalprobe ---------- */
+function startInfoTraining(){const seen=new Set();const qs=BANK.filter(q=>{if(!/Werte/.test(String(q.ref||'')))return false;const b=baseKey(q);if(seen.has(b))return false;seen.add(b);return true});
+ if(!qs.length)return;const seed=makeSeed('I');const rng=mulberry32(hashSeed(seed));shuffle(qs,rng);
+ openModal('<h2>Infoseiten-Training</h2><p>20 Aufgaben, deren Lösung auf den Infoseiten mit den prüfungsrelevanten Werten 2026 steht. In der Prüfung dürfen Sie diese Seiten benutzen.</p><p>Öffnen Sie bei jeder Aufgabe oben den Knopf „Info“ und suchen Sie den Wert. So lernen Sie, wo was steht.</p><button class="btn" id="infoGo">Starten</button>');
+ $('infoGo').onclick=()=>{closeModal();beginLearn(qs.slice(0,20),rng,seed,'Infoseiten-Training')}}
+function showGeneralprobe(){openModal(`<h2>Generalprobe</h2><p>Die komplette Prüfung wie am Prüfungstag. Machen Sie die Generalprobe in den letzten Tagen vor der Prüfung, mindestens einmal.</p><ul>
+<li>Teil 1 mit 70 Aufgaben in 90 Minuten, danach Teil 2 mit 48 Aufgaben in 70 Minuten.</li><li>Suchen Sie sich einen ruhigen Platz und legen Sie Taschenrechner, Papier und Stift bereit.</li>
+<li>Handy weg, keine Unterlagen außer den Infoseiten.</li><li>Lösungen sehen Sie erst am Ende.</li></ul><button class="btn" onclick="closeModal();startExam()">Generalprobe starten</button> <button class="btn secondary" onclick="closeModal()">Abbrechen</button>`)}
 
 boot();
 </script>
