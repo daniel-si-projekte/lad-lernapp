@@ -1271,6 +1271,33 @@ openModal(h+'</table></div>');$('modalbox').classList.add('wide')}
 // Nach Prüfung oder Lerneinheit: falsch oder nicht beantwortete Aufgaben direkt üben
 function retryWrong(){const qs=(state.questions||[]).filter((q,i)=>!isCorrect(q,state.answers[i]));if(!qs.length){modal('Alles richtig','Es gibt keine falschen Aufgaben zum Üben.');return}const seed=makeSeed('F');const rng=mulberry32(hashSeed(seed));shuffle(qs,rng);beginLearn(qs,rng,seed,'Falsche Aufgaben')}
 
+/* ---------- Block 1: IHK-Fachgebiete (Punkteverteilung laut IHK-Ergebnisbogen) ---------- */
+const IHK_FACH=[
+ {k:'PV',g:'A',n:'Private Vorsorge',p:18},{k:'GRV',g:'A',n:'Gesetzliche Rentenversicherung',p:6},{k:'BAV',g:'A',n:'Betriebliche Altersversorgung',p:6},
+ {k:'UV',g:'B',n:'Unfallversicherung',p:10},{k:'KV',g:'B',n:'Krankenversicherung',p:12},
+ {k:'RE',g:'C',n:'Rechtliche Grundlagen',p:18},
+ {k:'VHV',g:'D',n:'Hausratversicherung',p:11},{k:'VGV',g:'D',n:'Wohngebäudeversicherung',p:11},
+ {k:'KFZ',g:'E',n:'Kraftfahrtversicherung',p:8},{k:'PHV',g:'E',n:'Haftpflichtversicherung',p:12},{k:'RS',g:'E',n:'Rechtsschutzversicherung',p:6}];
+function fachOf(q){const t=String(q.thema||'');const g=q.group;const m=+(t.slice(1))||0;
+ if(g==='A')return m===9?'GRV':m===10?'BAV':'PV';if(g==='B')return m>=4?'KV':'UV';if(g==='C')return 'RE';
+ if(g==='D')return m>=5?'VGV':'VHV';if(g==='E')return m===6?'RS':(m>=3?'KFZ':'PHV');return '';}
+const v8SelectExamGroup=selectExamGroup;
+selectExamGroup=function(group,count,rng){
+ const fs=IHK_FACH.filter(f=>f.g===group);const sum=fs.reduce((s,f)=>s+f.p,0);
+ if(!fs.length||sum!==count)return v8SelectExamGroup(group,count,rng);
+ const all=BANK;let out=[];
+ try{fs.forEach(f=>{BANK=all.filter(q=>q.group!==group||fachOf(q)===f.k);out.push(...v8SelectExamGroup(group,f.p,rng))})}finally{BANK=all}
+ if(out.length<count){const u=new Set(out.map(baseKey));out.push(...v8SelectExamGroup(group,count,rng).filter(q=>!u.has(baseKey(q))).slice(0,count-out.length))}
+ return out;};
+function ihkTable(){const qs=state.questions||[];if(state.mode!=='exam'||!qs.length)return '';
+ const r={};qs.forEach((q,i)=>{const k=fachOf(q);r[k]=r[k]||{t:0,ok:0};r[k].t++;if(isCorrect(q,state.answers[i]))r[k].ok++});
+ let rows='';GROUP_ORDER.forEach(g=>{const fs=IHK_FACH.filter(f=>f.g===g&&r[f.k]);if(!fs.length)return;let gt=0,go=0;
+  fs.forEach(f=>{gt+=r[f.k].t;go+=r[f.k].ok;rows+=`<tr><td>${f.n}</td><td>${r[f.k].t}</td><td>${r[f.k].ok}</td><td></td></tr>`});
+  const p=pct(go,gt);rows+=`<tr class="${p>=50?'pass':p>=30?'midpass':'fail'}"><td><b>${GROUPS[g].name}</b></td><td><b>${gt}</b></td><td><b>${go}</b></td><td><b>${p} Prozent</b></td></tr>`});
+ return `<div class="card" id="ihkTab"><h2>Ergebnis nach IHK-Fachgebieten</h2><p class="muted">Aufbau wie im IHK-Ergebnisbogen: je Aufgabe ein Punkt. Bestanden ist, wer in mindestens vier Bereichen 50 Prozent und in keinem Bereich unter 30 Prozent erreicht.</p><div style="overflow-x:auto"><table><tr><th>Fachgebiet</th><th>Punkte max.</th><th>erreicht</th><th>Bereich</th></tr>${rows}</table></div></div>`;}
+const v8RR2=renderResult;
+renderResult=function(stats,entry,auto){v8RR2(stats,entry,auto);try{const h=ihkTable();if(!h||$('ihkTab'))return;const t=document.querySelector('.content table');const c=t&&(t.closest('.card')||t);if(c)c.insertAdjacentHTML('afterend',h)}catch(e){}};
+
 boot();
 </script>
 </body>
