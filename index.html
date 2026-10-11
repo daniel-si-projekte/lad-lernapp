@@ -905,7 +905,7 @@ function confirmAnswer(){
   saveSession();renderQuestion();
 }
 function afterHistory(entry){
-  try{if(state.mode==='exam'){recordProgress(state.questions.map((q,i)=>({q,ok:isCorrect(q,state.answers[i])})));bumpDaily(state.questions.filter((q,i)=>isAnswered(q,state.answers[i])).length)}}catch(e){}
+  try{if(state.mode==='exam'){recordProgress(state.questions.map((q,i)=>({q,ok:isCorrect(q,state.answers[i]),a:isAnswered(q,state.answers[i])})).filter(x=>x.a));bumpDaily(state.questions.filter((q,i)=>isAnswered(q,state.answers[i])).length)}}catch(e){}
   syncAttempt(entry);
   flushProgress().catch(()=>{});
 }
