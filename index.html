@@ -1298,6 +1298,48 @@ function ihkTable(){const qs=state.questions||[];if(state.mode!=='exam'||!qs.len
 const v8RR2=renderResult;
 renderResult=function(stats,entry,auto){v8RR2(stats,entry,auto);try{const h=ihkTable();if(!h||$('ihkTab'))return;const t=document.querySelector('.content table');const c=t&&(t.closest('.card')||t);if(c)c.insertAdjacentHTML('afterend',h)}catch(e){}};
 
+/* ---------- Block 3: Rechentrainer und Prognose je Fachgebiet ---------- */
+function fachName(k){return (IHK_FACH.find(f=>f.k===k)||{}).n||k}
+function startRechen(k){closeModal();let pool=BANK.filter(q=>q.type==='short'&&(!k||fachOf(q)===k));const seen=new Set();pool=pool.filter(q=>{const b=baseKey(q);if(seen.has(b))return false;seen.add(b);return true});
+ if(!pool.length){openModal('<h2>Keine Rechenaufgaben</h2><p>Für dieses Fachgebiet gibt es keine Rechenaufgaben.</p><button class="btn" onclick="closeModal()">OK</button>');return}
+ const seed=makeSeed('R');const rng=mulberry32(hashSeed(seed));shuffle(pool,rng);beginLearn(pool.slice(0,15),rng,seed,'Rechentrainer'+(k?': '+fachName(k):''))}
+function showRechen(){const c={};BANK.forEach(q=>{if(q.type==='short'){const k=fachOf(q);c[k]=(c[k]||0)+1}});
+ openModal(`<h2>Rechentrainer</h2><p>15 Rechenaufgaben am Stück, mit Rechenweg nach jeder Antwort. Rechnen Sie mit Taschenrechner und schreiben Sie den Rechenweg kurz mit.</p><p><button class="btn" onclick="startRechen('')">Alle Fachgebiete</button></p><div style="display:flex;flex-wrap:wrap;gap:6px">${IHK_FACH.filter(f=>c[f.k]).map(f=>`<button class="btn secondary" onclick="startRechen('${f.k}')">${f.n} (${c[f.k]})</button>`).join('')}</div><p><button class="btn secondary" onclick="closeModal()">Schließen</button></p>`)}
+function prognose(){const p=getProg(),a={};const done=new Set();BANK.forEach(q=>{const b=baseKey(q);if(done.has(b))return;done.add(b);const e=p[b];if(!e)return;const k=fachOf(q);const x=a[k]||(a[k]={r:0,n:0});const w=e.lc?1:0;x.r+=w;x.n++});
+ return IHK_FACH.map(f=>{const x=a[f.k]||{r:0,n:0};const q=x.n?x.r/x.n:null;return {...f,n_:x.n,q,pts:q==null?null:Math.round(q*f.p)}})}
+function showPrognose(){const rows=prognose();let html='';let ok50=0,u30=false,genug=true;
+ GROUP_ORDER.forEach(g=>{const fs=rows.filter(r=>r.g===g);let max=0,pts=0,miss=false;fs.forEach(r=>{max+=r.p;if(r.n_<10){miss=true;genug=false}pts+=r.pts||0;
+  html+=`<tr><td>${r.n}</td><td>${r.p}</td><td>${r.n_<10?'zu wenig Daten':r.pts}</td><td>${r.n_}</td></tr>`});
+  const pc=Math.round(100*pts/max);if(!miss){if(pc>=50)ok50++;if(pc<30)u30=true}
+  html+=`<tr class="${miss?'':pc>=50?'pass':pc>=30?'midpass':'fail'}"><td><b>${GROUPS[g].name}</b></td><td><b>${max}</b></td><td><b>${miss?'offen':pc+' Prozent'}</b></td><td></td></tr>`});
+ const urteil=!genug?'Für eine Prognose fehlen noch Daten. Beantworten Sie in jedem Fachgebiet mindestens 10 verschiedene Aufgaben.':(ok50>=4&&!u30?'Nach Ihrem aktuellen Stand würden Sie bestehen.':'Nach Ihrem aktuellen Stand würden Sie noch nicht bestehen. Üben Sie zuerst die roten Bereiche.');
+ openModal(`<h2>Prognose je Fachgebiet</h2><p>Grundlage ist Ihre letzte Antwort zu jeder bisher gesehenen Aufgabe, hochgerechnet auf die IHK-Punkte.</p><p><strong>${urteil}</strong></p><div style="overflow-x:auto"><table><tr><th>Fachgebiet</th><th>Punkte max.</th><th>erwartet</th><th>Aufgaben gesehen</th></tr>${html}</table></div><button class="btn secondary" onclick="closeModal()">Schließen</button>`)}
+
+/* ---------- Block 4: Einstieg, Fehlerfallen, Taktik, Zeitampel ---------- */
+function startFallen(){closeModal();const p=getProg();const seen=new Set();const qs=BANK.filter(q=>{const b=baseKey(q);const e=p[b];if(seen.has(b)||!e||(e.w||0)<2)return false;seen.add(b);return true});
+ if(!qs.length){openModal('<h2>Noch keine Fehlerfallen</h2><p>Hier landen Aufgaben, die Sie mindestens zweimal falsch beantwortet haben.</p><button class="btn" onclick="closeModal()">OK</button>');return}
+ const seed=makeSeed('W');const rng=mulberry32(hashSeed(seed));shuffle(qs,rng);beginLearn(qs.slice(0,30),rng,seed,'Fehlerfallen')}
+function showEinstieg(){openModal(`<h2>So starten Sie</h2><p>Sie haben noch nie mit Versicherungen gearbeitet? Gehen Sie in dieser Reihenfolge vor.</p><ol>
+<li>Lesen Sie im Lernbereich die Einführung zu einem Thema.</li><li>Üben Sie danach genau dieses Thema mit 20 Aufgaben.</li><li>Lesen Sie bei jedem Fehler die Begründung zu jeder Antwort.</li>
+<li>Wiederholen Sie täglich die fälligen Aufgaben der Fehlerkartei.</li><li>Üben Sie Rechenaufgaben im Rechentrainer, bis der Rechenweg sitzt.</li>
+<li>Schreiben Sie ab der zweiten Woche Prüfungsteil 1 und 2 einzeln.</li><li>Schreiben Sie zum Schluss mindestens zwei komplette Simulationen unter Zeitdruck.</li></ol>
+<p>Die Prüfung gewichtet die Fachgebiete unterschiedlich. Private Vorsorge und Recht bringen je 18 Punkte, Rechtsschutz, GRV und bAV je 6 Punkte.</p><button class="btn" onclick="closeModal()">Verstanden</button>`)}
+function showTaktik(){openModal(`<h2>Prüfungstaktik</h2><ul>
+<li>Bestanden ist, wer in mindestens vier der fünf Bereiche 50 Prozent erreicht und in keinem Bereich unter 30 Prozent liegt.</li>
+<li>Ein schwacher Bereich darf also unter 50 Prozent liegen, aber nie unter 30 Prozent. Lassen Sie kein Fachgebiet ganz weg.</li>
+<li>Teil 1 dauert in der Simulation 90 Minuten, Teil 2 dauert 70 Minuten. Die Zeitampel oben zeigt, ob Sie im Plan liegen.</li>
+<li>Beantworten Sie zuerst alles, was Sie sicher wissen. Markieren Sie unsichere Aufgaben und kommen Sie am Ende zurück.</li>
+<li>Lassen Sie keine Aufgabe leer. Eine leere Antwort bringt sicher keinen Punkt.</li>
+<li>Lesen Sie bei Mehrfachauswahl genau, wie viele Antworten richtig sind.</li>
+<li>Werte wie Grenzen und Beträge stehen auf den Infoseiten. Schlagen Sie dort nach, statt zu raten.</li></ul><button class="btn" onclick="closeModal()">Schließen</button>`)}
+function trainCard(){return `<div class="card"><h3>Training und Prognose</h3><p>Gezielt rechnen, eigene Fehlerfallen üben und sehen, wie die Prüfung nach heutigem Stand ausgehen würde.</p>
+<div style="display:flex;flex-wrap:wrap;gap:6px"><button class="btn" onclick="showPrognose()">Prognose</button><button class="btn secondary" onclick="showRechen()">Rechentrainer</button><button class="btn secondary" onclick="startFallen()">Fehlerfallen</button><button class="btn secondary" onclick="showEinstieg()">So starten Sie</button><button class="btn secondary" onclick="showTaktik()">Prüfungstaktik</button></div></div>`}
+const v8Enh=enhanceStart;enhanceStart=function(){v8Enh();try{const c=document.querySelector('#screen .start .cards:not(.topCards)');if(c&&!document.getElementById('trainCard')){const d=document.createElement('div');d.innerHTML=trainCard();d.firstElementChild.id='trainCard';c.prepend(d.firstElementChild)}}catch(e){}};
+setInterval(()=>{try{const t=$('time');if(!t)return;if(state.mode!=='exam'||state.finished||!state.questions||!state.questions.length||!state.remaining){t.style.color='';return}
+ const total=((state.examPart||(state.part1Done?2:1))===2?70:90)*60000;const left=state.remaining*1000;const used=1-left/total;
+ const cur=state.examPart||(state.part1Done?2:1);const idx=state.questions.map((q,i)=>i).filter(i=>(state.questions[i].part||1)===cur);if(!idx.length||state.inBreak)return;const done=idx.filter(i=>isAnswered(state.questions[i],state.answers[i])).length/idx.length;
+ t.style.color=done>=used-0.05?'':done>=used-0.15?'#d9a400':'#c0392b';t.title=done>=used-0.05?'Im Zeitplan':'Hinter dem Zeitplan'}catch(e){}},5000);
+
 boot();
 </script>
 </body>
