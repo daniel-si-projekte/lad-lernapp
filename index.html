@@ -941,19 +941,19 @@ function reviewItem(q,i){return reviewHtml(q,state.answers[i],i)}
 function renderResult(stats,entry,auto){wideOn();if(state.check){finishCheck(stats);return}v8RenderResult(stats,entry,auto)}
 
 /* ---------- Fortschritt je Grundaufgabe und Fehlerkartei ---------- */
-const BOX_DAYS={1:1,2:3,3:7};
+const BOX_DAYS={1:1,2:3,3:7,5:14,6:30};const BOX_NEXT={1:2,2:3,3:5,5:6};const inKartei=e=>[1,2,3,5,6].includes(e.box);
 function getProg(){return lsGet('prog',{})}
 function setProg(p){lsSet('prog',p)}
 function recordProgress(items){
   if(!items.length)return;const p=getProg(),now=Date.now(),iso=new Date(now).toISOString();
   items.forEach(({q,ok})=>{const k=baseKey(q);const e=p[k]||{box:0,st:0,seen:0,r:0,w:0};
     e.seen=(e.seen||0)+1;e.lc=!!ok;e.la=iso;
-    if(ok){e.r=(e.r||0)+1;e.st=(e.st||0)+1;if(e.box>=1&&e.box<=3){if(e.st>=3){e.box=4;e.due=null}else{e.box=Math.min(3,e.st+1);e.due=new Date(now+BOX_DAYS[e.box]*DAY).toISOString()}}}
+    if(ok){e.r=(e.r||0)+1;e.st=(e.st||0)+1;if(inKartei(e)){if(e.box===6){e.box=4;e.due=null}else{e.box=BOX_NEXT[e.box];e.due=new Date(now+BOX_DAYS[e.box]*DAY).toISOString()}}}
     else{e.w=(e.w||0)+1;e.st=0;e.box=1;e.due=new Date(now+BOX_DAYS[1]*DAY).toISOString()}
     e.u=iso;e.dirty=1;p[k]=e});
   setProg(p);
 }
-function karteiItems(){const p=getProg(),keys=new Set(BANK.map(baseKey));return Object.entries(p).filter(([k,e])=>e.box>=1&&e.box<=3&&keys.has(k)).map(([k,e])=>({k,e}))}
+function karteiItems(){const p=getProg(),keys=new Set(BANK.map(baseKey));return Object.entries(p).filter(([k,e])=>inKartei(e)&&keys.has(k)).map(([k,e])=>({k,e}))}
 function isDue(e){return !e.due||Date.parse(e.due)<=Date.now()}
 function startKartei(){
   closeModal();const items=karteiItems();
@@ -1220,7 +1220,7 @@ function deletePlan(){askConfirm('Lernplan löschen?','Der Lernplan wird gelösc
 
 /* ---------- Startbildschirm ergänzen ---------- */
 function lernbereichCard(){const ls=getLessons(),areas=areaList(),passed=areas.filter(b=>ls[b]&&ls[b].passed).length;return `<div class="card"><h3>Lernbereich: Einführungen</h3><p>Geführte Einführungen zu allen Bereichen, Schritt für Schritt erklärt. Mit Verständnis-Check und Karteikarten.</p><p class="small muted">${passed} von ${areas.length} Kapiteln bestanden.</p><button class="btn" onclick="showAreas()">Lernbereich öffnen</button></div>`}
-function karteiCard(){const it=karteiItems(),due=it.filter(x=>isDue(x.e)).length;return `<div class="card"><h3>Fehlerkartei</h3>${it.length?`<p><strong>${due}</strong> ${due===1?'Aufgabe ist':'Aufgaben sind'} heute fällig. In der Kartei: ${it.length}.</p>`:'<p>Die Kartei ist leer. Falsch beantwortete Aufgaben landen automatisch hier.</p>'}<p class="small muted">Wiederholung nach 1, 3 und 7 Tagen. Nach drei richtigen Antworten in Folge verlässt eine Aufgabe die Kartei.</p><div class="row"><button class="btn" onclick="startKartei()"${it.length?'':' disabled'}>Fehlerkartei üben</button><button class="btn secondary" onclick="showThemenStat()">Statistik je Thema</button></div></div>`}
+function karteiCard(){const it=karteiItems(),due=it.filter(x=>isDue(x.e)).length;return `<div class="card"><h3>Fehlerkartei</h3>${it.length?`<p><strong>${due}</strong> ${due===1?'Aufgabe ist':'Aufgaben sind'} heute fällig. In der Kartei: ${it.length}.</p>`:'<p>Die Kartei ist leer. Falsch beantwortete Aufgaben landen automatisch hier.</p>'}<p class="small muted">Wiederholung nach 1, 3, 7, 14 und 30 Tagen. Nach fünf richtigen Antworten in Folge verlässt eine Aufgabe die Kartei.</p><div class="row"><button class="btn" onclick="startKartei()"${it.length?'':' disabled'}>Fehlerkartei üben</button><button class="btn secondary" onclick="showThemenStat()">Statistik je Thema</button></div></div>`}
 function cardsCard(){
   const cs=getCardState(),due=KARTEN.filter(k=>cardDue(k.id,cs)).length,cnt={};KARTEN.forEach(k=>{cnt[k.bereich]=(cnt[k.bereich]||0)+1});
   const bs=[...new Set([...areaList(),...Object.keys(cnt)])].filter(b=>cnt[b]);
@@ -1333,7 +1333,7 @@ function showTaktik(){openModal(`<h2>Prüfungstaktik</h2><ul>
 <li>Lesen Sie bei Mehrfachauswahl genau, wie viele Antworten richtig sind.</li>
 <li>Werte wie Grenzen und Beträge stehen auf den Infoseiten. Schlagen Sie dort nach, statt zu raten.</li></ul><button class="btn" onclick="closeModal()">Schließen</button>`)}
 function trainCard(){return `<div class="card"><h3>Training und Prognose</h3><p>Gezielt rechnen, eigene Fehlerfallen üben und sehen, wie die Prüfung nach heutigem Stand ausgehen würde.</p>
-<div style="display:flex;flex-wrap:wrap;gap:6px"><button class="btn" onclick="showPrognose()">Prognose</button><button class="btn secondary" onclick="showRechen()">Rechentrainer</button><button class="btn secondary" onclick="startFallen()">Fehlerfallen</button><button class="btn secondary" onclick="showEinstieg()">So starten Sie</button><button class="btn secondary" onclick="showTaktik()">Prüfungstaktik</button></div></div>`}
+<div style="display:flex;flex-wrap:wrap;gap:6px"><button class="btn" onclick="showPrognose()">Prognose</button><button class="btn secondary" onclick="showRechen()">Rechentrainer</button><button class="btn secondary" onclick="startFallen()">Fehlerfallen</button><button class="btn secondary" onclick="showVerlauf()">Verlauf</button><button class="btn secondary" onclick="showEinstieg()">So starten Sie</button><button class="btn secondary" onclick="showTaktik()">Prüfungstaktik</button></div></div>`}
 const v8Enh=enhanceStart;enhanceStart=function(){v8Enh();try{const c=document.querySelector('#screen .start .cards:not(.topCards)');if(c&&!document.getElementById('trainCard')){const d=document.createElement('div');d.innerHTML=trainCard();d.firstElementChild.id='trainCard';c.prepend(d.firstElementChild)}}catch(e){}};
 setInterval(()=>{try{const t=$('time');if(!t)return;if(state.mode!=='exam'||state.finished||!state.questions||!state.questions.length||!state.remaining){t.style.color='';return}
  const total=((state.examPart||(state.part1Done?2:1))===2?70:90)*60000;const left=state.remaining*1000;const used=1-left/total;
@@ -1380,6 +1380,12 @@ function showPlan(edit){const pl=getPlan();if(!pl||edit)return v8ShowPlan(edit);
  <div class="card resumeCard"><h3>Heute</h3>${td.tasks.length?`<ul class="taskList">${td.tasks.map(t=>taskRow(t,T)).join('')}</ul>`:'<p>Für heute steht nichts an.</p>'}<button class="btn" onclick="planNext()">${T.todayOpen.length?'Lernplan für heute starten':'Weiterlernen'}</button></div><h3>Die nächsten Tage</h3><p class="small muted">Tippen Sie auf einen Tag, um ihn direkt zu starten.</p>`;
  html+=T.sched.slice(1).filter(d=>d.tasks.length).map(d=>`<div class="planDay" style="cursor:pointer" onclick="planDayStart('${d.date}')"><div class="planDayHead"><span><strong>${escapeHtml(dayLabel(d.date))}</strong> · ${escapeHtml(d.tasks[0].phase)}</span><button class="btn secondary">Starten</button></div><div class="small">${d.tasks.map(t=>escapeHtml(t.label)).join(', ')}</div></div>`).join('');
  html+=`<p style="margin-top:14px"><button class="btn secondary" onclick="showPlan(true)">Plan ändern</button> <button class="btn secondary" onclick="deletePlan()">Plan löschen</button></p></div>`;$('screen').innerHTML=html};
+
+/* ---------- Verlauf der Simulationen ---------- */
+function showVerlauf(){const h=getHistory().filter(e=>e.mode==='exam'||e.mode==='exam1'||e.mode==='exam2'||/Prüfung/.test(e.topic||'')).slice(-12).reverse();
+ if(!h.length){openModal('<h2>Verlauf</h2><p>Noch keine Prüfungssimulation geschrieben. Hier sehen Sie später, wie sich Ihre Ergebnisse entwickeln.</p><button class="btn" onclick="closeModal()">OK</button>');return}
+ const rows=h.map(e=>{const g=e.groups||{};const cells=GROUP_ORDER.map(k=>{const v=g[k];if(!v||!v.n)return '<td>-</td>';const p=pct(v.c,v.n);return `<td class="${p>=50?'pass':p>=30?'midpass':'fail'}">${p}</td>`}).join('');const d=new Date(e.date);return `<tr><td>${isNaN(d)?'':d.toLocaleDateString('de-DE')}</td>${cells}</tr>`}).join('');
+ openModal(`<h2>Verlauf</h2><p>Ihre letzten Prüfungssimulationen, neueste oben. Werte in Prozent je Bereich.</p><div style="overflow-x:auto"><table><tr><th>Datum</th>${GROUP_ORDER.map(k=>'<th>'+k+'</th>').join('')}</tr>${rows}</table></div><button class="btn secondary" onclick="closeModal()">Schließen</button>`)}
 
 boot();
 </script>
