@@ -1193,7 +1193,7 @@ function planStartCard(){
   if(!d)return `<div class="card resumeCard"><h3>Heute laut Lernplan</h3><p>${left} Heute ist kein Lerntag.${n?' Nächster Lerntag: '+escapeHtml(dayLabel(n.date))+'.':''}</p><button class="btn secondary" onclick="showPlan()">Lernplan öffnen</button></div>`;
   return `<div class="card resumeCard"><h3>Heute laut Lernplan</h3><p>${left} Phase: <strong>${d.phase}</strong>.</p>${tasksHtml(d)}${doneBox(pl,d.date)}<p><button class="btn secondary" onclick="showPlan()">Lernplan öffnen</button></p></div>`;
 }
-function showPlan(edit){
+function v8ShowPlan(edit){
   setView('plan','Lernplan','Lernplan');
   const pl=getPlan(),today=berlinDay();
   let html='<div class="start"><p><button class="btn secondary" onclick="showStart()">Hauptmenü</button></p><h2>Lernplan</h2>';
@@ -1213,7 +1213,7 @@ async function savePlan(){
   const d=($('planDate').value||'').trim(),n=Number($('planDays').value||5),today=berlinDay(),m=$('planMsg');
   if(!/^\d{4}-\d{2}-\d{2}$/.test(d)){m.innerHTML='<span class="bad">Bitte wählen Sie ein Prüfungsdatum.</span>';return}
   if(d<=today){m.innerHTML='<span class="bad">Das Prüfungsdatum muss in der Zukunft liegen.</span>';return}
-  const pl={exam:d,perWeek:n,start:today,done:{}};setPlan(pl);const goal=planGoal(pl);showPlan();
+  const old=getPlan()||{};const pl={exam:d,perWeek:n,start:old.start&&old.exam?old.start:today,done:{},tdone:old.tdone||{}};setPlanSync(pl);const goal=planGoal(pl);showPlan();
   if(AUTH.user)try{await sbFetch('/rest/v1/profiles?id=eq.'+AUTH.user.id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({exam_date:d,daily_goal:goal})})}catch(e){}
 }
 function deletePlan(){askConfirm('Lernplan löschen?','Der Lernplan wird gelöscht. Ihre Ergebnisse bleiben erhalten.','Plan löschen',async()=>{setPlan(null);showStart();if(AUTH.user)try{await sbFetch('/rest/v1/profiles?id=eq.'+AUTH.user.id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({exam_date:null,daily_goal:null})})}catch(e){}})}
@@ -1339,6 +1339,47 @@ setInterval(()=>{try{const t=$('time');if(!t)return;if(state.mode!=='exam'||stat
  const total=((state.examPart||(state.part1Done?2:1))===2?70:90)*60000;const left=state.remaining*1000;const used=1-left/total;
  const cur=state.examPart||(state.part1Done?2:1);const idx=state.questions.map((q,i)=>i).filter(i=>(state.questions[i].part||1)===cur);if(!idx.length||state.inBreak)return;const done=idx.filter(i=>isAnswered(state.questions[i],state.answers[i])).length/idx.length;
  t.style.color=done>=used-0.05?'':done>=used-0.15?'#d9a400':'#c0392b';t.title=done>=used-0.05?'Im Zeitplan':'Hinter dem Zeitplan'}catch(e){}},5000);
+
+/* ---------- Interaktiver Lernplan: Aufgabenkette statt fester Tage ---------- */
+function planTasks(pl){const P=planBuild(pl);if(!P||P.over)return null;const all=[];
+ P.days.forEach((d,i)=>d.tasks.forEach((t,j)=>all.push(Object.assign({id:d.date+'#'+j,phase:d.phase},t))));
+ const today=berlinDay(),set=new Set(WD_SETS[pl.perWeek]||WD_SETS[5]),days=[];
+ for(let k=today;k<pl.exam;k=dayAdd(k,1)){if(P.compressed||k===today||k===dayAdd(pl.exam,-1)||set.has(dayWd(k)))days.push(k)}
+ const done=pl.tdone||{};const doneToday=all.filter(t=>done[t.id]===today);const open=all.filter(t=>!done[t.id]);
+ pl.base=pl.base||{};const baseOpen=pl.base[today]!=null?pl.base[today]:(open.length+doneToday.length);
+ if(pl.base[today]==null){pl.base={[today]:baseOpen};setPlanSync(pl)}
+ const quota=Math.max(1,Math.ceil(baseOpen/Math.max(1,days.length)));
+ const todayOpen=open.slice(0,Math.max(0,quota-doneToday.length));
+ const rest=open.slice(todayOpen.length),fut=days.filter(k=>k>today),sched=[{date:today,tasks:doneToday.concat(todayOpen)}];
+ fut.forEach((k,i)=>{const a=Math.floor(i*rest.length/fut.length),b=Math.floor((i+1)*rest.length/fut.length);sched.push({date:k,tasks:rest.slice(a,b)})});
+ return {P,all,open,done,sched,today,todayOpen,quota,total:all.length,ndone:all.length-open.length};}
+function setPlanSync(pl){pl.u=Date.now();setPlan(pl);clearTimeout(window.__plT);window.__plT=setTimeout(pushPlan,1500)}
+async function pushPlan(){if(!AUTH.user)return;try{await sbFetch('/rest/v1/profiles?id=eq.'+AUTH.user.id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({plan:getPlan()})})}catch(e){}}
+async function pullPlan(){if(!AUTH.user)return;try{const r=await sbFetch('/rest/v1/profiles?select=plan&id=eq.'+AUTH.user.id,{method:'GET'});if(!r.ok)return;const x=(await r.json())[0];const loc=getPlan();
+ if(x&&x.plan&&x.plan.exam&&(!loc||(x.plan.u||0)>(loc.u||0))){setPlan(x.plan);if(state.mode==='start'||state.mode==='plan')try{showStart()}catch(e){}}else if(loc&&(!x||!x.plan||(loc.u||0)>(x.plan.u||0)))pushPlan()}catch(e){}}
+const v8PullProfile=pullProfile;pullProfile=async function(){await v8PullProfile();await pullPlan()};
+function planMark(id){const pl=getPlan();if(!pl||!id)return;pl.tdone=pl.tdone||{};if(!pl.tdone[id]){pl.tdone[id]=berlinDay();setPlanSync(pl)}}
+function runPlanTask(id){const pl=getPlan();const T=planTasks(pl);const t=T&&T.all.find(x=>x.id===id);if(!t)return;window.__planTask=id;
+ if(['lesson','info','cards'].includes(t.act)){planMark(id);window.__planTask=null}
+ switch(t.act){case 'lesson':return openLesson(t.arg);case 'check':return startCheck(t.arg);case 'learn':return startLearning(t.arg,String(t.n||20));case 'kartei':return karteiItems().length?startKartei():(planMark(id),showPlan());case 'cards':return startCardsSel(t.arg||'due','40');case 'exam':return startExam();case 'part':return startExamPart(t.arg);case 'info':return showInfo()}}
+function planNext(){const T=planTasks(getPlan());if(!T)return;const t=T.open[0];if(t)runPlanTask(t.id);else showPlan()}
+function planDayStart(date){const T=planTasks(getPlan());if(!T)return;const d=T.sched.find(x=>x.date===date);const t=d&&d.tasks.find(x=>!T.done[x.id]);runPlanTask(t?t.id:(T.open[0]||{}).id)}
+const v8RR3=renderResult;renderResult=function(stats,entry,auto){const id=window.__planTask;window.__planTask=null;if(id)planMark(id);v8RR3(stats,entry,auto);
+ if(id&&getPlan())try{const T=planTasks(getPlan());const left=T.todayOpen.length;const h=`<div class="card" id="planNextBox"><h3>Lernplan</h3><p>${left?`Heute noch ${left} ${left===1?'Schritt':'Schritte'}.`:'Ihr Tagesplan ist geschafft. Sie können trotzdem weitermachen, dann wird der Plan für die nächsten Tage leichter.'}</p><button class="btn" onclick="planNext()">${left?'Nächster Schritt':'Weiterlernen'}</button> <button class="btn secondary" onclick="showPlan()">Lernplan öffnen</button></div>`;const s=document.querySelector('#screen');if(s&&!$('planNextBox'))s.insertAdjacentHTML('afterbegin',h)}catch(e){}};
+function taskRow(t,T){const ok=!!T.done[t.id];return `<li class="${ok?'tdone':''}"><span>${ok?'✓ ':''}${escapeHtml(t.label)}</span>${ok?'<span class="small muted">erledigt</span>':`<button class="btn secondary" onclick="runPlanTask('${t.id}')">Starten</button>`}</li>`}
+planStartCard=function(){const pl=getPlan();
+ if(!pl)return '<div class="card"><h3>Lernplan</h3><p>Prüfungstermin eingeben, dann plant die App jeden Tag für Sie.</p><button class="btn" onclick="showPlan(true)">Lernplan erstellen</button></div>';
+ const T=planTasks(pl);if(!T)return '<div class="card"><h3>Lernplan</h3><p>Der Prüfungstermin ist erreicht.</p><button class="btn secondary" onclick="showPlan(true)">Neuen Plan erstellen</button></div>';
+ const left=T.todayOpen.length,pc=Math.round(100*T.ndone/T.total);
+ return `<div class="card resumeCard"><h3>Lernplan für heute</h3><p>Noch <strong>${T.P.daysLeft} ${T.P.daysLeft===1?'Tag':'Tage'}</strong> bis zur Prüfung. Gesamtfortschritt: <strong>${pc} Prozent</strong>.</p><div class="progress"><div style="width:${pc}%"></div></div><p>${left?`Heute: ${left} ${left===1?'Schritt':'Schritte'}.`:'Heute ist alles geschafft.'}</p><button class="btn" onclick="planNext()">${left?'Lernplan für heute starten':'Weiterlernen'}</button> <button class="btn secondary" onclick="showPlan()">Lernplan ansehen</button></div>`};
+function showPlan(edit){const pl=getPlan();if(!pl||edit)return v8ShowPlan(edit);const T=planTasks(pl);if(!T)return v8ShowPlan(edit);
+ setView('plan','Lernplan','Lernplan');const pc=Math.round(100*T.ndone/T.total),td=T.sched[0];
+ let html=`<div class="start"><p><button class="btn secondary" onclick="showStart()">Hauptmenü</button></p><h2>Lernplan</h2>
+ <div class="card"><p>Prüfung am <strong>${escapeHtml(dayLong(pl.exam))}</strong>, noch <strong>${T.P.daysLeft} ${T.P.daysLeft===1?'Tag':'Tage'}</strong>.</p><p>${T.ndone} von ${T.total} Schritten erledigt (${pc} Prozent).</p><div class="progress"><div style="width:${pc}%"></div></div>
+ <p class="small muted">Der Plan passt sich an. Wenn Sie mehr schaffen, werden die nächsten Tage leichter. Wenn Sie weniger schaffen, wird der Rest auf die übrigen Tage verteilt. Ihr Fortschritt wird gespeichert.</p></div>
+ <div class="card resumeCard"><h3>Heute</h3>${td.tasks.length?`<ul class="taskList">${td.tasks.map(t=>taskRow(t,T)).join('')}</ul>`:'<p>Für heute steht nichts an.</p>'}<button class="btn" onclick="planNext()">${T.todayOpen.length?'Lernplan für heute starten':'Weiterlernen'}</button></div><h3>Die nächsten Tage</h3><p class="small muted">Tippen Sie auf einen Tag, um ihn direkt zu starten.</p>`;
+ html+=T.sched.slice(1).filter(d=>d.tasks.length).map(d=>`<div class="planDay" style="cursor:pointer" onclick="planDayStart('${d.date}')"><div class="planDayHead"><span><strong>${escapeHtml(dayLabel(d.date))}</strong> · ${escapeHtml(d.tasks[0].phase)}</span><button class="btn secondary">Starten</button></div><div class="small">${d.tasks.map(t=>escapeHtml(t.label)).join(', ')}</div></div>`).join('');
+ html+=`<p style="margin-top:14px"><button class="btn secondary" onclick="showPlan(true)">Plan ändern</button> <button class="btn secondary" onclick="deletePlan()">Plan löschen</button></p></div>`;$('screen').innerHTML=html};
 
 boot();
 </script>
