@@ -1431,6 +1431,42 @@ function readyCard(){const rows=prognose();const col=r=>r.n_<10?'var(--mid)':r.q
  <p style="margin:10px 0 0"><b>Diese Woche:</b> ${wk} Aufgaben an ${days} von 7 Tagen${vw?`, Vorwoche ${vw}`:''}. ${planTxt}</p></div>`}
 const v8Enh3=enhanceStart;enhanceStart=function(){v8Enh3();try{const c=document.querySelector('#screen .start .cards:not(.topCards)');if(c&&!document.getElementById('readyCard')&&typeof prognose==='function'&&BANK&&BANK.length){const d=document.createElement('div');d.innerHTML=readyCard();d.firstElementChild.style.margin="0 0 14px";c.before(d.firstElementChild)}}catch(e){console.error(e)}};
 
+/* ---------- Heute lernen: ein Knopf für den ganzen Tag ---------- */
+SYNC_KEYS.push('heute');
+function heuteState(){const h=lsGet('heute',{});return h.d===berlinDay()?h:{d:berlinDay()}}
+function heuteSet(k){const h=heuteState();h[k]=1;lsSet('heute',h)}
+function heuteMix(){const p=getProg(),used=new Set(),out=[];const m=groupByKey(BANK);
+ const add=q=>{if(!q)return;const b=baseKey(q);if(used.has(b))return;used.add(b);out.push(q)};
+ const due=karteiItems().filter(x=>isDue(x.e)).sort((a,b)=>(Date.parse(a.e.due||0)||0)-(Date.parse(b.e.due||0)||0)).slice(0,12);
+ due.forEach(x=>{const l=m.get(x.k);if(l&&l.length)add(l[0])});
+ const rows=prognose();const weak=rows.filter(r=>r.n_<10).sort((a,b)=>b.p-a.p)[0]||rows.filter(r=>r.n_>=10).map(r=>({...r,gap:(1-r.q)*r.p})).sort((a,b)=>b.gap-a.gap)[0];
+ const sc=q=>{const e=p[baseKey(q)];return !e?1:e.lc?0:2};
+ if(weak){const pool=BANK.filter(q=>fachOf(q)===weak.k&&!used.has(baseKey(q)));shuffle(pool,Math.random);pool.sort((a,b)=>sc(b)-sc(a));pool.slice(0,25-out.length>10?25-out.length:10).forEach(add)}
+ const r=BANK.filter(q=>q.type==='short'&&!used.has(baseKey(q)));shuffle(r,Math.random);r.sort((a,b)=>sc(b)-sc(a));r.slice(0,3).forEach(add);
+ return {qs:out,weak,nDue:due.length}}
+function heuteStart(){closeModal();const x=heuteMix();if(!x.qs.length){modal('Keine Aufgaben','Für heute ist nichts offen.');return}
+ const seed=makeSeed('H'),rng=mulberry32(hashSeed(seed));beginLearn(x.qs,rng,seed,'Heute lernen')}
+function heuteMuendlich(){heuteSet('m');const e=lsGet('m2err',{});const k=['ktg','bu','pflege','tod','alter','unfall'];let best=k[0],bq=2;k.forEach(c=>{const v=e[c]||{r:0,f:0},n=v.r+v.f,q=n?v.r/n:-1;if(q<bq){bq=q;best=c}});
+ showMuendlich();setTimeout(()=>{try{m2Start('training','m',{trainCol:best})}catch(err){}},300)}
+function heuteCard(){const h=heuteState(),x=heuteMix();const mins=Math.max(15,Math.round(x.qs.length*1.2))+10;
+ const step=(ok,t,d,btn,fn)=>`<div style="display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)"><b style="font:700 18px Consolas,monospace;color:${ok?'var(--ok)':'var(--mid)'}">${ok?'✓':'○'}</b><div style="flex:1"><b>${t}</b><br><span class="small muted">${d}</span></div><button class="btn${ok?' secondary':''}" onclick="${fn}">${ok?'Nochmal':btn}</button></div>`;
+ const all=h.s&&h.m;
+ return `<div class="card" id="heuteCard" style="margin:0 0 14px;border:2px solid var(--blue)"><h3 style="margin-top:0">Heute lernen${all?' · erledigt':''}</h3><p class="small muted" style="margin:0 0 6px">Etwa ${mins} Minuten. Die App stellt alles für dich zusammen.</p>
+ ${step(h.s,`1. Schriftlich: ${x.qs.length} Aufgaben`,`${x.nDue} fällige Fehler aus der Kartei, Schwerpunkt ${x.weak?escapeHtml(x.weak.n):'gemischt'}, dazu Rechenaufgaben`,'Starten','heuteStart()')}
+ ${step(h.m,'2. Mündlich: eine Spalte rechnen','Deine schwächste Rechenspalte auf dem Originalbogen','Starten','heuteMuendlich()')}
+ ${all?'<p style="margin:8px 0 0"><b>Stark. Für heute hast du alles geschafft.</b></p>':''}</div>`}
+const v8RR4=renderResult;renderResult=function(stats,entry,auto){if(state&&state.topic==='Heute lernen')heuteSet('s');return v8RR4(stats,entry,auto)};
+const v8Enh5=enhanceStart;enhanceStart=function(){v8Enh5();try{const r=document.getElementById('readyCard')||document.querySelector('#screen .start .cards:not(.topCards)');if(r&&!document.getElementById('heuteCard')&&BANK&&BANK.length){const d=document.createElement('div');d.innerHTML=heuteCard();r.before(d.firstElementChild)}}catch(e){console.error(e)}};
+
+/* ---------- Schwächen-Simulation: IHK-Aufbau, Aufgaben aus deinen Schwächen ---------- */
+var WEAK_EXAM=false;
+const v8SEG2=selectExamGroup;selectExamGroup=function(group,count,rng){if(!WEAK_EXAM)return v8SEG2(group,count,rng);
+ const p=getProg(),all=BANK;const weak=q=>{const e=p[baseKey(q)];return !e||!e.lc};
+ try{const fs=IHK_FACH.filter(f=>f.g===group);const keep=new Set();fs.forEach(f=>{const pool=all.filter(q=>q.group===group&&fachOf(q)===f.k);const w=pool.filter(weak);(w.length>=f.p*2?w:pool).forEach(q=>keep.add(q))});
+  BANK=all.filter(q=>q.group!==group||keep.has(q));return v8SEG2(group,count,rng)}finally{BANK=all}};
+function startWeakExam(){closeModal();WEAK_EXAM=true;try{startExam()}finally{WEAK_EXAM=false}}
+const v8TC=trainCard;trainCard=function(){return v8TC().replace('<button class="btn" onclick="showPrognose()">Prognose</button>','<button class="btn" onclick="showPrognose()">Prognose</button><button class="btn" onclick="startWeakExam()">Schwächen-Simulation</button>')};
+
 boot();
 </script>
 </body>
