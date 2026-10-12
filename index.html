@@ -1396,6 +1396,10 @@ function showGeneralprobe(){openModal(`<h2>Generalprobe</h2><p>Die komplette Pr�
 <li>Teil 1 mit 70 Aufgaben in 90 Minuten, danach Teil 2 mit 48 Aufgaben in 70 Minuten.</li><li>Suchen Sie sich einen ruhigen Platz und legen Sie Taschenrechner, Papier und Stift bereit.</li>
 <li>Handy weg, keine Unterlagen außer den Infoseiten.</li><li>Lösungen sehen Sie erst am Ende.</li></ul><button class="btn" onclick="closeModal();startExam()">Generalprobe starten</button> <button class="btn secondary" onclick="closeModal()">Abbrechen</button>`)}
 
+/* ---------- Bereich Mündliche Prüfung: Code und Inhalte kommen aus dem geschützten Inhaltspaket ---------- */
+var MUENDLICH=null;
+(function(){const o=applyContent;applyContent=function(c){o(c);MUENDLICH=c&&c.muendlich?c.muendlich:null;if(c&&c.muendlich_code&&!window.__mzLoaded){window.__mzLoaded=1;try{(0,eval)(c.muendlich_code)}catch(e){console.error('Modul mündlich',e)}}}})();
+
 boot();
 </script>
 </body>
