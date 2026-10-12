@@ -1400,6 +1400,37 @@ function showGeneralprobe(){openModal(`<h2>Generalprobe</h2><p>Die komplette Pr�
 var MUENDLICH=null;
 (function(){const o=applyContent;applyContent=function(c){o(c);MUENDLICH=c&&c.muendlich?c.muendlich:null;if(c&&c.muendlich_code&&!window.__mzLoaded){window.__mzLoaded=1;try{(0,eval)(c.muendlich_code)}catch(e){console.error('Modul mündlich',e)}}}})();
 
+/* Geräteübergreifende Speicherung: Karteikarten, Tageszähler, Mündlich */
+var SYNC_KEYS=['cards','daily','m34d-v1','mzSeen','mzCheck','m2hist','m2err'];
+(function(){const raw=lsSet;lsSet=function(n,v){raw(n,v);if(SYNC_KEYS.indexOf(n)>=0&&!window.__syncPull){const st=lsGet('_syncU',{});st[n]=Date.now();raw('_syncU',st);clearTimeout(window.__syT);window.__syT=setTimeout(pushSync,2000)}};window.__rawLsSet=raw})();
+async function pushSync(){if(!AUTH.user)return;const st=lsGet('_syncU',{}),o={};SYNC_KEYS.forEach(k=>{const v=lsGet(k,null);if(v!=null)o[k]={u:st[k]||0,v}});
+ try{await sbFetch('/rest/v1/profiles?id=eq.'+AUTH.user.id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({sync:o})})}catch(e){}}
+async function pullSync(){if(!AUTH.user)return;try{const r=await sbFetch('/rest/v1/profiles?select=sync&id=eq.'+AUTH.user.id,{method:'GET'});if(!r.ok)return;const x=((await r.json())[0]||{}).sync||{};
+ const st=lsGet('_syncU',{});let changed=false,needPush=false;window.__syncPull=1;
+ SYNC_KEYS.forEach(k=>{const s=x[k],lu=st[k]||0;if(s&&(s.u||0)>lu){lsSet(k,s.v);st[k]=s.u;changed=true}else if(lsGet(k,null)!=null&&(!s||lu>(s.u||0)))needPush=true});
+ window.__syncPull=0;window.__rawLsSet('_syncU',st);if(needPush)pushSync();if(changed&&state.mode==='start')try{showStart()}catch(e){}}catch(e){window.__syncPull=0}}
+const v8PullProfile2=pullProfile;pullProfile=async function(){await v8PullProfile2();await pullSync()};
+
+/* ---------- Bereitschaft, Heute wichtig, Wochenrückblick ---------- */
+var M2_COLN={ktg:'Krankentagegeld',bu:'Berufsunfähigkeit',pflege:'Pflege',tod:'Todesfall',alter:'Altersvorsorge',unfall:'Unfall'};
+function startFach(k){closeModal();const p=getProg(),seen=new Set();let pool=BANK.filter(q=>{if(fachOf(q)!==k)return false;const b=baseKey(q);if(seen.has(b))return false;seen.add(b);return true});
+ const sc=q=>{const e=p[baseKey(q)];return !e?1:e.lc?0:2};const rng=mulberry32(hashSeed(makeSeed('F')));shuffle(pool,rng);pool.sort((a,b)=>sc(b)-sc(a));
+ if(!pool.length)return;beginLearn(pool.slice(0,20),rng,makeSeed('F'),'Schwerpunkt: '+fachName(k))}
+function readyCard(){const rows=prognose();const col=r=>r.n_<10?'var(--mid)':r.q>=.7?'var(--ok)':r.q>=.5?'var(--warn)':'var(--bad)';
+ const cand=rows.filter(r=>r.n_>=10).map(r=>({...r,gap:(1-r.q)*r.p}));const unseen=rows.filter(r=>r.n_<10).sort((a,b)=>b.p-a.p);
+ let wichtig=null;if(unseen.length)wichtig={r:unseen[0],t:`noch zu wenig geübt (${unseen[0].n_} Aufgaben)`};else if(cand.length){cand.sort((a,b)=>b.gap-a.gap);wichtig={r:cand[0],t:`${Math.round(cand[0].q*100)} Prozent richtig, ${cand[0].p} Punkte in der Prüfung`}}
+ const e=lsGet('m2err',{}),h=lsGet('m2hist',[]);let mw=null;Object.keys(M2_COLN).forEach(k=>{const x=e[k]||{r:0,f:0},n=x.r+x.f;if(n>=3){const q=x.r/n;if(!mw||q<mw.q)mw={k,q}}});
+ const lastP=h.length?h[h.length-1]:null;
+ const d=lsGet('daily',{});let wk=0,days=0;for(let i=0;i<7;i++){const v=d[dayAdd(berlinDay(),-i)]||0;wk+=v;if(v)days++}let vw=0;for(let i=7;i<14;i++)vw+=d[dayAdd(berlinDay(),-i)]||0;
+ const pl=getPlan();let planTxt='';try{if(pl&&pl.exam){const T=planTasks(pl);const left=Math.max(0,Math.round((new Date(pl.exam)-new Date(berlinDay()))/864e5));planTxt=`Noch ${left} Tage bis zur Prüfung. Lernplan: ${T.ndone} von ${T.total} Aufgaben erledigt${T.todayOpen&&T.todayOpen.length?`, heute noch ${T.todayOpen.length} offen`:', heute alles erledigt'}.`}}catch(x){}
+ return `<div class="card" id="readyCard" style="grid-column:1/-1"><h3>Dein Stand für die Prüfung</h3>
+ ${wichtig?`<div class="mzBox warn" style="border-left:4px solid var(--warn);padding:8px 10px;margin:6px 0;background:#fdf6e9;border-radius:6px"><b>Heute wichtig:</b> ${escapeHtml(wichtig.r.n)}, ${escapeHtml(wichtig.t)}. <button class="btn" onclick="startFach('${wichtig.r.k}')">20 Aufgaben üben</button></div>`:''}
+ <p class="small muted" style="margin:6px 0">Schriftlich je Fachgebiet: grün ab 70 Prozent, gelb ab 50 Prozent, rot darunter, grau heißt noch zu wenig geübt. Antippen startet 20 Aufgaben.</p>
+ <div style="display:flex;flex-wrap:wrap;gap:6px">${rows.map(r=>`<button class="btn secondary" style="border-left:6px solid ${col(r)}" onclick="startFach('${r.k}')">${escapeHtml(r.n)} ${r.n_<10?'':Math.round(r.q*100)+' %'}</button>`).join('')}</div>
+ <p style="margin:10px 0 4px"><b>Mündlich:</b> ${lastP?`letzte Generalprobe ${lastP.total} von 100 Punkten (${lastP.passed?'bestanden':'nicht bestanden'}), ${h.filter(x=>x.passed).length} von ${h.length} bestanden.`:'noch keine Generalprobe gemacht.'} ${mw?`Schwächste Rechenspalte: ${M2_COLN[mw.k]} (${Math.round(mw.q*100)} Prozent richtig).`:''} <button class="btn secondary" onclick="showMuendlich()">Zur mündlichen Prüfung</button></p>
+ <p style="margin:10px 0 0"><b>Diese Woche:</b> ${wk} Aufgaben an ${days} von 7 Tagen${vw?`, Vorwoche ${vw}`:''}. ${planTxt}</p></div>`}
+const v8Enh3=enhanceStart;enhanceStart=function(){v8Enh3();try{const c=document.querySelector('#screen .start .cards:not(.topCards)');if(c&&!document.getElementById('readyCard')&&typeof prognose==='function'&&BANK&&BANK.length){const d=document.createElement('div');d.innerHTML=readyCard();d.firstElementChild.style.margin="0 0 14px";c.before(d.firstElementChild)}}catch(e){console.error(e)}};
+
 boot();
 </script>
 </body>
